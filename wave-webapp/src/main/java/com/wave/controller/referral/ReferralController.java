@@ -30,7 +30,8 @@ public class ReferralController {
     public ModelAndView showForm(@RequestParam(value = "referralId", required = false) Long referralId) {
         ModelAndView mv = new ModelAndView("referral");
 
-            ReferralData referralData = new ReferralData(); //referralService.getReferralData(1L);
+            ReferralData referralData = new ReferralData();
+            //referralService.getReferralData(1L);
 
         referralData.setPatient(new PatientData());
         mv.addObject("referralData", referralData);
