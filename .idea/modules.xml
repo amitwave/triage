@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/wave-business/wave-business.iml" filepath="$PROJECT_DIR$/wave-business/wave-business.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wave-common/wave-common.iml" filepath="$PROJECT_DIR$/wave-common/wave-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wave-db/wave-db.iml" filepath="$PROJECT_DIR$/wave-db/wave-db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wave-getall.iml" filepath="$PROJECT_DIR$/wave-getall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wave-webapp/wave-webapp.iml" filepath="$PROJECT_DIR$/wave-webapp/wave-webapp.iml" />
+    </modules>
+  </component>
+</project>

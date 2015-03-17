@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="wave-db" basedir=".">
+
+    <!-- ================================================================== 
+        db macrodefs: runsql
+        description:
+        Um. Do db stuff
+        ================================================================== -->
+    <macrodef name="runsql">
+        <attribute name="driver" />
+        <attribute name="url" />
+        <attribute name="username" />
+        <attribute name="password" />
+        <attribute name="script" />
+        <attribute name="delimiter" default="/" />
+        <attribute name="onerror" default="abort" />
+        <sequential>
+            <sql driver="@{driver}" url="@{url}" userid="@{username}" password="@{password}" delimiter="@{delimiter}" onerror="@{onerror}" keepformat="true" classpath="${mvn.compile.classpath}">
+                <transaction src="@{script}" />
+            </sql>
+        </sequential>
+    </macrodef>
+
+    <!-- ================================= 
+        target: rebuild.db
+        ================================= -->
+    <target name="rebuild.db" description="Drop ALL the objects in the GETALL schema and re-run the create scripts.">
+
+        <echo>
+            *********************************************
+            Re-building database schema "${db.username}":
+
+                Source Directory : ${sql.create.src}
+                JDBC URI         : ${db.url}
+            **********************************************
+        </echo>
+
+        <!-- Run the drop object proc first -->
+        <!--runsql driver="${db.driver}" url="${db.url}" username="${db.username}" password="${db.password}" script="${sql.drop.src}/drop_user.ora.sql" />
+            -->
+        <!-- Now run all the scripts in the 'create' dir in name order (which is number order because of the 
+            way they are named) -->
+        <sql driver="${db.driver}" url="${db.url}" userid="${db.username}" password="${db.password}" delimiter="/" onerror="abort" keepformat="true" classpath="${mvn.compile.classpath}" print="true">
+            <fileset dir="${sql.create.src}">
+                <include name="*.sql" />
+            </fileset>
+        </sql>
+    </target>
+
+       
+    <!-- ================================= 
+        target: load.delta.test.data
+        ================================= -->
+    <target name="load.delta.test.data" description="Insert test data - ONLY USE ON TEST ENVIRONMENTS.">
+        <available file="${sql.delta.data.src}" type="dir" property="db.testdatadelta.exist" />
+        <fail unless="db.testdatadelta.exist" message="[ERROR]: No test data deltas exists at: ${sql.delta.data.src}" />
+
+        <echo>
+            ***********************************************
+            Loading test data deltas into "${db.username}":
+
+                Source Directory : ${sql.delta.data.src}
+                JDBC URI         : ${db.url}
+            ************************************************
+        </echo>
+
+        <sql driver="${db.driver}" url="${db.url}" userid="${db.username}" password="${db.password}" delimiter="/" onerror="abort" keepformat="true" classpath="${mvn.compile.classpath}">
+
+            <fileset dir="${sql.delta.data.src}">
+                <include name="*.sql" />
+            </fileset>
+        </sql>
+    </target>
+</project>

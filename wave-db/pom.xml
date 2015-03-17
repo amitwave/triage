@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.wave.getall</groupId>
+        <artifactId>wave-getall</artifactId>
+        <version>1.0.0-RC1</version>
+    </parent>
+
+
+    <groupId>com.wave.getall</groupId>
+    <artifactId>wave-db</artifactId>
+    <version>1.0.0-RC1</version>
+        <modelVersion>4.0.0</modelVersion>
+
+	<url>http://wave</url>
+	<packaging>jar</packaging>
+
+	<name>wave-db</name>
+	<description>Wave Database Build</description>
+	<properties>
+		<wave.schema.name>root</wave.schema.name>
+		<wave.schema.password>amit</wave.schema.password>
+		<wave.schema.url>jdbc:mysql://localhost:3306/wave_amit</wave.schema.url>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>Dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<!-- Fly way -->
+				<dependency>
+					<groupId>com.googlecode.flyway</groupId>
+					<artifactId>flyway-core</artifactId>
+					<version>1.7</version>
+				</dependency>
+
+				<!-- mysql jdbc driver -->
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+					<version>5.1.21</version>
+				</dependency>
+
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.googlecode.flyway</groupId>
+						<artifactId>flyway-maven-plugin</artifactId>
+						<version>1.7</version>
+						<configuration>
+							<user>root</user>
+							<password>amit</password>
+							<driver>com.mysql.jdbc.Driver</driver>
+							<url>jdbc:mysql://localhost:3306/wave_amit</url>
+							<locations>
+								<location>sql/create</location>
+								<location>sql/delta</location>
+								<location>sql/delta_test_data</location>
+							<!--	<location>
+									classpath:/sql/delta
+								</location>
+								<location>
+									classpath:/sql/delta_test_data
+								</location>-->
+							</locations>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+<!--	<build>
+		<plugins>
+
+			&lt;!&ndash;
+				Run DbDepoy over the developer's database using the scripts in
+				src/main/sql/delta
+			&ndash;&gt;
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					&lt;!&ndash;execution>
+						<id>antrun-generate-delta-scripts</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<property environment="env" />
+
+								<copy todir="${basedir}/target/generated-sql/delta-src">
+									<fileset dir="${basedir}/src/main/sql/delta">
+										<include name="*.sql" />
+									</fileset>
+								</copy>
+
+							</tasks>
+						</configuration>
+					</execution>
+					<execution>
+						<id>antrun-generate-delta-test-scripts</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<property environment="env" />
+								<property name="environmentName" value="local" />
+
+								<copy todir="${basedir}/target/generated-sql/delta-test-data">
+									<fileset dir="${basedir}/src/main/sql/delta_test_data">
+										<include name="*.sql" />
+									</fileset>
+								</copy>
+
+							</tasks>
+						</configuration>
+					</execution&ndash;&gt;
+					<execution>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<tasks>
+								<property name="mvn.compile.classpath" refid="maven.compile.classpath" />
+								<property name="task.dependencies.dir" value="${project.build.directory}/ant-tasks" />
+								<property name="db.password" value="${wave.schema.password}" />
+								<property name="db.username" value="${wave.schema.name}" />
+								<property name="db.url" value="${wave.schema.url}" />
+								<property name="db.driver" value="com.mysql.jdbc.Driver" />
+								<property name="sql.create.src" value="./src/main/sql/create" />
+								<property name="sql.drop.src" value="./src/main/sql/drop" />
+								<property name="sql.data.src" value="./src/main/sql/test_data" />
+								<property name="sql.delta.src" value="./target/generated-sql/delta-src" />
+								<property name="sql.delta.data.src" value="./target/generated-sql/delta-test-data" />
+
+								<ant antfile="build.xml">
+									<target name="rebuild.db" />
+								</ant>
+								&lt;!&ndash;ant antfile="${task.dependencies.dir}/dbdeploy-tasks.xml">
+									<target name="update.db" />
+								</ant>
+
+								<ant antfile="build.xml">
+									<target name="load.delta.test.data" />
+								</ant&ndash;&gt;
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<id>run-integration-tests</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>-->
+	<dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+        </dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="AutoDeploymentPU">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+		<properties>
+			<!-- Default dialect to Oracle (Can be overridden in the Entity Manager Factory using Spring)-->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+			<!-- Disable second level cache -->
+			<property name="hibernate.cache.use_second_level_cache"
+				value="false"></property>
+			<property name="hibernate.cache.use_query_cache"
+				value="false"></property>
+			<!-- debug time properties remove for delivery -->
+			<property name="hibernate.show_sql" value="true"></property>			
+		</properties>		
+	</persistence-unit>
+</persistence>
