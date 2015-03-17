@@ -7,8 +7,7 @@
     <artifactId>wave-getall</artifactId>
     <version>1.0.0-RC1</version>
 
-
-    <name>wave</name>
+    <name>triage</name>
     <packaging>pom</packaging>
 
     <properties>
