@@ -1,10 +1,5 @@
 package com.wave.controller.command;
 
-import com.wave.patient.PatientData;
-import com.wave.referrer.ReferrerData;
-import com.wave.user.dao.UserData;
-
-import javax.persistence.*;
 import java.util.Date;
 
 public class ReferralCommand {

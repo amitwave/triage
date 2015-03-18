@@ -1,7 +1,5 @@
 package com.wave.user.dao;
 
-
-import com.wave.locality.dao.LocalityData;
 import com.wave.role.RoleData;
 
 import javax.persistence.*;

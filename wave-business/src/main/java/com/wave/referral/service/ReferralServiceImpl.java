@@ -4,16 +4,11 @@ package com.wave.referral.service;
 import com.wave.patient.dao.PatientDao;
 import com.wave.referral.ReferralData;
 import com.wave.referral.dao.ReferralDao;
-import com.wave.user.AbstractDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Query;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Service

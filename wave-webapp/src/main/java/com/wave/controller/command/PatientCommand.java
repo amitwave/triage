@@ -1,12 +1,8 @@
 package com.wave.controller.command;
 
-import com.wave.address.AddressData;
-import com.wave.contact.ContactData;
-import com.wave.master.EthnicityData;
-import com.wave.master.GenderData;
 import com.wave.name.NameData;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.util.Date;
 
 public class PatientCommand {
@@ -16,6 +12,10 @@ public class PatientCommand {
     private String nhsNumber;
     private EthnicityCommand ethnicity;
     private GenderCommand gender;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dateOfBirth;
+
     private Date lastUpdated;
     private ContactCommand contactDetails;
     private AddressCommand address;
@@ -82,5 +82,13 @@ public class PatientCommand {
 
     public void setAddress(AddressCommand address) {
         this.address = address;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

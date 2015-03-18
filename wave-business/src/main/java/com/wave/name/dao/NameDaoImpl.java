@@ -1,8 +1,6 @@
 package com.wave.name.dao;
 
 
-import com.wave.address.AddressData;
-import com.wave.contact.ContactData;
 import com.wave.name.NameData;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;

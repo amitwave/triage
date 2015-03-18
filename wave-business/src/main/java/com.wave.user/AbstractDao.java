@@ -1,16 +1,8 @@
 package com.wave.user;
 
-import org.apache.commons.logging.Log;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.orm.jpa.JpaCallback;
-import org.springframework.orm.jpa.JpaTemplate;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
-
-import javax.annotation.PostConstruct;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.Map;
 
 public class AbstractDao<E> {
 

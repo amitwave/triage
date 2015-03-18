@@ -2,7 +2,6 @@ package com.wave.address.dao;
 
 
 import com.wave.address.AddressData;
-import com.wave.city.dao.CityData;
 
 public interface AddressDao {
 

@@ -2,7 +2,6 @@ package com.wave.address.dao;
 
 
 import com.wave.address.AddressData;
-import com.wave.city.dao.CityData;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

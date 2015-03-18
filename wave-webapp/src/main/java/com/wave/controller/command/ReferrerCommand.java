@@ -1,10 +1,7 @@
 package com.wave.controller.command;
 
-import com.wave.address.AddressData;
-import com.wave.contact.ContactData;
 import com.wave.name.NameData;
 
-import javax.persistence.*;
 import java.util.Date;
 
 public class ReferrerCommand {

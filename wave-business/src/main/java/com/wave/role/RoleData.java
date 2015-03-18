@@ -1,10 +1,6 @@
 package com.wave.role;
 
-import com.wave.city.dao.CityData;
-import com.wave.country.dao.CountryData;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "ROLE")

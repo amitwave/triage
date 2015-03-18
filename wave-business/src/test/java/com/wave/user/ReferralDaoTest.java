@@ -2,16 +2,14 @@ package com.wave.user;
 
 import com.wave.address.AddressData;
 import com.wave.address.dao.AddressDao;
-import com.wave.city.dao.CityDao;
-import com.wave.city.dao.CityData;
 import com.wave.contact.ContactData;
 import com.wave.contact.dao.ContactDao;
-import com.wave.locality.dao.LocalityData;
+import com.wave.gender.Gender;
 import com.wave.master.EthnicityData;
-import com.wave.master.GenderData;
 import com.wave.master.TitleData;
 import com.wave.name.NameData;
 import com.wave.name.dao.NameDao;
+import com.wave.note.NoteData;
 import com.wave.patient.PatientData;
 import com.wave.patient.dao.PatientDao;
 import com.wave.referral.ReferralData;
@@ -32,7 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -94,6 +94,10 @@ public class ReferralDaoTest {
         ReferralData referralData1 = referralDao.getReferralData(referralData.getId());
 
         assertEquals(referralData.getCreateDate(), referralData1.getCreateDate());
+
+        NoteData noteData = referralData1.getNotes().get(0);
+
+        assertEquals("test note", noteData.getNote());
 //        assertEquals(2, referralData1.getVersion());
 
     }
@@ -120,10 +124,8 @@ public class ReferralDaoTest {
         return patient;
     }
 
-    private GenderData getGender() {
-        GenderData genderData = new GenderData();
-        genderData.setId(1L);
-        return genderData;
+    private Gender getGender() {
+        return Gender.MALE;
     }
 
     private EthnicityData getEthnicity() {
@@ -194,7 +196,22 @@ public class ReferralDaoTest {
 
         referralData.setReferrerData(getReferrerData());
 
+
+        ArrayList<NoteData> notes = new ArrayList<NoteData>();
+
+        NoteData noteData = getNoteData(referralData);
+
+        notes.add(noteData);
+        referralData.setNotes(notes);
         return referralData;
+    }
+
+    private NoteData getNoteData(ReferralData referralData) {
+        NoteData noteData = new NoteData();
+        noteData.setCreatedBy(referralData.getCreatedBy());
+        noteData.setLastUpdated(new Date());
+        noteData.setNote("test note");
+        return noteData;
     }
 
     private ReferrerData getReferrerData() {

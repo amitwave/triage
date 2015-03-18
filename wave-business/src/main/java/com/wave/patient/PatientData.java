@@ -2,10 +2,10 @@ package com.wave.patient;
 
 import com.wave.address.AddressData;
 import com.wave.contact.ContactData;
+import com.wave.gender.Gender;
 import com.wave.master.EthnicityData;
-import com.wave.master.GenderData;
-import com.wave.master.TitleData;
 import com.wave.name.NameData;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -42,13 +42,16 @@ public class PatientData {
     @Column(name = "NHS_NUMBER")
     private String nhsNumber;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "DOB")
+    private Date dateOfBirth;
+
     @ManyToOne
     @JoinColumn(name="ETHNICITY_ID")
     private EthnicityData ethnicity;
 
-    @ManyToOne
-    @JoinColumn(name="GENDER_ID")
-    private GenderData gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Column(name = "LAST_UPDATED_DATE")
     private Date lastUpdated;
@@ -95,11 +98,11 @@ public class PatientData {
         this.ethnicity = ethnicity;
     }
 
-    public GenderData getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(GenderData gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -133,5 +136,13 @@ public class PatientData {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

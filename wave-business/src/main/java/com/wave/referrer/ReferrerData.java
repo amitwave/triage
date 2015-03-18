@@ -2,8 +2,6 @@ package com.wave.referrer;
 
 import com.wave.address.AddressData;
 import com.wave.contact.ContactData;
-import com.wave.master.EthnicityData;
-import com.wave.master.GenderData;
 import com.wave.name.NameData;
 
 import javax.persistence.*;

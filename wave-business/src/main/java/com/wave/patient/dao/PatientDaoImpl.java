@@ -1,7 +1,6 @@
 package com.wave.patient.dao;
 
 
-import com.wave.name.NameData;
 import com.wave.patient.PatientData;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;

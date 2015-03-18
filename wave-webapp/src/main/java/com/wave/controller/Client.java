@@ -1,12 +1,10 @@
 package com.wave.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Client {
 

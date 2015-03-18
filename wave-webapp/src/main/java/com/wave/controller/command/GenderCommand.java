@@ -1,7 +1,5 @@
 package com.wave.controller.command;
 
-import javax.persistence.*;
-
 public class GenderCommand {
 
 

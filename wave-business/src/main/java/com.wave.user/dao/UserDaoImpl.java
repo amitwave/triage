@@ -1,7 +1,6 @@
 package com.wave.user.dao;
 
 
-import com.wave.state.StateData;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

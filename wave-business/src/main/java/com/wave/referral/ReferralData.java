@@ -1,14 +1,14 @@
 package com.wave.referral;
 
-import com.wave.address.AddressData;
-import com.wave.contact.ContactData;
-import com.wave.name.NameData;
+import com.wave.note.NoteData;
 import com.wave.patient.PatientData;
 import com.wave.referrer.ReferrerData;
+import com.wave.status.Status;
 import com.wave.user.dao.UserData;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "REFERRAL")
@@ -71,6 +71,14 @@ public class ReferralData {
     @ManyToOne
     @JoinColumn(name="REFERRER_ID")
     private ReferrerData referrerData;
+
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @JoinColumn(name="REFERRAL_ID")
+    private List<NoteData> notes;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
+    private Status status;
 
     public Long getId() {
         return id;
@@ -162,5 +170,21 @@ public class ReferralData {
 
     public boolean isActive() {
         return active;
+    }
+
+    public List<NoteData> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<NoteData> notes) {
+        this.notes = notes;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

@@ -1,8 +1,5 @@
 package com.wave.controller.command;
 
-import javax.persistence.*;
-
-
 public class EthnicityCommand {
 
     private Long id;
