@@ -5,6 +5,7 @@ import com.wave.name.NameData;
 import com.wave.patient.PatientData;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import java.util.HashMap;
@@ -25,8 +26,14 @@ public class PatientDaoImpl extends AbstractDao<PatientData> implements PatientD
     }
 
     @Override
+    @Transactional
     public void savePatientData(PatientData itemData) {
-        entityManager.persist(itemData);
+        if(null == itemData.getId()) {
+            save(itemData);
+        }else{
+            update(itemData);
+        }
+        entityManager.flush();
         entityManager.flush();
     }
 }

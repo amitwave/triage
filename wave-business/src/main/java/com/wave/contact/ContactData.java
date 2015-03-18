@@ -23,6 +23,9 @@ public class ContactData {
     @Column(name = "ID")
     private Long id;
 
+    @Version
+    @Column(name="VERSION")
+    private Long version;
 
     @Column(name = "MOBILE")
     private String mobile;
@@ -74,5 +77,13 @@ public class ContactData {
 
     public void setPreferred(String preferred) {
         this.preferred = preferred;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

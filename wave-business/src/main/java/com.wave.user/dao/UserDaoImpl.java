@@ -39,6 +39,7 @@ public class UserDaoImpl extends AbstractDao<UserData> implements UserDao {
     }
 
 
+    @Transactional
     public void saveUserData(UserData userData) {
         entityManager.persist(userData);
     }

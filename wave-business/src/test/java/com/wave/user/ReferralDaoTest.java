@@ -27,6 +27,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -67,17 +68,33 @@ public class ReferralDaoTest {
     @PersistenceContext
     EntityManager em;
 
+    ReferralData referralData;
+
+    @BeforeTransaction
+    public void onSetupBeforeTransaction(){
+
+    }
+
     @Test
     public void shouldSaveAndRetieveReferralData() {
         System.err.println("testUser1");
 
-        ReferralData referralData = getReferralData();
+        referralData = getReferralData();
 
         referralDao.saveReferralData(referralData);
 
+       /* em.clear();
+        ReferralData referralData1 = referralDao.getReferralData(referralData.getId());
+        referralDao.saveReferralData(referralData1);
+
+        em.clear();
+        referralData1 = referralDao.getReferralData(referralData.getId());
+        referralDao.saveReferralData(referralData1);
+*/
         ReferralData referralData1 = referralDao.getReferralData(referralData.getId());
 
         assertEquals(referralData.getCreateDate(), referralData1.getCreateDate());
+//        assertEquals(2, referralData1.getVersion());
 
     }
 
@@ -193,9 +210,9 @@ public class ReferralDaoTest {
 
     private UserData getUserData() {
         UserData userData = new UserData();
-        userData.setUserName("testun");
+        userData.setUserName("testun111");
         userData.setPassword("asfdsafdss");
-        userData.setEmail("a@a.com");
+        userData.setEmail("a@a111.com");
         userData.setUserGuid(UUID.randomUUID().toString());
         userData.setDateOfBirth(new Date());
         userData.setCreateDate(new Date());
@@ -206,7 +223,7 @@ public class ReferralDaoTest {
 
         RoleData roleData = new RoleData();
         roleData.setActive(true);
-        roleData.setName("admin");
+        roleData.setName("admin11111");
         roleData.setDescription("Administrator");
         roleDao.saveRoleData(roleData);
 
@@ -216,7 +233,7 @@ public class ReferralDaoTest {
 
         roleData = new RoleData();
         roleData.setActive(true);
-        roleData.setName("gp");
+        roleData.setName("gp11111");
         roleData.setDescription("GP");
         roleDao.saveRoleData(roleData);
         roles.add(roleData);

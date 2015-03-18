@@ -6,6 +6,7 @@ import com.wave.contact.ContactData;
 import com.wave.name.NameData;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class NameDaoImpl extends AbstractDao<NameData> implements NameDao {
     }
 
     @Override
+    @Transactional
     public void saveNameData(NameData itemData) {
         entityManager.persist(itemData);
         entityManager.flush();

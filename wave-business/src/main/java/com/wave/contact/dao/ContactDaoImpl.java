@@ -5,6 +5,7 @@ import com.wave.address.AddressData;
 import com.wave.contact.ContactData;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class ContactDaoImpl extends AbstractDao<AddressData> implements ContactD
     }
 
     @Override
+    @Transactional
     public void saveContactData(ContactData itemData) {
         entityManager.persist(itemData);
         entityManager.flush();

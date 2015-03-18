@@ -45,7 +45,7 @@ public class UserDaoTest {
 
         RoleData roleData = new RoleData();
         roleData.setActive(true);
-        roleData.setName("admin");
+        roleData.setName("admin1");
         roleData.setDescription("Administrator");
         roleDao.saveRoleData(roleData);
 
@@ -55,7 +55,7 @@ public class UserDaoTest {
 
         roleData = new RoleData();
         roleData.setActive(true);
-        roleData.setName("gp");
+        roleData.setName("gp1");
         roleData.setDescription("GP");
         roleDao.saveRoleData(roleData);
         roles.add(roleData);

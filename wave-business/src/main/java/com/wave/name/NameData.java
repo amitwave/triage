@@ -26,6 +26,10 @@ public class NameData {
     @Column(name = "ID")
     private Long id;
 
+    @Version
+    @Column(name="VERSION")
+    private long version;
+
     @ManyToOne
     @JoinColumn(name="TITLE_ID")
     private TitleData title;
@@ -99,5 +103,13 @@ public class NameData {
 
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 }

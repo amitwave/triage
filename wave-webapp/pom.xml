@@ -248,7 +248,7 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <contextPath>/simple-form</contextPath>
+                    <contextPath>/triage</contextPath>
                 </configuration>
             </plugin>
         </plugins>

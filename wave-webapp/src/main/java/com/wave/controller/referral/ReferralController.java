@@ -1,5 +1,7 @@
 package com.wave.controller.referral;
 
+import com.wave.controller.command.PatientCommand;
+import com.wave.controller.command.ReferralCommand;
 import com.wave.controller.command.UserCommand;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
@@ -30,23 +32,90 @@ public class ReferralController {
     public ModelAndView showForm(@RequestParam(value = "referralId", required = false) Long referralId) {
         ModelAndView mv = new ModelAndView("referral");
 
-            ReferralData referralData = new ReferralData();
-            //referralService.getReferralData(1L);
+        ReferralData referralData = new ReferralData();
+        if(referralId != null) {
+            referralData = referralService.getReferralData(referralId);
+        }
 
-        referralData.setPatient(new PatientData());
-        mv.addObject("referralData", referralData);
+
+        ReferralCommand referralCommand = new ReferralCommand();
+        referralCommand.setPatient(new PatientCommand());
+        if(referralData != null) {
+            referralCommand =  getReferralCommand(referralData);
+        }
+
+
+        mv.addObject("referralCommand", referralCommand);
         return mv;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView printWelcome(@ModelAttribute("referralData") ReferralData referralData) {
+    public String printWelcome(@ModelAttribute("referralCommand") ReferralCommand referralCommand) {
 
 
-        referralService.saveReferralData(referralData);
+        referralService.saveReferralData(getReferralData(referralCommand));
 
-        ModelAndView mv = new ModelAndView("referral");
-        mv.addObject("referralData", referralData);
-        return mv;
 
+        return "redirect:referrallist";
+
+    }
+
+
+    private ReferralData getReferralData(ReferralCommand referralCommand) {
+
+        ReferralData referralData = new ReferralData();
+        if(referralCommand.getId() != null) {
+            referralData = referralService.getReferralData(referralCommand.getId());
+        }
+
+        referralData.setActive(referralCommand.isActive());
+        referralData.setUbrn(referralCommand.getUbrn());
+        referralData.setDescription(referralCommand.getDescription());
+        referralData.setType(referralCommand.getType());
+
+        PatientCommand patientCommand = referralCommand.getPatient();
+        PatientData patientData = getPatientData(referralData.getPatient(), patientCommand);
+        referralData.setPatient(patientData);
+
+        return referralData;
+
+    }
+
+    private PatientData getPatientData(PatientData patientData, PatientCommand patientCommand) {
+        if(patientData == null) {
+             patientData = new PatientData();
+        }
+
+        patientData.setNhsNumber(patientCommand.getNhsNumber());
+        return patientData;
+    }
+
+
+    private ReferralCommand getReferralCommand(ReferralData referralData) {
+
+        ReferralCommand referralCommand = new ReferralCommand();
+        referralCommand.setId(referralData.getId());
+        referralCommand.setActive(referralData.isActive());
+        referralCommand.setUbrn(referralData.getUbrn());
+        referralCommand.setDescription(referralData.getDescription());
+        referralCommand.setType(referralData.getType());
+
+        PatientData patientData = referralData.getPatient();
+        PatientCommand patientCommand = getPatientCommand(patientData);
+        referralCommand.setPatient(patientCommand);
+
+        return referralCommand;
+
+    }
+
+
+    private PatientCommand getPatientCommand(PatientData patientData) {
+        PatientCommand patientCommand = new PatientCommand();
+
+        if(patientData != null) {
+            patientCommand.setId(patientData.getId());
+            patientCommand.setNhsNumber(patientData.getNhsNumber());
+        }
+        return patientCommand;
     }
 }

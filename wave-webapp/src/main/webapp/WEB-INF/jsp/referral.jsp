@@ -3,27 +3,27 @@
 <html>
 <body>
     <form method=post>
-
+        <input type="hidden" name="id" value=${referralCommand.id}>
     <table>
 
     <tr >
        <td>UBRN:</td>
-       <td><input type="text" name="ubrn" value=${referralData.ubrn}></input></td>
+       <td><input type="text" name="ubrn" value=${referralCommand.ubrn}></input></td>
     </tr>
     <tr>
        <td>Description:</td>
-       <td><input type="text" name="description" value=${referralData.description}></input></td>
+       <td><input type="text" name="description" value=${referralCommand.description}></input></td>
     </tr>
         <tr>
             <td>Type:</td>
-            <td><input type="text" name="type" value=${referralData.type}></input></td>
+            <td><input type="text" name="type" value=${referralCommand.type}></input></td>
         </tr>
 
 
         <tr >
             Patient Details:
             <td>NHS:</td>
-            <td><input type="text" name="patient.nhsNumber" value=${referralData.patient.nhsNumber}></input></td>
+            <td><input type="text" name="patient.nhsNumber" value=${referralCommand.patient.nhsNumber}></input></td>
         </tr>
 
 

@@ -5,6 +5,7 @@ import com.wave.address.AddressData;
 import com.wave.city.dao.CityData;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class AddressDaoImpl extends AbstractDao<AddressData> implements AddressD
     }
 
     @Override
+    @Transactional
     public void saveAddressData(AddressData itemData) {
         entityManager.persist(itemData);
         entityManager.flush();

@@ -3,6 +3,7 @@ package com.wave.role;
 
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class RoleDaoImpl extends AbstractDao<RoleData> implements RoleDao {
     }
 
     @Override
+    @Transactional
     public void saveRoleData(RoleData itemData) {
         entityManager.persist(itemData);
         entityManager.flush();

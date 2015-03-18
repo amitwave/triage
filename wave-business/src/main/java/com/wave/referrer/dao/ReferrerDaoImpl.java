@@ -4,6 +4,7 @@ package com.wave.referrer.dao;
 import com.wave.referrer.ReferrerData;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class ReferrerDaoImpl extends AbstractDao<ReferrerData> implements Referr
     }
 
     @Override
+    @Transactional
     public void saveReferrerData(ReferrerData itemData) {
         entityManager.persist(itemData);
         entityManager.flush();

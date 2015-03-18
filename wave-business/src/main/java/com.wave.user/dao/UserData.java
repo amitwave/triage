@@ -67,7 +67,7 @@ public class UserData {
     private Boolean active;
 
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ROLE",
             joinColumns = {@JoinColumn(name = "USER_ID" , table ="USER", referencedColumnName="ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID" , table = "ROLE", referencedColumnName="ID")})

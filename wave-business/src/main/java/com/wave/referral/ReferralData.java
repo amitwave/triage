@@ -20,16 +20,27 @@ import java.util.Date;
                         "FROM " +
                         "ReferralData patientData " +
                         "WHERE " +
-                        "patientData.id = :id")
+                        "patientData.id = :id"),
+        @NamedQuery(name = ReferralData.FIND_ALL_REFERRALS, query =
+                "SELECT " +
+                        "patientData " +
+                        "FROM " +
+                        "ReferralData patientData "
+                        )
 })
 public class ReferralData {
 
     public static final String FIND_REFERRAL_BY_ID = "FIND_REFERRAL_BY_ID";
+    public static final String FIND_ALL_REFERRALS = "FIND_ALL_REFERRALS";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
+
+    @Version
+    @Column(name="OPTLOCK")
+    private long version;
 
     @Column(name="UBRN")
     private String ubrn;
@@ -47,13 +58,13 @@ public class ReferralData {
     private Date lastUpdated;
 
     @Column(name = "ACTIVE")
-    private Boolean active;
+    private boolean active;
 
     @ManyToOne
     @JoinColumn(name="USER_ID")
     private UserData createdBy;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PATIENT_ID")
     private PatientData patient;
 
@@ -109,11 +120,11 @@ public class ReferralData {
         this.lastUpdated = lastUpdated;
     }
 
-    public Boolean getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
@@ -139,5 +150,17 @@ public class ReferralData {
 
     public void setReferrerData(ReferrerData referrerData) {
         this.referrerData = referrerData;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 }

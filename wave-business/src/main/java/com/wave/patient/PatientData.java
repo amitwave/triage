@@ -31,6 +31,10 @@ public class PatientData {
     @Column(name = "ID")
     private Long id;
 
+    @Version
+    @Column(name="VERSION")
+    private Long version;
+
     @ManyToOne
     @JoinColumn(name="NAME_ID")
     private NameData nameData;
@@ -121,5 +125,13 @@ public class PatientData {
 
     public void setAddress(AddressData address) {
         this.address = address;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

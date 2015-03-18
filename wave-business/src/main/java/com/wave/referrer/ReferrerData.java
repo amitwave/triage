@@ -30,6 +30,10 @@ public class ReferrerData {
     @Column(name = "ID")
     private Long id;
 
+    @Version
+    @Column(name="VERSION")
+    private long version;
+
     @ManyToOne
     @JoinColumn(name="NAME_ID")
     private NameData nameData;
@@ -84,5 +88,13 @@ public class ReferrerData {
 
     public void setAddress(AddressData address) {
         this.address = address;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

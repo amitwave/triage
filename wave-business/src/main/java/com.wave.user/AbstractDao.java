@@ -39,6 +39,11 @@ public class AbstractDao<E> {
     }
 
     public void update(E entity) {
+        entityManager.merge(entity);
+    }
+
+
+    public void save(E entity) {
         entityManager.persist(entity);
     }
 

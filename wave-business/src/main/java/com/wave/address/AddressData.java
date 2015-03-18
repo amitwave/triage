@@ -26,6 +26,9 @@ public class AddressData {
     @Column(name = "ID")
     private Long id;
 
+    @Version
+    @Column(name="VERSION")
+    private Long version;
 
     @Column(name = "LINE1")
     private String line1;
@@ -99,5 +102,13 @@ public class AddressData {
 
     public void setPostCode(String postCode) {
         this.postCode = postCode;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }
