@@ -5,6 +5,7 @@ import com.wave.controller.command.ReferralCommand;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;
+import com.wave.status.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -65,6 +66,7 @@ public class ReferralController {
         referralData.setUbrn(referralCommand.getUbrn());
         referralData.setDescription(referralCommand.getDescription());
         referralData.setType(referralCommand.getType());
+        referralData.setStatus(Status.NEW);
 
         PatientCommand patientCommand = referralCommand.getPatient();
         PatientData patientData = getPatientData(referralData.getPatient(), patientCommand);

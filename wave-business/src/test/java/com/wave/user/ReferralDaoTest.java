@@ -1,8 +1,9 @@
 package com.wave.user;
 
-import com.wave.address.AddressData;
 import com.wave.address.dao.AddressDao;
 import com.wave.contact.ContactData;
+import com.wave.address.AddressData;
+
 import com.wave.contact.dao.ContactDao;
 import com.wave.gender.Gender;
 import com.wave.master.EthnicityData;
@@ -83,14 +84,6 @@ public class ReferralDaoTest {
 
         referralDao.saveReferralData(referralData);
 
-       /* em.clear();
-        ReferralData referralData1 = referralDao.getReferralData(referralData.getId());
-        referralDao.saveReferralData(referralData1);
-
-        em.clear();
-        referralData1 = referralDao.getReferralData(referralData.getId());
-        referralDao.saveReferralData(referralData1);
-*/
         ReferralData referralData1 = referralDao.getReferralData(referralData.getId());
 
         assertEquals(referralData.getCreateDate(), referralData1.getCreateDate());
@@ -98,7 +91,8 @@ public class ReferralDaoTest {
         NoteData noteData = referralData1.getNotes().get(0);
 
         assertEquals("test note", noteData.getNote());
-//        assertEquals(2, referralData1.getVersion());
+
+        assertEquals(Gender.MALE, referralData1.getPatient().getGender());
 
     }
 
@@ -107,8 +101,6 @@ public class ReferralDaoTest {
         patient.setLastUpdated(new Date());
         patient.setNhsNumber("123");
         AddressData address = getAddressData();
-
-
         patient.setAddress(address);
 
 

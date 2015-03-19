@@ -32,7 +32,7 @@ public class UserDaoImpl extends AbstractDao<UserData> implements UserDao {
         params.put("name", name);
         // return super.findFirstByNamedQuery(UserData.FIND_BY_ID, params) ;
         Query query = entityManager.createNamedQuery(UserData.FIND_BY_USER_NAME);
-        query.setParameter(1, name);
+        query.setParameter("name", name);
         return (UserData) query.getResultList().get(0);
 
     }
