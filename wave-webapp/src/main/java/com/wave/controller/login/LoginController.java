@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -33,22 +34,23 @@ public class LoginController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String printWelcome(@ModelAttribute("user") UserCommand userCommand, HttpServletResponse response) {
+    public ModelAndView printWelcome(@ModelAttribute("user") UserCommand userCommand, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView("login");
         if(StringUtils.isEmpty(userCommand.getName()) || StringUtils.isEmpty(userCommand.getPassword())){
-            mv = new ModelAndView("login");
-            return "redirect:login";
+            mv = new ModelAndView(new RedirectView("login"));
+            return mv;
         }
 
         UserData userData = userService.getUserByUserName(userCommand.getName());
-        mv = new ModelAndView("referrallist");
+        mv = new ModelAndView(new RedirectView("referrallist"));
         if (userData != null && userCommand.getPassword().equals(userData.getPassword())) {
             response.addCookie(new Cookie("TRIAGE", "USER_ID="+userData.getUserId()));
-            return "redirect:referrallist";
+
         } else{
-            return "redirect:login";
+            mv = new ModelAndView(new RedirectView("login"));
         }
 
+        return mv;
 
     }
 }
