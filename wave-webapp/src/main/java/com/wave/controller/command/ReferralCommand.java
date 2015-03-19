@@ -1,5 +1,7 @@
 package com.wave.controller.command;
 
+import com.wave.status.Status;
+
 import java.util.Date;
 
 public class ReferralCommand {
@@ -14,6 +16,7 @@ public class ReferralCommand {
     private UserCommand createdBy;
     private PatientCommand patient;
     private ReferrerCommand referrerData;
+    private Status status;
 
 
     public Long getId() {
@@ -94,5 +97,13 @@ public class ReferralCommand {
 
     public void setReferrerData(ReferrerCommand referrerData) {
         this.referrerData = referrerData;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

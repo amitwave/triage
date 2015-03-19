@@ -5,14 +5,21 @@ import com.wave.controller.command.ReferralCommand;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;
+import com.wave.referralstatus.ReferralStatusData;
 import com.wave.status.Status;
+import com.wave.user.dao.UserDao;
+import com.wave.user.dao.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import static com.wave.controller.referral.Converter.getReferralCommand;
 
 @Controller
 @RequestMapping(value = "/referral")
@@ -21,6 +28,9 @@ public class ReferralController {
 
     @Autowired
     ReferralService referralService;
+
+    @Autowired
+    UserDao userDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "referralId", required = false) Long referralId) {
@@ -43,14 +53,30 @@ public class ReferralController {
         return mv;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String printWelcome(@ModelAttribute("referralCommand") ReferralCommand referralCommand) {
+    @RequestMapping( method = RequestMethod.POST)
+    public String saveReferral(@ModelAttribute("referralCommand") ReferralCommand referralCommand) {
 
 
         referralService.saveReferralData(getReferralData(referralCommand));
 
 
         return "redirect:referrallist";
+
+    }
+
+    @RequestMapping(value = "/checkout", method = RequestMethod.POST)
+    public ModelAndView checkout(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
+                           @CookieValue(value = "TRIAGE", required = true) String cookie) {
+
+        String[] cookieKeyVal = cookie.split("=");
+        Long userId = null;
+        if("USER_ID".equals(cookieKeyVal[0])) {
+             userId = Long.parseLong(cookieKeyVal[1]);
+        }
+        referralService.checkoutReferralData(referralCommand.getId(), userId);
+
+        return new ModelAndView(new RedirectView("../referrallist"));
+
 
     }
 
@@ -66,8 +92,32 @@ public class ReferralController {
         referralData.setUbrn(referralCommand.getUbrn());
         referralData.setDescription(referralCommand.getDescription());
         referralData.setType(referralCommand.getType());
-        referralData.setStatus(Status.NEW);
 
+        List<ReferralStatusData> referralStatusDatasOld = referralData.getReferralStatusDatas();
+        if(referralStatusDatasOld == null || referralStatusDatasOld.size() == 0) {
+
+        ArrayList<ReferralStatusData> referralStatusDatas = new ArrayList<ReferralStatusData>();
+
+        ReferralStatusData referralStatusData = new ReferralStatusData();
+        referralStatusData.setLastUpdated(new Date());
+        UserData admin = userDao.getUserByUserName("admin");
+        referralStatusData.setUser(admin);
+        referralStatusData.setToStatus(Status.NEW);
+        referralStatusData.setReferralData(referralData);
+        referralStatusDatas.add(referralStatusData);
+
+        referralData.setReferralStatusDatas(referralStatusDatas);
+        }else{
+            ReferralStatusData referralStatusData = new ReferralStatusData();
+            referralStatusData.setLastUpdated(new Date());
+            UserData admin = userDao.getUserByUserName("admin");
+            referralStatusData.setUser(admin);
+            referralStatusData.setToStatus(Status.UPDATE);
+            referralStatusData.setReferralData(referralData);
+            referralStatusDatasOld.add(referralStatusData);
+
+            referralData.setReferralStatusDatas(referralStatusDatasOld);
+        }
         PatientCommand patientCommand = referralCommand.getPatient();
         PatientData patientData = getPatientData(referralData.getPatient(), patientCommand);
         referralData.setPatient(patientData);
@@ -86,31 +136,5 @@ public class ReferralController {
     }
 
 
-    private ReferralCommand getReferralCommand(ReferralData referralData) {
 
-        ReferralCommand referralCommand = new ReferralCommand();
-        referralCommand.setId(referralData.getId());
-        referralCommand.setActive(referralData.isActive());
-        referralCommand.setUbrn(referralData.getUbrn());
-        referralCommand.setDescription(referralData.getDescription());
-        referralCommand.setType(referralData.getType());
-
-        PatientData patientData = referralData.getPatient();
-        PatientCommand patientCommand = getPatientCommand(patientData);
-        referralCommand.setPatient(patientCommand);
-
-        return referralCommand;
-
-    }
-
-
-    private PatientCommand getPatientCommand(PatientData patientData) {
-        PatientCommand patientCommand = new PatientCommand();
-
-        if(patientData != null) {
-            patientCommand.setId(patientData.getId());
-            patientCommand.setNhsNumber(patientData.getNhsNumber());
-        }
-        return patientCommand;
-    }
 }

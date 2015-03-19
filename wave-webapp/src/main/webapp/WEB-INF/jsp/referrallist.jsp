@@ -3,30 +3,51 @@
 <html>
 <body>
 <table>
-<c:forEach var="referralData" items="${referrals}">
+<c:forEach var="referral" items="${referrals}">
 <tr><td><li> =========== </li></td></tr>
     <tr >
        <td>UBRN:</td>
-       <td><input type="text" name="ubrn" value=${referralData.ubrn}></input></td>
+       <td>${referral.ubrn}</td>
     </tr>
     <tr>
        <td>Description:</td>
-       <td><input type="text" name="description" value=${referralData.description}></input></td>
+       <td>${referral.description}</td>
     </tr>
         <tr>
             <td>Type:</td>
-            <td><input type="text" name="type" value=${referralData.type}></input></td>
+            <td>${referral.type}</td>
         </tr>
 
         <tr>
             <td>NHS:</td>
-            <td><input type="text" name="patient.nhsNumber" value=${referralData.patient.nhsNumber}></input></td>
+            <td>${referral.patient.nhsNumber}></td>
         </tr>
 
     <tr>
-        <td><a href="referral?referralId=${referralData.id}">EDIT</a> </td>
+        <td>STATUS:</td>
+        <td>${referral.status}</td>
     </tr>
 
+    <tr>
+
+        <form method="post" action="referral/checkout">
+            <input type="hidden" name="id" value="${referral.id}">
+
+            <input type="submit" value="Checkout" />
+        </form>
+
+        <form method="post" action="referral/checkout/validate">
+            <input type="hidden" name="id" value="${referral.id}">
+
+            <input type="submit" value="Checkout and Validate" />
+        </form>
+    </tr>
+    <c:set var="status" scope="page" value="${referral.status}"/>
+<c:if test="${status eq 'CHECKOUT' or status eq 'UPDATE'}">
+    <tr>
+        <td><a href="referral?referralId=${referral.id}">EDIT</a> </td>
+    </tr>
+</c:if>
     </c:forEach>
 
     </table>

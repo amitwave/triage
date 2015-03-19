@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,12 +29,20 @@ public class ReferralListController {
         ModelAndView mv = new ModelAndView("referrallist");
         List<ReferralData> allReferrals = referralService.getAllReferrals();
 
-        mv.addObject("referrals", allReferrals);
+        List<ReferralCommand> referrals = new ArrayList<ReferralCommand>();
+        for (ReferralData referralData : allReferrals) {
+            ReferralCommand referralCommand = Converter.getReferralCommand(referralData);
+
+            referrals.add(referralCommand);
+        }
+
+
+        mv.addObject("referrals", referrals);
         return mv;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView printWelcome(@ModelAttribute("referralCommand") ReferralCommand referralCommand) {
+    public ModelAndView saveReferral(@ModelAttribute("referralCommand") ReferralCommand referralCommand) {
 
 
         referralService.saveReferralData(getReferralData(referralCommand));

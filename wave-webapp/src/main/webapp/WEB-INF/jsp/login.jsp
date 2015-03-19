@@ -1,6 +1,6 @@
 <html>
 <body>
-    <form method=post>
+    <form method="post" action="login">
 
     <table>
     <tr>

@@ -8,16 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.persistence.Query;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
 @Transactional(readOnly = true)
 public class UserDaoImpl extends AbstractDao<UserData> implements UserDao {
 
-    @PostConstruct
-    public void ssss() {
-        System.out.println("werwtyjyfhgfdsafdfghfdsa");
-    }
 
     public UserData getUserData(Long id) {
         Map<String, Long> params = new HashMap<String, Long>();
@@ -33,7 +30,12 @@ public class UserDaoImpl extends AbstractDao<UserData> implements UserDao {
         // return super.findFirstByNamedQuery(UserData.FIND_BY_ID, params) ;
         Query query = entityManager.createNamedQuery(UserData.FIND_BY_USER_NAME);
         query.setParameter("name", name);
-        return (UserData) query.getResultList().get(0);
+        List resultList = query.getResultList();
+        if(resultList.size() > 0) {
+            return (UserData) resultList.get(0);
+        }else{
+            return null;
+        }
 
     }
 

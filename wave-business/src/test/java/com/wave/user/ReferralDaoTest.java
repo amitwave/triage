@@ -14,11 +14,13 @@ import com.wave.note.NoteData;
 import com.wave.patient.PatientData;
 import com.wave.patient.dao.PatientDao;
 import com.wave.referral.ReferralData;
-import com.wave.referral.dao.ReferralDao;
+import com.wave.referral.service.ReferralService;
+import com.wave.referralstatus.ReferralStatusData;
 import com.wave.referrer.ReferrerData;
 import com.wave.referrer.dao.ReferrerDao;
 import com.wave.role.RoleDao;
 import com.wave.role.RoleData;
+import com.wave.status.Status;
 import com.wave.user.dao.UserDao;
 import com.wave.user.dao.UserData;
 import org.junit.Test;
@@ -33,6 +35,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static junit.framework.Assert.assertEquals;
@@ -43,7 +46,7 @@ import static junit.framework.Assert.assertEquals;
 public class ReferralDaoTest {
 
     @Autowired
-    private ReferralDao referralDao;
+    private ReferralService referralService;
 
     @Autowired
     private RoleDao roleDao;
@@ -77,14 +80,13 @@ public class ReferralDaoTest {
     }
 
     @Test
-    public void shouldSaveAndRetieveReferralData() {
-        System.err.println("testUser1");
+    public void shouldSaveAndRetieveReferralData() throws InterruptedException {
 
         referralData = getReferralData();
 
-        referralDao.saveReferralData(referralData);
+        referralService.saveReferralData(referralData);
 
-        ReferralData referralData1 = referralDao.getReferralData(referralData.getId());
+        ReferralData referralData1 = referralService.getReferralData(referralData.getId());
 
         assertEquals(referralData.getCreateDate(), referralData1.getCreateDate());
 
@@ -94,6 +96,22 @@ public class ReferralDaoTest {
 
         assertEquals(Gender.MALE, referralData1.getPatient().getGender());
 
+        List<ReferralStatusData> referralStatusDatas = referralData1.getReferralStatusDatas();
+
+        assertEquals(1, referralStatusDatas.size());
+
+        assertEquals(Status.NEW, referralStatusDatas.get(0).getToStatus());
+        Thread.sleep(10000L);
+        em.clear();
+        referralService.checkoutReferralData(referralData1.getId(), getUserData().getUserId());
+        em.clear();
+
+
+        ReferralData referralData2 = referralService.getReferralData(referralData.getId());
+        List<ReferralStatusData> referralStatusDataList = referralData2.getReferralStatusDatas();
+        assertEquals(2, referralStatusDataList.size());
+
+        assertEquals(Status.CHECKOUT, referralStatusDataList.get(0).getToStatus());
     }
 
     private PatientData getPatientData() {
@@ -183,7 +201,16 @@ public class ReferralDaoTest {
         PatientData patient = getPatientData();
         referralData.setPatient(patient);
 
-        referralData.setCreatedBy(getUserData());
+
+        List<ReferralStatusData> referralStatusDatas = new ArrayList<ReferralStatusData>();
+        ReferralStatusData referralStatusData = new ReferralStatusData();
+        referralStatusData.setUser(getUserData());
+        referralStatusData.setToStatus(Status.NEW);
+        referralStatusData.setLastUpdated(new Date());
+        referralStatusData.setReferralData(referralData);
+        referralStatusDatas.add(referralStatusData);
+
+        referralData.setReferralStatusDatas(referralStatusDatas);
 
 
         referralData.setReferrerData(getReferrerData());
@@ -200,7 +227,7 @@ public class ReferralDaoTest {
 
     private NoteData getNoteData(ReferralData referralData) {
         NoteData noteData = new NoteData();
-        noteData.setCreatedBy(referralData.getCreatedBy());
+        noteData.setCreatedBy(getUserData());
         noteData.setLastUpdated(new Date());
         noteData.setNote("test note");
         return noteData;
@@ -218,8 +245,13 @@ public class ReferralDaoTest {
     }
 
     private UserData getUserData() {
+
+        UserData testuser = userDao.getUserByUserName("testuser");
+if(testuser != null) {
+    return testuser;
+}
         UserData userData = new UserData();
-        userData.setUserName("testun111");
+        userData.setUserName("testuser");
         userData.setPassword("asfdsafdss");
         userData.setEmail("a@a111.com");
         userData.setUserGuid(UUID.randomUUID().toString());
@@ -232,7 +264,7 @@ public class ReferralDaoTest {
 
         RoleData roleData = new RoleData();
         roleData.setActive(true);
-        roleData.setName("admin11111");
+        roleData.setName("admin");
         roleData.setDescription("Administrator");
         roleDao.saveRoleData(roleData);
 
@@ -242,13 +274,15 @@ public class ReferralDaoTest {
 
         roleData = new RoleData();
         roleData.setActive(true);
-        roleData.setName("gp11111");
+        roleData.setName("gp");
         roleData.setDescription("GP");
         roleDao.saveRoleData(roleData);
         roles.add(roleData);
 
 
         userDao.saveUserData(userData);
+
+
         return userData;
     }
 

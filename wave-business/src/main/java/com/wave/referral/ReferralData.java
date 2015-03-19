@@ -2,11 +2,15 @@ package com.wave.referral;
 
 import com.wave.note.NoteData;
 import com.wave.patient.PatientData;
+import com.wave.referralstatus.ReferralStatusData;
 import com.wave.referrer.ReferrerData;
 import com.wave.status.Status;
 import com.wave.user.dao.UserData;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -51,18 +55,17 @@ public class ReferralData {
     @Column(name="DESCRIPTION")
     private String description;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="CREATE_DATE")
     private Date createDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_UPDATED_DATE")
     private Date lastUpdated;
 
     @Column(name = "ACTIVE")
     private boolean active;
 
-    @ManyToOne
-    @JoinColumn(name="USER_ID")
-    private UserData createdBy;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="PATIENT_ID")
@@ -72,13 +75,18 @@ public class ReferralData {
     @JoinColumn(name="REFERRER_ID")
     private ReferrerData referrerData;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @OneToMany(cascade=CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name="REFERRAL_ID")
     private List<NoteData> notes;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
-    private Status status;
+
+    @OrderBy("lastUpdated desc" )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="REFERRAL_ID")
+    private List<ReferralStatusData> referralStatusDatas;
+
 
     public Long getId() {
         return id;
@@ -86,6 +94,14 @@ public class ReferralData {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 
     public String getUbrn() {
@@ -128,20 +144,12 @@ public class ReferralData {
         this.lastUpdated = lastUpdated;
     }
 
-    public boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public UserData getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(UserData createdBy) {
-        this.createdBy = createdBy;
     }
 
     public PatientData getPatient() {
@@ -160,18 +168,6 @@ public class ReferralData {
         this.referrerData = referrerData;
     }
 
-    public long getVersion() {
-        return version;
-    }
-
-    public void setVersion(long version) {
-        this.version = version;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
     public List<NoteData> getNotes() {
         return notes;
     }
@@ -180,11 +176,12 @@ public class ReferralData {
         this.notes = notes;
     }
 
-    public Status getStatus() {
-        return status;
+    public List<ReferralStatusData> getReferralStatusDatas() {
+        Collections.sort(referralStatusDatas);
+        return referralStatusDatas;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setReferralStatusDatas(List<ReferralStatusData> referralStatusDatas) {
+        this.referralStatusDatas = referralStatusDatas;
     }
 }
