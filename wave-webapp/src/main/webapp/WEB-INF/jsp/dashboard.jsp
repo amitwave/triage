@@ -7,36 +7,39 @@
 <a href="referral">Create New Referral</a>
 <BR/>
 <label>My Claimed Referrals</label>
-<table>
+<table border="1">
+    <tr>
+        <th>UBRN</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>NHS</th>
+        <th>STATUS</th>
+    </tr>
 <c:forEach var="referral" items="${claimedReferrals}">
-<tr><td><li> =========== </li></td></tr>
+
+
     <tr >
-       <td>UBRN:</td>
-       <td>${referral.ubrn}</td>
-    </tr>
-    <tr>
-       <td>Description:</td>
-       <td>${referral.description}</td>
-    </tr>
-        <tr>
-            <td>Type:</td>
-            <td>${referral.type}</td>
-        </tr>
 
-        <tr>
-            <td>NHS:</td>
-            <td>${referral.patient.nhsNumber}</td>
-        </tr>
+    <td>${referral.ubrn}</td>
 
-    <tr>
-        <td>STATUS:</td>
-        <td>${referral.status}</td>
-    </tr>
+
+    <td>${referral.description}</td>
+
+
+    <td>${referral.type}</td>
+
+
+    <td>${referral.patient.nhsNumber}</td>
+
+
+    <td>${referral.status}</td>
+
 
 
     <c:set var="status" scope="page" value="${referral.status}"/>
-<c:if test="${status eq 'CHECKOUT' or status eq 'UPDATE'}">
-    <tr>
+
+    <c:if test="${status eq 'CHECKOUT'}">
+
         <td><a href="referral?referralId=${referral.id}">EDIT</a> </td>
         <td>
             <form method="post" action="referral/release">
@@ -45,7 +48,7 @@
                 <input type="submit" value="Release" />
             </form>
         </td>
-    </tr>
+
 </c:if>
     </c:forEach>
 
@@ -53,33 +56,33 @@
 <BR/>
 
 <label>New Referrals</label>
-<table>
+<table border="1">
+    <tr>
+        <th>UBRN</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>NHS</th>
+        <th>STATUS</th>
+    </tr>
     <c:forEach var="referral" items="${newReferrals}">
-        <tr><td><li> =========== </li></td></tr>
+
+
         <tr >
-            <td>UBRN:</td>
+
             <td>${referral.ubrn}</td>
-        </tr>
-        <tr>
-            <td>Description:</td>
+
+
             <td>${referral.description}</td>
-        </tr>
-        <tr>
-            <td>Type:</td>
+
+
             <td>${referral.type}</td>
-        </tr>
 
-        <tr>
-            <td>NHS:</td>
+
             <td>${referral.patient.nhsNumber}</td>
-        </tr>
 
-        <tr>
-            <td>STATUS:</td>
+
             <td>${referral.status}</td>
-        </tr>
 
-        <tr>
             <td>
             <form method="post" action="referral/checkout">
                 <input type="hidden" name="id" value="${referral.id}">
@@ -94,7 +97,94 @@
 
 </table>
 
+<BR/>
 
+<label>Validated Referrals</label>
+<table border="1">
+    <tr>
+        <th>UBRN</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>NHS</th>
+        <th>STATUS</th>
+    </tr>
+    <c:forEach var="referral" items="${validatedReferrals}">
+
+        <tr >
+
+            <td>${referral.ubrn}</td>
+
+
+            <td>${referral.description}</td>
+
+
+            <td>${referral.type}</td>
+
+
+            <td>${referral.patient.nhsNumber}</td>
+
+
+            <td>${referral.status}</td>
+
+            <td>
+            <td><a href="referral/view?referralId=${referral.id}">View</a> </td>
+            </td>
+
+        </tr>
+
+    </c:forEach>
+
+</table>
+
+
+<BR/>
+
+<label>Incomplete Referrals</label>
+<table border="1">
+    <tr>
+        <th>UBRN</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>NHS</th>
+        <th>STATUS</th>
+    </tr>
+    <c:forEach var="referral" items="${incompleteReferrals}">
+
+        <tr >
+
+            <td>${referral.ubrn}</td>
+
+
+            <td>${referral.description}</td>
+
+
+            <td>${referral.type}</td>
+
+
+            <td>${referral.patient.nhsNumber}</td>
+
+
+            <td>${referral.status}</td>
+
+            <td>
+            <td><a href="referral/view?referralId=${referral.id}">View</a> </td>
+            </td>
+
+
+            <td><a href="referral?referralId=${referral.id}">EDIT</a> </td>
+            <td>
+                <form method="post" action="referral/release">
+                    <input type="hidden" name="id" value="${referral.id}">
+
+                    <input type="submit" value="Release" />
+                </form>
+            </td>
+
+        </tr>
+
+    </c:forEach>
+
+</table>
 
 
 </body>

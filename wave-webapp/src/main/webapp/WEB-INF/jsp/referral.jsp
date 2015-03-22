@@ -31,5 +31,20 @@
 
     <input type="submit" />
     </form>
+
+    <form method="post" action="referral/validate">
+        <input type="hidden" name="id" value=${referralCommand.id}>
+
+        <input type="submit" value="Validate" />
+    </form>
+
+
+    <form method="post" action="referral/reject">
+        <input type="hidden" name="id" value=${referralCommand.id}>
+
+        <input type="submit" value="Reject" />
+    </form>
+
+
 </body>
 </html>

@@ -49,14 +49,23 @@ import java.util.List;
                 "rd.user.id= :id " +
                 " and rd.status = 'CHECKOUT' "
                 ),
+        @NamedQuery(name = ReferralData.FIND_ALL_OPEN_REFERRALS_BY_USER_AND_STATUS, query =
+                "SELECT " +
+                        "rd " +
+                        "FROM " +
+                        "ReferralData rd " +
+                        "WHERE " +
+                        "rd.user.id= :id " +
+                        " and rd.status = :status "
+        ),
         @NamedQuery(name = ReferralData.FIND_ALL_VALIDATED_REFERRALS_BY_USER, query =
                 "SELECT " +
                         "rd " +
                         "FROM " +
-                        "ReferralData rd join  rd.referralStatusDatas rsd " +
+                        "ReferralData rd " +
                         "WHERE " +
-                        "rsd.user.id= :id " +
-                        " and rsd.toStatus <> 'VALIDATED' " +
+                        "rd.user.id= :id " +
+                        " and rd.status = 'VALIDATED' " +
                         " "),
         @NamedQuery(name = ReferralData.FIND_ALL_REJECTED_REFERRALS_BY_USER, query =
                 "SELECT " +
@@ -85,6 +94,7 @@ public class ReferralData {
     public static final String FIND_ALL_OPEN_REFERRALS_BY_USER = "FIND_ALL_OPEN_REFERRALS_BY_USER";
     public static final String FIND_ALL_VALIDATED_REFERRALS_BY_USER = "FIND_ALL_VALIDATED_REFERRALS_BY_USER";
     public static final String FIND_ALL_REJECTED_REFERRALS_BY_USER = "FIND_ALL_REJECTED_REFERRALS_BY_USER";
+    public static final String FIND_ALL_OPEN_REFERRALS_BY_USER_AND_STATUS = "FIND_ALL_OPEN_REFERRALS_BY_USER_AND_STATUS";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

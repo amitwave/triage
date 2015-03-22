@@ -35,7 +35,16 @@ public class ReferralController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "referralId", required = false) Long referralId) {
-        ModelAndView mv = new ModelAndView("referral");
+        return getReferralData(referralId, "referral");
+    }
+
+    @RequestMapping(value = "/view", method = RequestMethod.GET)
+    public ModelAndView showReferral(@RequestParam(value = "referralId", required = false) Long referralId) {
+        return getReferralData(referralId, "referralView");
+    }
+
+    private ModelAndView getReferralData(Long referralId, String view) {
+        ModelAndView mv = new ModelAndView(view);
 
         ReferralData referralData = new ReferralData();
         if (referralId != null) {
@@ -84,6 +93,30 @@ public class ReferralController {
 
         Long userId = getUserIdFromCookie(cookie);
         referralService.releaseReferralData(referralCommand.getId(), userId);
+
+        return new ModelAndView(new RedirectView("../dashboard"));
+
+
+    }
+
+    @RequestMapping(value = "/validate", method = RequestMethod.POST)
+    public ModelAndView validate(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
+                                @CookieValue(value = "TRIAGE", required = true) String cookie) {
+
+        Long userId = getUserIdFromCookie(cookie);
+        referralService.validate(referralCommand.getId(), userId);
+
+        return new ModelAndView(new RedirectView("../dashboard"));
+
+
+    }
+
+    @RequestMapping(value = "/reject", method = RequestMethod.POST)
+    public ModelAndView reject(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
+                                 @CookieValue(value = "TRIAGE", required = true) String cookie) {
+
+        Long userId = getUserIdFromCookie(cookie);
+        referralService.setReferralStatus(referralCommand.getId(), userId, Status.IN_VALIDATION);
 
         return new ModelAndView(new RedirectView("../dashboard"));
 

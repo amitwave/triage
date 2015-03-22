@@ -5,6 +5,7 @@ import com.wave.controller.referral.Converter;
 import com.wave.controller.utils.CookieUtils;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;
+import com.wave.status.Status;
 import com.wave.user.UserService;
 import com.wave.user.dao.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,13 @@ public class DashBoardController {
 
         List<ReferralData> allReferralsByUserId = referralService.getAllClaimedAndOpenReferralsByUserId(userData.getUserId());
         mv.addObject("claimedReferrals", Converter.getReferralCommands(allReferralsByUserId));
+
+
+        List<ReferralData> validatedReferrals = referralService.getAllValidatedReferrals(userData.getUserId());
+        mv.addObject("validatedReferrals", Converter.getReferralCommands(validatedReferrals));
+
+        List<ReferralData> incompleteReferrals = referralService.getAllReferralsByStatus(Status.REFERRAL_INCOMPLETE, userData.getUserId());
+        mv.addObject("incompleteReferrals", Converter.getReferralCommands(incompleteReferrals));
 
         return mv;
     }

@@ -89,32 +89,78 @@ public class ReferralServiceImpl implements ReferralService {
     }
 
     @Override
+    public List<ReferralData> getAllValidatedReferrals(Long userId) {
+        return referralDao.getAllReferralsByStatus(Status.VALIDATED, userId);
+    }
+
+    @Override
+    public List<ReferralData> getAllReferralsByStatus(Status status, Long userId) {
+        return referralDao.getAllReferralsByStatus(status, userId);
+    }
+
+    @Override
     public void releaseReferralData(Long referralId, Long userId) {
+        updateReferralData(referralId, userId, Status.NEW);
+    }
+
+    private void updateReferralData(Long referralId, Long userId, Status newStatus) {
         UserData userData = userDao.getUserData(userId);
         ReferralData referralData = getReferralData(referralId);
         List<ReferralStatusData> referralStatusDatas = referralData.getReferralStatusDatas();
 
 
-        ReferralStatusData referralStatusData = referralStatusDatas.get(0);
-
-        Status status = referralStatusData.getToStatus();
-        if(Status.CHECKOUT.equals(status) || Status.UPDATE.equals(status)
-                || Status.CLAIM_VALIDATE.equals(status) || Status.IN_VALIDATION.equals(status) ){
+        Status currentStatus = referralData.getStatus();
+        if(Status.CHECKOUT.equals(currentStatus) || Status.REFERRAL_INCOMPLETE.equals(currentStatus)){
 
             ReferralStatusData newReferralStatusData = new ReferralStatusData();
             newReferralStatusData.setLastUpdated(new Date());
-            newReferralStatusData.setToStatus(Status.NEW);
+            newReferralStatusData.setToStatus(newStatus);
             newReferralStatusData.setUser(userData);
             newReferralStatusData.setReferralData(referralData);
+
             referralStatusDatas.add(newReferralStatusData);
 
-            referralData.setStatus(Status.NEW);
-            referralData.setUser(null);
+            referralData.setStatus(newStatus);
+
+                referralData.setUser(userData);
+            referralDao.saveReferralData(referralData);
         }else{
             throw new RuntimeException("invalid step");
         }
 
-        referralDao.saveReferralData(referralData);
+
+    }
+
+    @Override
+    public void validate(Long referralId, Long userId) {
+       /* UserData userData = userDao.getUserData(userId);
+        ReferralData referralData = getReferralData(referralId);
+        List<ReferralStatusData> referralStatusDatas = referralData.getReferralStatusDatas();
+
+        Status status = referralData.getStatus();
+        if(Status.CHECKOUT.equals(status)){
+
+            ReferralStatusData newReferralStatusData = new ReferralStatusData();
+            newReferralStatusData.setLastUpdated(new Date());
+            newReferralStatusData.setToStatus(Status.VALIDATED);
+            newReferralStatusData.setUser(userData);
+            newReferralStatusData.setReferralData(referralData);
+            referralStatusDatas.add(newReferralStatusData);
+
+            referralData.setReferralStatus(Status.VALIDATED);
+
+        }else{
+            throw new RuntimeException("invalid step");
+        }
+
+        referralDao.saveReferralData(referralData);*/
+
+        updateReferralData(referralId, userId, Status.VALIDATED);
+    }
+
+    @Override
+    public void setReferralStatus(Long referralId, Long userId, Status status) {
+        updateReferralData(referralId, userId, Status.REFERRAL_INCOMPLETE);
     }
 
 
