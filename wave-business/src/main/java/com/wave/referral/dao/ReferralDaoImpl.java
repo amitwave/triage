@@ -2,6 +2,7 @@ package com.wave.referral.dao;
 
 
 import com.wave.referral.ReferralData;
+import com.wave.status.Status;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,34 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
 
         Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS);
 
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ReferralData> getAllReferralsByStatus(Status status, Long userId) {
+
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ReferralData> getAllReferralsByUserId(Long userId) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_BY_USER);
+        query.setParameter("id", userId);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ReferralData> getAllNewReferrals() {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_NEW_REFERRALS);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ReferralData> getAllClaimedAndOpenReferralsByUserId(Long userId) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_OPEN_REFERRALS_BY_USER);
+        query.setParameter("id", userId);
         return query.getResultList();
     }
 

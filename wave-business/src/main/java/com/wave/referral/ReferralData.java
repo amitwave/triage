@@ -30,12 +30,65 @@ import java.util.List;
                         "patientData " +
                         "FROM " +
                         "ReferralData patientData "
-                        )
+                        ),
+        @NamedQuery(name = ReferralData.FIND_ALL_REFERRALS_BY_USER, query =
+                "SELECT " +
+                        "rd " +
+                        "FROM " +
+                        "ReferralData rd join  rd.referralStatusDatas rsd " +
+                        "WHERE " +
+                        "rsd.user.id= :id " +
+                        " and rsd.toStatus = 'NEW' " +
+                        " "),
+        @NamedQuery(name = ReferralData.FIND_ALL_OPEN_REFERRALS_BY_USER, query =
+        "SELECT " +
+                "rd " +
+                "FROM " +
+                "ReferralData rd join  rd.referralStatusDatas rsd " +
+                "WHERE " +
+                "rsd.user.id= :id " +
+                " and rsd.toStatus <> 'NEW' " +
+                " and rsd.toStatus <> 'VALIDATED' " +
+                " and rsd.toStatus <> 'RELEASED'" +
+                " and rsd.toStatus <> 'REFERRAL_INCOMPLETE'" +
+                " "),
+        @NamedQuery(name = ReferralData.FIND_ALL_VALIDATED_REFERRALS_BY_USER, query =
+                "SELECT " +
+                        "rd " +
+                        "FROM " +
+                        "ReferralData rd join  rd.referralStatusDatas rsd " +
+                        "WHERE " +
+                        "rsd.user.id= :id " +
+                        " and rsd.toStatus <> 'VALIDATED' " +
+                        " "),
+        @NamedQuery(name = ReferralData.FIND_ALL_REJECTED_REFERRALS_BY_USER, query =
+                "SELECT " +
+                        "rd " +
+                        "FROM " +
+                        "ReferralData rd join  rd.referralStatusDatas rsd " +
+                        "WHERE " +
+                        "rsd.user.id= :id " +
+                        " and rsd.toStatus <> 'REFERRAL_INCOMPLETE' " +
+                        " "),
+        @NamedQuery(name = ReferralData.FIND_ALL_NEW_REFERRALS, query =
+                "SELECT " +
+                        "rd " +
+                        "FROM " +
+                        "ReferralData rd join  rd.referralStatusDatas rsd " +
+                        "WHERE " +
+                        "rsd.toStatus= 'NEW' AND rd.referralStatusDatas.size = 1 " +
+                        "order by rsd.lastUpdated asc "),
+
 })
 public class ReferralData {
 
     public static final String FIND_REFERRAL_BY_ID = "FIND_REFERRAL_BY_ID";
     public static final String FIND_ALL_REFERRALS = "FIND_ALL_REFERRALS";
+    public static final String FIND_ALL_REFERRALS_BY_USER = "FIND_ALL_REFERRALS_BY_USER";
+    public static final String FIND_ALL_NEW_REFERRALS = "FIND_ALL_NEW_REFERRALS";
+    public static final String FIND_ALL_OPEN_REFERRALS_BY_USER = "FIND_ALL_OPEN_REFERRALS_BY_USER";
+    public static final String FIND_ALL_VALIDATED_REFERRALS_BY_USER = "FIND_ALL_VALIDATED_REFERRALS_BY_USER";
+    public static final String FIND_ALL_REJECTED_REFERRALS_BY_USER = "FIND_ALL_REJECTED_REFERRALS_BY_USER";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -177,7 +230,9 @@ public class ReferralData {
     }
 
     public List<ReferralStatusData> getReferralStatusDatas() {
-        Collections.sort(referralStatusDatas);
+        if(referralStatusDatas != null) {
+            Collections.sort(referralStatusDatas);
+        }
         return referralStatusDatas;
     }
 

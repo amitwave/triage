@@ -80,7 +80,7 @@ public class ReferralDaoTest {
     }
 
     @Test
-    public void shouldSaveAndRetieveReferralData() throws InterruptedException {
+    public void shouldSaveAndRetrieveReferralData() throws InterruptedException {
 
         referralData = getReferralData();
 
@@ -106,12 +106,54 @@ public class ReferralDaoTest {
         referralService.checkoutReferralData(referralData1.getId(), getUserData().getUserId());
         em.clear();
 
-
         ReferralData referralData2 = referralService.getReferralData(referralData.getId());
         List<ReferralStatusData> referralStatusDataList = referralData2.getReferralStatusDatas();
         assertEquals(2, referralStatusDataList.size());
 
         assertEquals(Status.CHECKOUT, referralStatusDataList.get(0).getToStatus());
+    }
+
+    @Test
+    public void shouldSaveAndRetrieveReferralDataForAUser() throws InterruptedException {
+
+        referralData = getReferralData();
+        referralData.setUbrn("123");
+        referralService.saveReferralData(referralData);
+
+        referralData = getReferralData();
+        referralData.setUbrn("456");
+        referralService.saveReferralData(referralData);
+
+        referralData = getReferralData();
+        referralData.setUbrn("789");
+        referralService.saveReferralData(referralData);
+
+        List<ReferralData> referralDatas = referralService.getAllReferralsByUserId(getUserData().getUserId());
+
+        assertEquals(3, referralDatas.size());
+
+    }
+
+    @Test
+    public void shouldSaveAndRetrieveNewReferralDataOnly() throws InterruptedException {
+
+        referralData = getReferralData();
+        referralData.setUbrn("123");
+        referralService.saveReferralData(referralData);
+
+        referralData = getReferralData();
+        referralData.setUbrn("456");
+        referralService.saveReferralData(referralData);
+
+        referralData = getReferralData();
+        referralData.setUbrn("789");
+        referralService.saveReferralData(referralData);
+
+    //    referralService.checkoutReferralData(referralData.getId(), getUserData().getUserId());
+        List<ReferralData> referralDatas = referralService.getAllNewReferrals();
+
+        assertEquals(2, referralDatas.size());
+
     }
 
     private PatientData getPatientData() {
@@ -264,7 +306,7 @@ if(testuser != null) {
 
         RoleData roleData = new RoleData();
         roleData.setActive(true);
-        roleData.setName("admin");
+        roleData.setName("admin1");
         roleData.setDescription("Administrator");
         roleDao.saveRoleData(roleData);
 
@@ -274,7 +316,7 @@ if(testuser != null) {
 
         roleData = new RoleData();
         roleData.setActive(true);
-        roleData.setName("gp");
+        roleData.setName("gp1");
         roleData.setDescription("GP");
         roleDao.saveRoleData(roleData);
         roles.add(roleData);

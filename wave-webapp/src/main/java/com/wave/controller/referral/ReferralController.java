@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.wave.controller.referral.Converter.getReferralCommand;
+import static com.wave.controller.utils.CookieUtils.getUserIdFromCookie;
 
 @Controller
 @RequestMapping(value = "/referral")
@@ -54,10 +55,11 @@ public class ReferralController {
     }
 
     @RequestMapping( method = RequestMethod.POST)
-    public String saveReferral(@ModelAttribute("referralCommand") ReferralCommand referralCommand) {
+    public String saveReferral(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
+                               @CookieValue(value = "TRIAGE", required = true) String cookie) {
 
-
-        referralService.saveReferralData(getReferralData(referralCommand));
+        Long userId = getUserIdFromCookie(cookie);
+        referralService.saveReferralData(getReferralData(referralCommand, userId));
 
 
         return "redirect:referrallist";
@@ -68,11 +70,7 @@ public class ReferralController {
     public ModelAndView checkout(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
                            @CookieValue(value = "TRIAGE", required = true) String cookie) {
 
-        String[] cookieKeyVal = cookie.split("=");
-        Long userId = null;
-        if("USER_ID".equals(cookieKeyVal[0])) {
-             userId = Long.parseLong(cookieKeyVal[1]);
-        }
+        Long userId = getUserIdFromCookie(cookie);
         referralService.checkoutReferralData(referralCommand.getId(), userId);
 
         return new ModelAndView(new RedirectView("../referrallist"));
@@ -81,7 +79,9 @@ public class ReferralController {
     }
 
 
-    private ReferralData getReferralData(ReferralCommand referralCommand) {
+
+
+    private ReferralData getReferralData(ReferralCommand referralCommand, Long userId) {
 
         ReferralData referralData = new ReferralData();
         if(referralCommand.getId() != null) {
@@ -100,8 +100,8 @@ public class ReferralController {
 
         ReferralStatusData referralStatusData = new ReferralStatusData();
         referralStatusData.setLastUpdated(new Date());
-        UserData admin = userDao.getUserByUserName("admin");
-        referralStatusData.setUser(admin);
+        UserData user = userDao.getUserData(userId);
+        referralStatusData.setUser(user);
         referralStatusData.setToStatus(Status.NEW);
         referralStatusData.setReferralData(referralData);
         referralStatusDatas.add(referralStatusData);
@@ -110,8 +110,8 @@ public class ReferralController {
         }else{
             ReferralStatusData referralStatusData = new ReferralStatusData();
             referralStatusData.setLastUpdated(new Date());
-            UserData admin = userDao.getUserByUserName("admin");
-            referralStatusData.setUser(admin);
+            UserData user = userDao.getUserData(userId);
+            referralStatusData.setUser(user);
             referralStatusData.setToStatus(Status.UPDATE);
             referralStatusData.setReferralData(referralData);
             referralStatusDatasOld.add(referralStatusData);

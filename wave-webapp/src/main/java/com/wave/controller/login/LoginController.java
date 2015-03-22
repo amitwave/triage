@@ -1,6 +1,7 @@
 package com.wave.controller.login;
 
 import com.wave.controller.command.UserCommand;
+import com.wave.controller.referral.Converter;
 import com.wave.user.UserService;
 import com.wave.user.dao.UserData;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import static com.wave.controller.utils.CookieUtils.getCookie;
 
 @Controller
 public class LoginController {
@@ -42,9 +45,10 @@ public class LoginController {
         }
 
         UserData userData = userService.getUserByUserName(userCommand.getName());
-        mv = new ModelAndView(new RedirectView("referrallist"));
+        mv = new ModelAndView(new RedirectView("dashboard"));
         if (userData != null && userCommand.getPassword().equals(userData.getPassword())) {
-            response.addCookie(new Cookie("TRIAGE", "USER_ID="+userData.getUserId()));
+            response.addCookie(getCookie(userData));
+
 
         } else{
             mv = new ModelAndView(new RedirectView("login"));
@@ -53,4 +57,6 @@ public class LoginController {
         return mv;
 
     }
+
+
 }

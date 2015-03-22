@@ -73,4 +73,20 @@ public class ReferralServiceImpl implements ReferralService {
 
         referralDao.saveReferralData(referralData);
     }
+
+    @Override
+    public List<ReferralData> getAllReferralsByUserId(Long userId) {
+        return referralDao.getAllReferralsByUserId(userId);
+    }
+
+    @Override
+    public List<ReferralData> getAllClaimedAndOpenReferralsByUserId(Long userId) {
+        return referralDao.getAllClaimedAndOpenReferralsByUserId(userId);
+    }
+
+
+    @Override
+    public List<ReferralData> getAllNewReferrals() {
+        return referralDao.getAllNewReferrals();
+    }
 }

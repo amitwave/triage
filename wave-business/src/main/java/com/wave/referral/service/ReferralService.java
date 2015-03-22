@@ -11,4 +11,7 @@ public interface ReferralService {
     public List<ReferralData> getAllReferrals();
     public void saveReferralData(ReferralData referralData);
     public void checkoutReferralData(Long referralId, Long userId);
+    List<ReferralData> getAllReferralsByUserId(Long userId);
+    List<ReferralData> getAllNewReferrals();
+    List<ReferralData> getAllClaimedAndOpenReferralsByUserId(Long userId);
 }
