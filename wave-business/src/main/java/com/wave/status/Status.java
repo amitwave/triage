@@ -9,7 +9,5 @@ public enum Status {
     CLAIM_VALIDATE,
     IN_VALIDATION,
     REFERRAL_INCOMPLETE,
-    VALIDATED,
-    RELEASED
-
+    VALIDATED
 }

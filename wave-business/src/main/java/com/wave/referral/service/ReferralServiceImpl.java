@@ -59,14 +59,18 @@ public class ReferralServiceImpl implements ReferralService {
         ReferralStatusData referralStatusData = referralStatusDatas.get(0);
 
         Status status = referralStatusData.getToStatus();
-        if(Status.NEW.equals(status) || Status.RELEASED.equals(status)){
+        if(Status.NEW.equals(status)){
 
             ReferralStatusData newReferralStatusData = new ReferralStatusData();
             newReferralStatusData.setLastUpdated(new Date());
             newReferralStatusData.setToStatus(Status.CHECKOUT);
+
             newReferralStatusData.setUser(userData);
             newReferralStatusData.setReferralData(referralData);
             referralStatusDatas.add(newReferralStatusData);
+
+            referralData.setStatus(Status.CHECKOUT);
+            referralData.setUser(userData);
         }else{
             throw new RuntimeException("invalid step");
         }
@@ -82,6 +86,35 @@ public class ReferralServiceImpl implements ReferralService {
     @Override
     public List<ReferralData> getAllClaimedAndOpenReferralsByUserId(Long userId) {
         return referralDao.getAllClaimedAndOpenReferralsByUserId(userId);
+    }
+
+    @Override
+    public void releaseReferralData(Long referralId, Long userId) {
+        UserData userData = userDao.getUserData(userId);
+        ReferralData referralData = getReferralData(referralId);
+        List<ReferralStatusData> referralStatusDatas = referralData.getReferralStatusDatas();
+
+
+        ReferralStatusData referralStatusData = referralStatusDatas.get(0);
+
+        Status status = referralStatusData.getToStatus();
+        if(Status.CHECKOUT.equals(status) || Status.UPDATE.equals(status)
+                || Status.CLAIM_VALIDATE.equals(status) || Status.IN_VALIDATION.equals(status) ){
+
+            ReferralStatusData newReferralStatusData = new ReferralStatusData();
+            newReferralStatusData.setLastUpdated(new Date());
+            newReferralStatusData.setToStatus(Status.NEW);
+            newReferralStatusData.setUser(userData);
+            newReferralStatusData.setReferralData(referralData);
+            referralStatusDatas.add(newReferralStatusData);
+
+            referralData.setStatus(Status.NEW);
+            referralData.setUser(null);
+        }else{
+            throw new RuntimeException("invalid step");
+        }
+
+        referralDao.saveReferralData(referralData);
     }
 
 

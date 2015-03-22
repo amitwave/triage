@@ -35,23 +35,20 @@ import java.util.List;
                 "SELECT " +
                         "rd " +
                         "FROM " +
-                        "ReferralData rd join  rd.referralStatusDatas rsd " +
+                        "ReferralData rd " +
                         "WHERE " +
-                        "rsd.user.id= :id " +
-                        " and rsd.toStatus = 'NEW' " +
+                        "rd.user.id= :id " +
+
                         " "),
         @NamedQuery(name = ReferralData.FIND_ALL_OPEN_REFERRALS_BY_USER, query =
         "SELECT " +
                 "rd " +
                 "FROM " +
-                "ReferralData rd join  rd.referralStatusDatas rsd " +
+                "ReferralData rd " +
                 "WHERE " +
-                "rsd.user.id= :id " +
-                " and rsd.toStatus <> 'NEW' " +
-                " and rsd.toStatus <> 'VALIDATED' " +
-                " and rsd.toStatus <> 'RELEASED'" +
-                " and rsd.toStatus <> 'REFERRAL_INCOMPLETE'" +
-                " "),
+                "rd.user.id= :id " +
+                " and rd.status = 'CHECKOUT' "
+                ),
         @NamedQuery(name = ReferralData.FIND_ALL_VALIDATED_REFERRALS_BY_USER, query =
                 "SELECT " +
                         "rd " +
@@ -70,14 +67,13 @@ import java.util.List;
                         "rsd.user.id= :id " +
                         " and rsd.toStatus <> 'REFERRAL_INCOMPLETE' " +
                         " "),
-        @NamedQuery(name = ReferralData.FIND_ALL_NEW_REFERRALS, query =
+        @NamedQuery(name = ReferralData.FIND_ALL_NEW_REFERRAL_DATA, query =
                 "SELECT " +
                         "rd " +
                         "FROM " +
-                        "ReferralData rd join  rd.referralStatusDatas rsd " +
+                        "ReferralData rd " +
                         "WHERE " +
-                        "rsd.toStatus= 'NEW' AND rd.referralStatusDatas.size = 1 " +
-                        "order by rsd.lastUpdated asc "),
+                        "rd.status= 'NEW'  ")
 
 })
 public class ReferralData {
@@ -85,7 +81,7 @@ public class ReferralData {
     public static final String FIND_REFERRAL_BY_ID = "FIND_REFERRAL_BY_ID";
     public static final String FIND_ALL_REFERRALS = "FIND_ALL_REFERRALS";
     public static final String FIND_ALL_REFERRALS_BY_USER = "FIND_ALL_REFERRALS_BY_USER";
-    public static final String FIND_ALL_NEW_REFERRALS = "FIND_ALL_NEW_REFERRALS";
+    public static final String FIND_ALL_NEW_REFERRAL_DATA = "FIND_ALL_NEW_REFERRAL_DATA";
     public static final String FIND_ALL_OPEN_REFERRALS_BY_USER = "FIND_ALL_OPEN_REFERRALS_BY_USER";
     public static final String FIND_ALL_VALIDATED_REFERRALS_BY_USER = "FIND_ALL_VALIDATED_REFERRALS_BY_USER";
     public static final String FIND_ALL_REJECTED_REFERRALS_BY_USER = "FIND_ALL_REJECTED_REFERRALS_BY_USER";
@@ -139,6 +135,18 @@ public class ReferralData {
     @OneToMany(cascade=CascadeType.ALL)
     @JoinColumn(name="REFERRAL_ID")
     private List<ReferralStatusData> referralStatusDatas;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
+    private Status status;
+
+    @ManyToOne
+    @JoinColumn(name="CREATED_BY")
+    private UserData createdBy;
+
+    @ManyToOne
+    @JoinColumn(name="USER_ID")
+    private UserData user;
 
 
     public Long getId() {
@@ -238,5 +246,29 @@ public class ReferralData {
 
     public void setReferralStatusDatas(List<ReferralStatusData> referralStatusDatas) {
         this.referralStatusDatas = referralStatusDatas;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public UserData getUser() {
+        return user;
+    }
+
+    public void setUser(UserData user) {
+        this.user = user;
+    }
+
+    public UserData getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(UserData createdBy) {
+        this.createdBy = createdBy;
     }
 }

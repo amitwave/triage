@@ -14,4 +14,5 @@ public interface ReferralService {
     List<ReferralData> getAllReferralsByUserId(Long userId);
     List<ReferralData> getAllNewReferrals();
     List<ReferralData> getAllClaimedAndOpenReferralsByUserId(Long userId);
+    void releaseReferralData(Long referralId, Long userId);
 }

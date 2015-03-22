@@ -25,7 +25,7 @@
 
         <tr>
             <td>NHS:</td>
-            <td>${referral.patient.nhsNumber}></td>
+            <td>${referral.patient.nhsNumber}</td>
         </tr>
 
     <tr>
@@ -38,6 +38,13 @@
 <c:if test="${status eq 'CHECKOUT' or status eq 'UPDATE'}">
     <tr>
         <td><a href="referral?referralId=${referral.id}">EDIT</a> </td>
+        <td>
+            <form method="post" action="referral/release">
+                <input type="hidden" name="id" value="${referral.id}">
+
+                <input type="submit" value="Release" />
+            </form>
+        </td>
     </tr>
 </c:if>
     </c:forEach>
@@ -64,7 +71,7 @@
 
         <tr>
             <td>NHS:</td>
-            <td>${referral.patient.nhsNumber}></td>
+            <td>${referral.patient.nhsNumber}</td>
         </tr>
 
         <tr>

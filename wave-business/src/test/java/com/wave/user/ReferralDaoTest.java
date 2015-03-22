@@ -16,6 +16,7 @@ import com.wave.patient.dao.PatientDao;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;
 import com.wave.referralstatus.ReferralStatusData;
+import com.wave.referralstatus.dao.ReferralStatusDao;
 import com.wave.referrer.ReferrerData;
 import com.wave.referrer.dao.ReferrerDao;
 import com.wave.role.RoleDao;
@@ -71,6 +72,9 @@ public class ReferralDaoTest {
 
     @PersistenceContext
     EntityManager em;
+
+    @Autowired
+    private ReferralStatusDao referralStatusDao;
 
     ReferralData referralData;
 
@@ -149,7 +153,7 @@ public class ReferralDaoTest {
         referralData.setUbrn("789");
         referralService.saveReferralData(referralData);
 
-    //    referralService.checkoutReferralData(referralData.getId(), getUserData().getUserId());
+        referralService.checkoutReferralData(referralData.getId(), getUserData().getUserId());
         List<ReferralData> referralDatas = referralService.getAllNewReferrals();
 
         assertEquals(2, referralDatas.size());
@@ -253,8 +257,8 @@ public class ReferralDaoTest {
         referralStatusDatas.add(referralStatusData);
 
         referralData.setReferralStatusDatas(referralStatusDatas);
-
-
+        referralData.setStatus(Status.NEW);
+        referralData.setUser(getUserData());
         referralData.setReferrerData(getReferrerData());
 
 

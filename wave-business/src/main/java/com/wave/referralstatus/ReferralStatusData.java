@@ -17,11 +17,23 @@ import java.util.Date;
                         "FROM " +
                         "ReferralStatusData patientData " +
                         "WHERE " +
-                        "patientData.id = :id")
+                        "patientData.id = :id"),
+        @NamedQuery(name = ReferralStatusData.FIND_ALL_NEW_REFERRALS, query =
+                "SELECT " +
+                        "rsd.referralData.id , max(rsd.lastUpdated)" +
+                        "FROM " +
+                        "ReferralStatusData rsd " +
+                        //   "WHERE " +
+                        //  "rsd.toStatus= 'NEW'  " +
+                        //  "rsd.referralData.id " +
+                        "group by rsd.referralData.id" +
+                        //   "order by rsd.lastUpdated desc " +
+                        " ")
 })
 public class ReferralStatusData implements Comparable<ReferralStatusData>{
 
     public static final String FIND_RS_BY_ID = "FIND_RS_BY_ID";
+    public static final String FIND_ALL_NEW_REFERRALS = "FIND_ALL_NEW_REFERRALS";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

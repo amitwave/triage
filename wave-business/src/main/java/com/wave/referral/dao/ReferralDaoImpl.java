@@ -2,15 +2,14 @@ package com.wave.referral.dao;
 
 
 import com.wave.referral.ReferralData;
+import com.wave.referralstatus.ReferralStatusData;
 import com.wave.status.Status;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Repository
@@ -51,7 +50,7 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
 
     @Override
     public List<ReferralData> getAllNewReferrals() {
-        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_NEW_REFERRALS);
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_NEW_REFERRAL_DATA);
         return query.getResultList();
     }
 

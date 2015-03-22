@@ -14,6 +14,7 @@ public class ReferralCommand {
     private Date lastUpdated;
     private boolean active;
     private UserCommand createdBy;
+    private UserCommand user;
     private PatientCommand patient;
     private ReferrerCommand referrerData;
     private Status status;
@@ -105,5 +106,13 @@ public class ReferralCommand {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public UserCommand getUser() {
+        return user;
+    }
+
+    public void setUser(UserCommand user) {
+        this.user = user;
     }
 }

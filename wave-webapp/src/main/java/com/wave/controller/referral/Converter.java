@@ -39,10 +39,8 @@ public class Converter {
         referralCommand.setUbrn(referralData.getUbrn());
         referralCommand.setDescription(referralData.getDescription());
         referralCommand.setType(referralData.getType());
-        List<ReferralStatusData> referralStatusDatas = referralData.getReferralStatusDatas();
-        if(referralStatusDatas != null && !CollectionUtils.isEmpty(referralStatusDatas)) {
-            referralCommand.setStatus(referralStatusDatas.get(0).getToStatus());
-        }
+        referralCommand.setStatus(referralData.getStatus());
+        referralCommand.setUser(getUserCommand(referralData.getUser()));
         PatientData patientData = referralData.getPatient();
         PatientCommand patientCommand = getPatientCommand(patientData);
         referralCommand.setPatient(patientCommand);
@@ -64,6 +62,9 @@ public class Converter {
 
     public static UserCommand getUserCommand(UserData userData) {
         UserCommand userCommand = new UserCommand();
+        if(userData == null){
+            return userCommand;
+        }
         userCommand.setEmail(userData.getEmail());
         userCommand.setName(userData.getUserName());
         userCommand.setDisplayName(userData.getDisplayName());

@@ -2,6 +2,7 @@
            uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <body>
+<a href="dashboard">Dashboard</a>
 <table>
 <c:forEach var="referral" items="${referrals}">
 <tr><td><li> =========== </li></td></tr>
@@ -30,6 +31,7 @@
 
     <tr>
 
+        <td>
         <form method="post" action="referral/checkout">
             <input type="hidden" name="id" value="${referral.id}">
 
@@ -41,6 +43,7 @@
 
             <input type="submit" value="Checkout and Validate" />
         </form>
+        </td>
     </tr>
     <c:set var="status" scope="page" value="${referral.status}"/>
 <c:if test="${status eq 'CHECKOUT' or status eq 'UPDATE'}">
