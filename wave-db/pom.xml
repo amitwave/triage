@@ -20,8 +20,8 @@
 	<name>wave-db</name>
 	<description>Wave Database Build</description>
 	<properties>
-		<wave.schema.name>root</wave.schema.name>
-		<wave.schema.password>amit</wave.schema.password>
+		<wave.schema.name>triage</wave.schema.name>
+		<wave.schema.password>triage</wave.schema.password>
 		<wave.schema.url>jdbc:mysql://localhost:3306/wave_amit</wave.schema.url>
 	</properties>
 
@@ -55,10 +55,10 @@
 						<artifactId>flyway-maven-plugin</artifactId>
 						<version>1.7</version>
 						<configuration>
-							<user>root</user>
-							<password>amit</password>
+							<user>triage</user>
+							<password>triage</password>
 							<driver>com.mysql.jdbc.Driver</driver>
-							<url>jdbc:mysql://localhost:3306/wave_amit</url>
+							<url>jdbc:mysql://localhost:3306/triage</url>
 							<locations>
 								<location>sql/create</location>
 								<location>sql/delta</location>
