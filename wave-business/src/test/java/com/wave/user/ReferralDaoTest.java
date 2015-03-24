@@ -154,7 +154,7 @@ public class ReferralDaoTest {
         referralService.saveReferralData(referralData);
 
         referralService.checkoutReferralData(referralData.getId(), getUserData().getUserId());
-        List<ReferralData> referralDatas = referralService.getAllNewReferrals();
+        List<ReferralData> referralDatas = referralService.getAllReferralsByStatus(Status.NEW);
 
         assertEquals(2, referralDatas.size());
 

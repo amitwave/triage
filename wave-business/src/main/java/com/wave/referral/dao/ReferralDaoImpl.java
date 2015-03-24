@@ -2,7 +2,6 @@ package com.wave.referral.dao;
 
 
 import com.wave.referral.ReferralData;
-import com.wave.referralstatus.ReferralStatusData;
 import com.wave.status.Status;
 import com.wave.user.AbstractDao;
 import org.springframework.stereotype.Repository;
@@ -36,7 +35,7 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     @Override
     public List<ReferralData> getAllReferralsByStatus(Status status, Long userId/*, int pageNumber, int pageSize*/) {
 
-        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_OPEN_REFERRALS_BY_USER_AND_STATUS);
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_BY_USER_AND_STATUS);
         query.setParameter("id", userId);
         query.setParameter("status", status);
      //   query.setFirstResult((pageNumber - 1) * pageSize);
@@ -47,6 +46,14 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     }
 
     @Override
+    public Integer getAllReferralsCountByStatus(Status status, Long userId) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_COUNT__BY_USER_AND_STATUS);
+        query.setParameter("id", userId);
+        query.setParameter("status", status);
+        return (Integer)query.getSingleResult();
+    }
+
+    @Override
     public List<ReferralData> getAllReferralsByUserId(Long userId) {
         Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_BY_USER);
         query.setParameter("id", userId);
@@ -54,15 +61,32 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     }
 
     @Override
-    public List<ReferralData> getAllNewReferrals() {
-        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_NEW_REFERRAL_DATA);
+    public Integer getAllReferralCountByUserId(Long userId) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_BY_USER);
+        query.setParameter("id", userId);
+        return (Integer) query.getSingleResult();
+    }
+
+
+    @Override
+    public List<ReferralData> getAllReferralsByStatus(Status status) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRAL_DATA_BY_STATUS);
+        query.setParameter("status", status);
         return query.getResultList();
     }
 
     @Override
+    public Integer getAllReferralsCountByStatus(Status status) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRAL_DATA_COUNT_BY_STATUS);
+        query.setParameter("status", status);
+        return (Integer)query.getSingleResult();
+    }
+
+    @Override
     public List<ReferralData> getAllClaimedAndOpenReferralsByUserId(Long userId) {
-        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_OPEN_REFERRALS_BY_USER);
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_BY_USER_AND_STATUS);
         query.setParameter("id", userId);
+        query.setParameter("status", Status.CHECKOUT);
         return query.getResultList();
     }
 

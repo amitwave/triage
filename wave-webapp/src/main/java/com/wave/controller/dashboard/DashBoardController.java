@@ -37,17 +37,17 @@ public class DashBoardController {
         UserCommand userCommand = getUserCommand(userData);
         mv.addObject("user", userCommand);
 
-        List<ReferralData> newReferrals = referralService.getAllNewReferrals();
+        List<ReferralData> newReferrals = referralService.getAllReferralsByStatus(Status.NEW);
 
 
         mv.addObject("newReferrals", Converter.getReferralCommands(newReferrals));
 
 
-        List<ReferralData> allReferralsByUserId = referralService.getAllClaimedAndOpenReferralsByUserId(userData.getUserId());
+        List<ReferralData> allReferralsByUserId = referralService.getAllReferralsByStatus(Status.CHECKOUT, userData.getUserId());
         mv.addObject("claimedReferrals", Converter.getReferralCommands(allReferralsByUserId));
 
 
-        List<ReferralData> validatedReferrals = referralService.getAllValidatedReferrals(userData.getUserId());
+        List<ReferralData> validatedReferrals = referralService.getAllReferralsByStatus(Status.VALIDATED, userData.getUserId());
         mv.addObject("validatedReferrals", Converter.getReferralCommands(validatedReferrals));
 
         List<ReferralData> incompleteReferrals = referralService.getAllReferralsByStatus(Status.REFERRAL_INCOMPLETE, userData.getUserId());

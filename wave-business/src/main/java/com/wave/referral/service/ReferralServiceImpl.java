@@ -84,16 +84,6 @@ public class ReferralServiceImpl implements ReferralService {
     }
 
     @Override
-    public List<ReferralData> getAllClaimedAndOpenReferralsByUserId(Long userId) {
-        return referralDao.getAllClaimedAndOpenReferralsByUserId(userId);
-    }
-
-    @Override
-    public List<ReferralData> getAllValidatedReferrals(Long userId) {
-        return referralDao.getAllReferralsByStatus(Status.VALIDATED, userId);
-    }
-
-    @Override
     public List<ReferralData> getAllReferralsByStatus(Status status, Long userId) {
         return referralDao.getAllReferralsByStatus(status, userId);
     }
@@ -159,13 +149,19 @@ public class ReferralServiceImpl implements ReferralService {
     }
 
     @Override
+    public List<ReferralData> getAllReferralsByStatus(Status status) {
+        return referralDao.getAllReferralsByStatus(status);
+    }
+
+    @Override
+    public Integer getAllReferralsCountByStatus(Status status) {
+        return referralDao.getAllReferralsCountByStatus(status);
+    }
+
+    @Override
     public void setReferralStatus(Long referralId, Long userId, Status status) {
         updateReferralData(referralId, userId, Status.REFERRAL_INCOMPLETE);
     }
 
 
-    @Override
-    public List<ReferralData> getAllNewReferrals() {
-        return referralDao.getAllNewReferrals();
-    }
 }

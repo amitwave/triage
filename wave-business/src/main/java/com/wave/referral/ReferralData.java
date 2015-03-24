@@ -49,7 +49,7 @@ import java.util.List;
                 "rd.user.id= :id " +
                 " and rd.status = 'CHECKOUT' "
                 ),
-        @NamedQuery(name = ReferralData.FIND_ALL_OPEN_REFERRALS_BY_USER_AND_STATUS, query =
+        @NamedQuery(name = ReferralData.FIND_ALL_REFERRALS_BY_USER_AND_STATUS, query =
                 "SELECT " +
                         "rd " +
                         "FROM " +
@@ -58,6 +58,16 @@ import java.util.List;
                         "rd.user.id= :id " +
                         " and rd.status = :status "
         ),
+
+        @NamedQuery(name = ReferralData.FIND_ALL_REFERRALS_COUNT__BY_USER_AND_STATUS, query =
+        "SELECT " +
+                "count(rd) " +
+                "FROM " +
+                "ReferralData rd " +
+                "WHERE " +
+                "rd.user.id= :id " +
+                " and rd.status = :status "
+),
         @NamedQuery(name = ReferralData.FIND_ALL_VALIDATED_REFERRALS_BY_USER, query =
                 "SELECT " +
                         "rd " +
@@ -76,9 +86,25 @@ import java.util.List;
                         "rsd.user.id= :id " +
                         " and rsd.toStatus <> 'REFERRAL_INCOMPLETE' " +
                         " "),
-        @NamedQuery(name = ReferralData.FIND_ALL_NEW_REFERRAL_DATA, query =
+        @NamedQuery(name = ReferralData.FIND_ALL_REFERRAL_DATA_BY_STATUS, query =
                 "SELECT " +
                         "rd " +
+                        "FROM " +
+                        "ReferralData rd " +
+                        "WHERE " +
+                        "rd.status= :status  ")
+        ,
+        @NamedQuery(name = ReferralData.FIND_ALL_REFERRAL_DATA_COUNT_BY_STATUS, query =
+                "SELECT " +
+                        "count(rd) " +
+                        "FROM " +
+                        "ReferralData rd " +
+                        "WHERE " +
+                        "rd.status= :status  ")
+        ,
+        @NamedQuery(name = ReferralData.FIND_ALL_NEW_REFERRAL_DATA_COUNT, query =
+                "SELECT " +
+                        "count(rd) " +
                         "FROM " +
                         "ReferralData rd " +
                         "WHERE " +
@@ -90,11 +116,19 @@ public class ReferralData {
     public static final String FIND_REFERRAL_BY_ID = "FIND_REFERRAL_BY_ID";
     public static final String FIND_ALL_REFERRALS = "FIND_ALL_REFERRALS";
     public static final String FIND_ALL_REFERRALS_BY_USER = "FIND_ALL_REFERRALS_BY_USER";
-    public static final String FIND_ALL_NEW_REFERRAL_DATA = "FIND_ALL_NEW_REFERRAL_DATA";
+
+    public static final String FIND_ALL_REFERRAL_DATA_BY_STATUS = "FIND_ALL_REFERRAL_DATA_BY_STATUS";
+    public static final String FIND_ALL_REFERRAL_DATA_COUNT_BY_STATUS = "FIND_ALL_REFERRAL_DATA_COUNT_BY_STATUS";
+
+
+    public static final String FIND_ALL_NEW_REFERRAL_DATA_COUNT = "FIND_ALL_NEW_REFERRAL_DATA_COUNT";
     public static final String FIND_ALL_OPEN_REFERRALS_BY_USER = "FIND_ALL_OPEN_REFERRALS_BY_USER";
+
     public static final String FIND_ALL_VALIDATED_REFERRALS_BY_USER = "FIND_ALL_VALIDATED_REFERRALS_BY_USER";
     public static final String FIND_ALL_REJECTED_REFERRALS_BY_USER = "FIND_ALL_REJECTED_REFERRALS_BY_USER";
-    public static final String FIND_ALL_OPEN_REFERRALS_BY_USER_AND_STATUS = "FIND_ALL_OPEN_REFERRALS_BY_USER_AND_STATUS";
+
+    public static final String FIND_ALL_REFERRALS_BY_USER_AND_STATUS = "FIND_ALL_REFERRALS_BY_USER_AND_STATUS";
+    public static final String FIND_ALL_REFERRALS_COUNT__BY_USER_AND_STATUS = "FIND_ALL_REFERRALS_COUNT__BY_USER_AND_STATUS";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
