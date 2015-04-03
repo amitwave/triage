@@ -16,11 +16,11 @@ public interface ReferralDao {
 
 
     List<ReferralData> getAllReferralsByStatus(Status status, Long userId);
-    Integer getAllReferralsCountByStatus(Status status, Long userId);
+    Long getAllReferralsCountByStatus(Status status, Long userId);
 
     List<ReferralData> getAllReferralsByUserId(Long userId);
-    Integer getAllReferralCountByUserId(Long userId);
+    Long getAllReferralCountByUserId(Long userId);
 
     List<ReferralData> getAllReferralsByStatus(Status status);
-    Integer getAllReferralsCountByStatus(Status status);
+    Long getAllReferralsCountByStatus(Status status);
 }

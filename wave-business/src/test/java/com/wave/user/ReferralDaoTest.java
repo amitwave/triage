@@ -105,6 +105,10 @@ public class ReferralDaoTest {
         assertEquals(1, referralStatusDatas.size());
 
         assertEquals(Status.NEW, referralStatusDatas.get(0).getToStatus());
+
+        Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(Status.NEW);
+        assertEquals(1, allReferralsCountByStatus.longValue());
+
         Thread.sleep(10000L);
         em.clear();
         referralService.checkoutReferralData(referralData1.getId(), getUserData().getUserId());
@@ -130,7 +134,10 @@ public class ReferralDaoTest {
 
         referralData = getReferralData();
         referralData.setUbrn("789");
+
         referralService.saveReferralData(referralData);
+        Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(Status.NEW);
+        assertEquals(3, allReferralsCountByStatus.longValue());
 
         List<ReferralData> referralDatas = referralService.getAllReferralsByUserId(getUserData().getUserId());
 

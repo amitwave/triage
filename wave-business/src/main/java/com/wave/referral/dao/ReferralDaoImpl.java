@@ -46,11 +46,11 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     }
 
     @Override
-    public Integer getAllReferralsCountByStatus(Status status, Long userId) {
+    public Long getAllReferralsCountByStatus(Status status, Long userId) {
         Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_COUNT__BY_USER_AND_STATUS);
         query.setParameter("id", userId);
         query.setParameter("status", status);
-        return (Integer)query.getSingleResult();
+        return (Long)query.getSingleResult();
     }
 
     @Override
@@ -61,10 +61,10 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     }
 
     @Override
-    public Integer getAllReferralCountByUserId(Long userId) {
+    public Long getAllReferralCountByUserId(Long userId) {
         Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_BY_USER);
         query.setParameter("id", userId);
-        return (Integer) query.getSingleResult();
+        return (Long) query.getSingleResult();
     }
 
 
@@ -76,10 +76,10 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     }
 
     @Override
-    public Integer getAllReferralsCountByStatus(Status status) {
+    public Long getAllReferralsCountByStatus(Status status) {
         Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRAL_DATA_COUNT_BY_STATUS);
         query.setParameter("status", status);
-        return (Integer)query.getSingleResult();
+        return ((Long)query.getSingleResult());
     }
 
     @Override

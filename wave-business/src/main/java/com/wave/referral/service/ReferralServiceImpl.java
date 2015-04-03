@@ -84,8 +84,18 @@ public class ReferralServiceImpl implements ReferralService {
     }
 
     @Override
+    public Long getAllReferralCountByUserId(Long userId) {
+        return referralDao.getAllReferralCountByUserId(userId);
+    }
+
+    @Override
     public List<ReferralData> getAllReferralsByStatus(Status status, Long userId) {
         return referralDao.getAllReferralsByStatus(status, userId);
+    }
+
+    @Override
+    public Long getAllReferralsCountByStatus(Status status, Long userId) {
+        return referralDao.getAllReferralsCountByStatus(status, userId);
     }
 
     @Override
@@ -154,7 +164,7 @@ public class ReferralServiceImpl implements ReferralService {
     }
 
     @Override
-    public Integer getAllReferralsCountByStatus(Status status) {
+    public Long getAllReferralsCountByStatus(Status status) {
         return referralDao.getAllReferralsCountByStatus(status);
     }
 

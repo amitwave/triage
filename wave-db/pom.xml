@@ -3,15 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.wave.getall</groupId>
-        <artifactId>wave-getall</artifactId>
-        <version>1.0.0-RC1</version>
+		<groupId>com.health.triage</groupId>
+		<artifactId>triage</artifactId>
+		<version>1.0.0-RC1</version>
     </parent>
 
 
-    <groupId>com.wave.getall</groupId>
-    <artifactId>wave-db</artifactId>
-    <version>1.0.0-RC1</version>
+
+    <artifactId>triage-db</artifactId>
+
         <modelVersion>4.0.0</modelVersion>
 
 	<url>http://wave</url>
@@ -22,7 +22,7 @@
 	<properties>
 		<wave.schema.name>triage</wave.schema.name>
 		<wave.schema.password>triage</wave.schema.password>
-		<wave.schema.url>jdbc:mysql://localhost:3306/wave_amit</wave.schema.url>
+		<wave.schema.url>jdbc:mysql://localhost:3306/triage</wave.schema.url>
 	</properties>
 
 	<profiles>
