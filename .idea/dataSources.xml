@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="793617427">
+  <component name="DataSourceManagerImpl" format="xml" hash="2014266571">
     <data-source source="LOCAL" name="MySQL - wave_amit@localhost" uuid="c56db298-d277-4477-b6c8-0309eaf84a88">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
