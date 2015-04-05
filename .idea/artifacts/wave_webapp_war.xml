@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="wave-webapp:war">
-    <output-path>$PROJECT_DIR$/wave-webapp/target</output-path>
-    <root id="archive" name="triage.war">
-      <element id="artifact" artifact-name="wave-webapp:war exploded" />
-    </root>
-  </artifact>
-</component>
