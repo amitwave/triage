@@ -32,8 +32,6 @@
 	<div class="outer">
 	<form method=post>
 		<input type="hidden" name="id" value=${referralCommand.id}/>
-		<input type="hidden" name="description" value=${referralCommand.description} />
-		
 			<table>
 			<tr>
 			<td width=490px>
@@ -45,7 +43,7 @@
 					</tr>
 					<tr>
 						<td>Receipt Date(ddmmyyyyhhmm) *</td>
-						<td><input type="text" name="referral_receipt_date" value=${referralCommand.createDate} ></input></td>
+						<td><input type="text" name="createDate" value=${referralCommand.createDate} ></input></td>
 					</tr>
 				</table>
 			    </div>	
@@ -55,11 +53,11 @@
 				<table>
 					<tr>
 						<td>Referral Type</td>
-						<td><input type="text" name="referral_type"  value=${referralCommand.type} /></td>
+						<td><input type="text" name="type"  value=${referralCommand.type} /></td>
 					</tr>
 					<tr>
 						<td>PPwT Procedure</td>
-						<td><input type="text" name="ppwt_procedure" value=${referralCommand.type} /></td>
+						<td><input type="text" name="description" value=${referralCommand.description} /></td>
 					</tr>
 				</table>
 			</div>
@@ -70,56 +68,65 @@
 		<div class="inner_patient">
 			<table>
 				<tr>
-					<td>NHS Number *</td><td><input type="text" name="nhs"/></td><td colspan=4></td>
+					<td>NHS Number *</td>
+					<td><input type="text" name="patient.nhsNumber" value=${referralCommand.patient.nhsNumber} /></td>
+					<td colspan=4></td>
 				</tr>
 				<tr>
-					<td>Title</td><td><input type="text" name="title"/></td><td colspan=4></td>
+					<td>Title</td>
+					<td>
+					<select name="patient.nameData.title.displayName" value=${referralCommand.patient.nameData.title.displayName}>
+  						<option>Mr</option>
+  						<option>Miss</option>
+					</select>
+					</td>
+					<td colspan=4></td>
 				</tr>
 				<tr>
 					<td>First Name</td>
-					<td><input type="text" name="first_name"/></td>
+					<td><input type="text" name="patient.nameData.firstName" value=${referralCommand.patient.nameData.firstName} /></td>
 					<td>Middle Name</td>
-					<td><input type="text" name="middle_name"/></td>
+					<td><input type="text" name="patient.nameData.middleName" value=${referralCommand.patient.nameData.middleName} /></td>
 					<td>Last Name</td>
-					<td><input type="text" name="last_name"/></td>
+					<td><input type="text" name="patient.nameData.lastName" value=${referralCommand.patient.nameData.lastName} /></td>
 				</tr>
 				<tr>
 					<td>Preferred Name</td>
-					<td><input type="text" name="preferred_name"/></td>
+					<td><input type="text" name="patient.nameData.preferredName" value=${referralCommand.patient.nameData.preferredName} /></td>
 					<td>DOB *</td>
-					<td><input type="text" name="dob"/></td>
+					<td><input type="text" name="patient.dateOfBirth" value=${referralCommand.patient.dateOfBirth} /></td>
 					<td>Gender</td>
-					<td><input type="text" name="gender"/></td>
+					<td><input type="text" name="patient.gender.displayName" value=${referralCommand.patient.gender.displayName} /></td>
 				</tr>
 				<tr>
 					<td>Ethnicity</td>
-					<td><input type="text" name="ethnicity"/></td>
+					<td><input type="text" name="patient.ethnicity.displayName" value=${referralCommand.patient.ethnicity.displayName} /></td>
 					<td colspan=4></td>
 					
 				</tr>
 				<tr>
 					<td>Address Line1</td>
-					<td><input type="text" name="address_line_one"/></td>
+					<td><input type="text" name="patient.address.line1" value=${referralCommand.patient.address.line1} /></td>
 					<td>Address Line2</td>
-					<td><input type="text" name="address_line_two"/></td>
+					<td><input type="text" name="patient.address.line2"  value=${referralCommand.patient.address.line2} /></td>
 					<td>Address Line3</td>
-					<td><input type="text" name="address_line_three"/></td>
+					<td><input type="text" name="patient.address.line3"  value=${referralCommand.patient.address.line3} /></td>
 				</tr>
 				<tr>
 					<td>City</td>
-					<td><input type="text" name="city"/></td>
+					<td><input type="text" name="patient.address.city"  value=${referralCommand.patient.address.city} /></td>
 					<td>Country</td>
-					<td><input type="text" name="counter"/></td>
+					<td><input type="text" name="patient.address.country"  value=${referralCommand.patient.address.country} /></td>
 					<td>Postcode</td>
-					<td><input type="text" name="postcode"/></td>
+					<td><input type="text" name="patient.address.postCode"  value=${referralCommand.patient.address.postCode} /></td>
 				</tr>
 				<tr>
 					<td>Phone Number</td>
-					<td><input type="text" name="phone_number"/></td>
+					<td><input type="text" name="patient.contactDetails.phone" value=${referralCommand.patient.contactDetails.phone}  /></td>
 					<td>Mobile Number</td>
-					<td><input type="text" name="mobile_number"/></td>
+					<td><input type="text" name="patient.contactDetails.mobile" value=${referralCommand.patient.contactDetails.mobile} /></td>
 					<td>Email</td>
-					<td><input type="text" name="email"/></td>
+					<td><input type="text" name="patient.contactDetails.email" value=${referralCommand.patient.contactDetails.email} /></td>
 				</tr>
 				<tr>
 					<td>Primary Spoken Language</td>
@@ -262,21 +269,11 @@
 			</table>
 		</div>
 		<br>
-		<input type="submit"  value="Submit"/>
-		<br>
-	
+		<input type="submit" name="action" value="Submit"/>
+		<input type="submit" name="action" value="Validate" />
+		<input type="submit" name="action" value="Reject" />
 	</form>
-	<form method="post" action="referral/validate">
-        <input type="hidden" name="id" value=${referralCommand.id}>
-
-        <input type="submit" value="Validate" />
-    </form>
-    <form method="post" action="referral/reject">
-        <input type="hidden" name="id" value=${referralCommand.id}>
-
-        <input type="submit" value="Reject" />
-     
-    </form>
+	
     </div>	
 </body>
 </html>
