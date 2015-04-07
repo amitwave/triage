@@ -9,6 +9,7 @@ public class ReferralCommand {
     private Long id;
     private String ubrn;
     private String type;
+    private String ppwtProcedure;
     private String description;
     private Date createDate;
     private Date lastUpdated;
@@ -114,5 +115,14 @@ public class ReferralCommand {
 
     public void setUser(UserCommand user) {
         this.user = user;
+    }
+
+
+    public String getPpwtProcedure() {
+        return ppwtProcedure;
+    }
+
+    public void setPpwtProcedure(String ppwtProcedure) {
+        this.ppwtProcedure = ppwtProcedure;
     }
 }

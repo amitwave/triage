@@ -1,9 +1,9 @@
 package com.wave.controller.referral;
 
-import com.wave.controller.command.PatientCommand;
-import com.wave.controller.command.ReferralCommand;
-import com.wave.controller.command.RoleCommand;
-import com.wave.controller.command.UserCommand;
+import com.wave.address.AddressData;
+import com.wave.controller.command.*;
+import com.wave.master.TitleData;
+import com.wave.name.NameData;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
 import com.wave.referralstatus.ReferralStatusData;
@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by amit on 19/03/2015.
- */
 public class Converter {
 
     public static List<ReferralCommand> getReferralCommands(List<ReferralData> referrals){
@@ -56,8 +53,80 @@ public class Converter {
         if(patientData != null) {
             patientCommand.setId(patientData.getId());
             patientCommand.setNhsNumber(patientData.getNhsNumber());
+            patientCommand.setLastUpdated(patientData.getLastUpdated());
+            patientCommand.setName(getNameCommand(patientData.getNameData()));
+
+            AddressCommand addressCommand = getAddressCommand(patientData.getAddress());
+
+            patientCommand.setAddress(addressCommand);
         }
         return patientCommand;
+    }
+
+    private static AddressCommand getAddressCommand(AddressData addressData) {
+
+        AddressCommand addressCommand = new AddressCommand();
+        if(addressData == null) {
+            return addressCommand;
+        }
+        addressCommand.setId(addressData.getId());
+        addressCommand.setLine1(addressData.getLine1());
+        addressCommand.setLine2(addressData.getLine2());
+        addressCommand.setLine3(addressData.getLine3());
+        addressCommand.setCity(addressData.getCity());
+        addressCommand.setCounty(addressData.getCounty());
+        addressCommand.setPostCode(addressData.getPostCode());
+        return addressCommand;
+    }
+
+    private static NameCommand getNameCommand(NameData nameData) {
+        NameCommand nameCommand = new NameCommand();
+        if(nameData == null) {
+            return  nameCommand;
+        }
+        nameCommand.setId(nameData.getId());
+        nameCommand.setVersion(nameData.getVersion());
+        nameCommand.setFirstName(nameData.getFirstName());
+        nameCommand.setMiddleName(nameData.getMiddleName());
+        nameCommand.setLastName(nameData.getLastName());
+        nameCommand.setPreferredName(nameData.getPreferredName());
+        nameCommand.setTitle(getTitleCommand(nameData.getTitle()));
+
+
+        return nameCommand;
+    }
+
+    private static TitleCommand getTitleCommand(TitleData titleData) {
+        TitleCommand titleCommand = new TitleCommand();
+        if(titleData == null) {
+            return  titleCommand;
+        }
+        titleCommand.setId(titleData.getId());
+        titleCommand.setName(titleData.getName());
+        titleCommand.setDisplayName(titleData.getDisplayName());
+        return titleCommand;
+    }
+
+    private static NameData getNameData(NameCommand nameCommand) {
+        NameData nameData = new NameData();
+        nameData.setId(nameCommand.getId());
+        nameData.setVersion(nameCommand.getVersion());
+        nameData.setFirstName(nameCommand.getFirstName());
+        nameData.setMiddleName(nameCommand.getMiddleName());
+        nameData.setLastName(nameCommand.getLastName());
+        nameData.setPreferredName(nameCommand.getPreferredName());
+        nameData.setTitle(getTitleCommand(nameCommand.getTitle()));
+
+
+        return nameData;
+    }
+
+    private static TitleData getTitleCommand(TitleCommand titleCommand) {
+        TitleData titleData = new TitleData();
+        titleData.setId(titleCommand.getId());
+        titleData.setName(titleCommand.getName());
+        titleData.setDisplayName(titleCommand.getDisplayName());
+        return titleData;
     }
 
     public static UserCommand getUserCommand(UserData userData) {
