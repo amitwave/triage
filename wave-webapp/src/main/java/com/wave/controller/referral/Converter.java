@@ -95,12 +95,26 @@ public class Converter {
 
         return nameCommand;
     }
+    
+    
+    
+    public static List<TitleCommand> getTitleCommands(List<TitleData> titles){
+        List<TitleCommand> titleCommands = new ArrayList<TitleCommand>();
+
+        if(titles != null) {
+            for (TitleData titleData : titles) {
+            	if(titleData != null){
+            	titleCommands.add(getTitleCommand(titleData));
+            	}
+            }
+        }
+
+        return  titleCommands;
+    }
 
     private static TitleCommand getTitleCommand(TitleData titleData) {
         TitleCommand titleCommand = new TitleCommand();
-        if(titleData == null) {
-            return  titleCommand;
-        }
+       
         titleCommand.setId(titleData.getId());
         titleCommand.setName(titleData.getName());
         titleCommand.setDisplayName(titleData.getDisplayName());

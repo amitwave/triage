@@ -75,9 +75,9 @@
 				<tr>
 					<td>Title</td>
 					<td>
-					<select name="patient.nameData.title.displayName" value=${referralCommand.patient.nameData.title.displayName}>
+					<select name="patient.name.title.displayName" value=${referralCommand.patient.name.title.displayName}>
 						<c:forEach var="title" items="${referralTitleList}">
-  							<option>${title.displayName}</option>
+  							<option value=${title.id} } >${title.displayName}</option>
   						</c:forEach>
 					</select>
 					</td>
@@ -85,15 +85,15 @@
 				</tr>
 				<tr>
 					<td>First Name</td>
-					<td><input type="text" name="patient.nameData.firstName" value=${referralCommand.patient.nameData.firstName} /></td>
+					<td><input type="text" name="patient.name.firstName" value=${referralCommand.patient.name.firstName} /></td>
 					<td>Middle Name</td>
-					<td><input type="text" name="patient.nameData.middleName" value=${referralCommand.patient.nameData.middleName} /></td>
+					<td><input type="text" name="patient.name.middleName" value=${referralCommand.patient.name.middleName} /></td>
 					<td>Last Name</td>
-					<td><input type="text" name="patient.nameData.lastName" value=${referralCommand.patient.nameData.lastName} /></td>
+					<td><input type="text" name="patient.name.lastName" value=${referralCommand.patient.name.lastName} /></td>
 				</tr>
 				<tr>
 					<td>Preferred Name</td>
-					<td><input type="text" name="patient.nameData.preferredName" value=${referralCommand.patient.nameData.preferredName} /></td>
+					<td><input type="text" name="patient.name.preferredName" value=${referralCommand.patient.name.preferredName} /></td>
 					<td>DOB *</td>
 					<td><input type="text" name="patient.dateOfBirth" value=${referralCommand.patient.dateOfBirth} /></td>
 					<td>Gender</td>
@@ -151,7 +151,7 @@
 			<table>
 				<tr>
 					<td>Name</td>
-					<td><input type="text" name="referral_name"/></td>
+					<td><input type="text" name="referral_name" value=${referralCommand.} /></td>
 					<td rowspan=5 colspan=4>
 						<div class="inner_ubrn">
 							<u>IGR Destination</u>

@@ -19,7 +19,7 @@ public class ReferralCommand {
     private PatientCommand patient;
     private ReferrerCommand referrerData;
     private Status status;
-
+    //private NameData nameData;
 
     public Long getId() {
         return id;
@@ -125,4 +125,13 @@ public class ReferralCommand {
     public void setPpwtProcedure(String ppwtProcedure) {
         this.ppwtProcedure = ppwtProcedure;
     }
+    /*
+    public String getNameData() {
+        return nameData;
+    }
+
+    public void setNameData(NameData nameData) {
+        this.nameData = nameData;
+    }
+    */
 }

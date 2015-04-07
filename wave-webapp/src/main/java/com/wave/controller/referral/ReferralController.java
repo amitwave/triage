@@ -63,7 +63,7 @@ public class ReferralController {
         }
         
         mv.addObject("referralCommand", referralCommand);
-        mv.addObject("referralTitleList", titleService.getAllTitleData());
+        mv.addObject("titleList", titleService.getAllTitleData());
         return mv;
     }
 
