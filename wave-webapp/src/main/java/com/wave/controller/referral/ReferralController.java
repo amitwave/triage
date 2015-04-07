@@ -9,6 +9,8 @@ import com.wave.referralstatus.ReferralStatusData;
 import com.wave.status.Status;
 import com.wave.user.dao.UserDao;
 import com.wave.user.dao.UserData;
+import com.wave.master.service.TitleService;
+import com.wave.master.TitleData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,6 @@ import static com.wave.controller.referral.Converter.getReferralCommand;
 import static com.wave.controller.utils.CookieUtils.getUserIdFromCookie;
 
 @Controller
-@RequestMapping(value = "/referral")
 public class ReferralController {
 
 
@@ -33,7 +34,10 @@ public class ReferralController {
     @Autowired
     UserDao userDao;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @Autowired
+    TitleDao titleService;
+    
+    @RequestMapping(value = "/referral", method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "referralId", required = false) Long referralId) {
         return getReferralData(referralId, "referral");
     }
@@ -57,9 +61,9 @@ public class ReferralController {
         if (referralData != null) {
             referralCommand = getReferralCommand(referralData);
         }
-
-
+        
         mv.addObject("referralCommand", referralCommand);
+        mv.addObject("referralTitleList", titleService.getAllTitleData());
         return mv;
     }
 

@@ -12,12 +12,15 @@ import javax.persistence.*;
                         "FROM " +
                         "TitleData titleData " +
                         "WHERE " +
-                        "titleData.id = :id")
+                        "titleData.id = :id"),
+        @NamedQuery(name = TitleData.GET_ALL_TITLE, query =
+                 "SELECT titleData FROM TitleData titleData")
 })
 public class TitleData {
 
     public static final String FIND_TITLE_BY_ID = "FIND_TITLE_BY_ID";
-
+    public static final String GET_ALL_TITLE = "GET_ALL_TITLE";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
