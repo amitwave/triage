@@ -8,7 +8,7 @@ import java.util.Date;
 public class PatientCommand {
 
     private Long id;
-    private NameData nameData;
+    private NameCommand name;
     private String nhsNumber;
     private EthnicityCommand ethnicity;
     private GenderCommand gender;
@@ -28,12 +28,12 @@ public class PatientCommand {
         this.id = id;
     }
 
-    public NameData getNameData() {
-        return nameData;
+    public NameCommand getName() {
+        return name;
     }
 
-    public void setNameData(NameData nameData) {
-        this.nameData = nameData;
+    public void setName(NameCommand name) {
+        this.name = name;
     }
 
     public String getNhsNumber() {
