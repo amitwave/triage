@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class PatientCommand {
-
+	
     private Long id;
     private NameCommand name;
     private String nhsNumber;
@@ -19,7 +19,12 @@ public class PatientCommand {
     private Date lastUpdated;
     private ContactCommand contactDetails;
     private AddressCommand address;
-
+    private String primarySpokenLanguage;
+    private String secondarySpokenLanguage;
+    private String writtenLanguage;
+    private String isInterpreterRequired;
+    private String isAssistanceRequired;
+    
     public Long getId() {
         return id;
     }
@@ -91,4 +96,46 @@ public class PatientCommand {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+    
+    public String getPrimarySpokenLanguage() {
+        return primarySpokenLanguage;
+    }
+
+    public void setPrimarySpokenLanguage(String primarySpokenLanguage) {
+        this.primarySpokenLanguage = primarySpokenLanguage;
+    }
+    
+    public String getSecondarySpokenLanguage() {
+        return secondarySpokenLanguage;
+    }
+
+    public void setSecondarySpokenLanguage(String secondarySpokenLanguage) {
+        this.secondarySpokenLanguage = secondarySpokenLanguage;
+    }
+    
+    public String getWrittenLanguage() {
+        return writtenLanguage;
+    }
+
+    public void setWrittenLanguage(String writtenLanguage) {
+        this.writtenLanguage = writtenLanguage;
+    }
+    
+    public String getIsInterpreterRequired() {
+        return isInterpreterRequired;
+    }
+
+    public void setSecondarySpokenLanguage(String isInterpreterRequired) {
+        this.isInterpreterRequired = isInterpreterRequired;
+    }
+    
+    public String getIsAssistanceRequired() {
+        return isAssistanceRequired;
+    }
+
+    public void setIsAssistanceRequired(String isAssistanceRequired) {
+        this.isAssistanceRequired = isAssistanceRequired;
+    }
+    
+    
 }

@@ -131,17 +131,27 @@
 				</tr>
 				<tr>
 					<td>Primary Spoken Language</td>
-					<td><input type="text" name="primary_spoken_language"/></td>
+					<td><input type="text" name="patient.primarySpokenLanguage" value=${referralCommand.patient.primarySpokenLanguage} /></td>
 					<td>Secondary Spoken Language</td>
-					<td><input type="text" name="secondary_spoken_language"/></td>
+					<td><input type="text" name="patient.secondarySpokenLanguage"  value=${referralCommand.patient.secondarySpokenLanguage} /></td>
 					<td>Written Language</td>
-					<td><input type="text" name="written_language"/></td>
+					<td><input type="text" name="patient.writtenLanguage"  value=${referralCommand.patient.writtenLanguage} /></td>
 				</tr>
 				<tr>
 					<td>Interpreter Required</td>
-					<td><input type="text" name="interpreter_required"/></td>
+					<td>
+					<select name="patient.isInterpreterRequired"  value=${referralCommand.patient.isInterpreterRequired} >
+						<option value="NO" >NO</option>
+						<option value="YES">YES</option>
+					</select>
+					</td>
 					<td>Assistance Required</td>
-					<td><input type="text" name="assistance_required"/></td>
+					<td>
+					<select name="patient.isAssistanceRequired"  value=${referralCommand.patient.isAssistanceRequired} >
+						<option value="NO" >NO</option>
+						<option value="YES">YES</option>
+					</select>
+					</td>
 					<td colspan=2></td>
 				</tr>
 			</table>
@@ -151,19 +161,19 @@
 			<table>
 				<tr>
 					<td>Name</td>
-					<td><input type="text" name="referral_name" value=${referralCommand.} /></td>
+					<td><input type="text" name="name.preferredName" value=${referralCommand.name.preferredName} /></td>
 					<td rowspan=5 colspan=4>
 						<div class="inner_ubrn">
 							<u>IGR Destination</u>
 							<table>
 								<tr>
 									<td>Name</td>
-									<td><input type="text" name="igr_name"/></td>
+									<td><input type="text" name="igrDestination.name" value=${referralCommand.igrDestination.name} /></td>
 									<td>Registered GP Name</td>
-									<td><input type="text" name="registered_gp_name"/></td>
+									<td><input type="text" name="igrDestination.registeredName" value=${referralCommand.igrDestination.registeredName} /></td>
 								</tr>
 								<tr>
-									<td>Speciality</td>
+									<td>Specialty</td>
 									<td><input type="text" name="igr_speciality"/></td>
 									<td>Registered GP Practice Name</td>
 									<td><input type="text" name="registered_gp_practice_name"/></td>

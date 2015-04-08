@@ -19,8 +19,11 @@ public class ReferralCommand {
     private PatientCommand patient;
     private ReferrerCommand referrerData;
     private Status status;
-    //private NameData nameData;
-
+    private NameCommand name;
+    private IGRDestinationCommand igrDestination;
+    
+    
+    
     public Long getId() {
         return id;
     }
@@ -125,13 +128,19 @@ public class ReferralCommand {
     public void setPpwtProcedure(String ppwtProcedure) {
         this.ppwtProcedure = ppwtProcedure;
     }
-    /*
-    public String getNameData() {
-        return nameData;
+    
+    public NameCommand getName() {
+        return name;
     }
 
-    public void setNameData(NameData nameData) {
-        this.nameData = nameData;
+    public void setName(NameCommand name) {
+        this.name = name;
     }
-    */
+
+    public IGRDestinationCommand getIGRDestinationCommand() {
+        return igrDestination;
+    }
+    public void setIGRDestinationCommand(Long igrDestination) {
+        this.igrDestination = igrDestination;
+    }
 }

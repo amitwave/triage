@@ -2,3 +2,4 @@
 *.iml
 *.settings
 */target
+/bin/
