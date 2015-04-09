@@ -2,6 +2,7 @@ package com.wave.controller.referral;
 
 import com.wave.controller.command.PatientCommand;
 import com.wave.controller.command.ReferralCommand;
+import com.wave.master.dao.TitleDao;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.wave.controller.referral.Converter.getReferralCommand;
+import static com.wave.controller.utils.Converter.getReferralCommand;
 import static com.wave.controller.utils.CookieUtils.getUserIdFromCookie;
 
 @Controller
@@ -66,6 +67,7 @@ public class ReferralController {
         mv.addObject("titleList", titleService.getAllTitleData());
         return mv;
     }
+
 
     @RequestMapping(method = RequestMethod.POST)
     public String saveReferral(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
