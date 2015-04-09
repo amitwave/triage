@@ -25,6 +25,7 @@ import static com.wave.controller.utils.Converter.getReferralCommand;
 import static com.wave.controller.utils.CookieUtils.getUserIdFromCookie;
 
 @Controller
+@RequestMapping(value = "/referral")
 public class ReferralController {
 
 
@@ -41,7 +42,7 @@ public class ReferralController {
     ReferrerDao referrerDao;
 
 
-    @RequestMapping(value = "/referral", method = RequestMethod.GET)
+    @RequestMapping( method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "referralId", required = false) Long referralId) {
         return getReferralData(referralId, "referral");
     }
