@@ -1,7 +1,7 @@
 package com.wave.controller.login;
 
 import com.wave.controller.command.UserCommand;
-import com.wave.controller.referral.Converter;
+
 import com.wave.user.UserService;
 import com.wave.user.dao.UserData;
 import org.apache.commons.lang3.StringUtils;
