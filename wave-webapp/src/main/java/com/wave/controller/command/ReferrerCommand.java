@@ -14,60 +14,7 @@ public class ReferrerCommand {
     private String practiceName;
     private IGRDestinationCommand igrDestination;
     private RoleCommand role;
-    private String specialty;
     private String practiceCode;
-
-    public String getPracticeCode() {
-        return practiceCode;
-    }
-
-    public void setPracticeCode(String practiceCode) {
-        this.practiceCode = practiceCode;
-    }
-
-    public IGRDestinationCommand getIgrDestination() {
-        return igrDestination;
-    }
-
-    public void setIgrDestination(IGRDestinationCommand igrDestination) {
-        this.igrDestination = igrDestination;
-    }
-
-    public RoleCommand getRole() {
-        return role;
-    }
-
-    public void setRole(RoleCommand role) {
-        this.role = role;
-    }
-
-    public String getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
-
-    public NameCommand getName() {
-        return name;
-    }
-
-    public String getSpeciality() {
-        return speciality;
-    }
-
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
-    }
-
-    public String getPracticeName() {
-        return practiceName;
-    }
-
-    public void setPracticeName(String practiceName) {
-        this.practiceName = practiceName;
-    }
 
     public Long getId() {
         return id;
@@ -77,11 +24,11 @@ public class ReferrerCommand {
         this.id = id;
     }
 
-    public NameCommand getNameData() {
+    public NameCommand getName() {
         return name;
     }
 
-    public void setName(NameCommand nameData) {
+    public void setName(NameCommand name) {
         this.name = name;
     }
 
@@ -107,5 +54,45 @@ public class ReferrerCommand {
 
     public void setAddress(AddressCommand address) {
         this.address = address;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public String getPracticeName() {
+        return practiceName;
+    }
+
+    public void setPracticeName(String practiceName) {
+        this.practiceName = practiceName;
+    }
+
+    public IGRDestinationCommand getIgrDestination() {
+        return igrDestination;
+    }
+
+    public void setIgrDestination(IGRDestinationCommand igrDestination) {
+        this.igrDestination = igrDestination;
+    }
+
+    public RoleCommand getRole() {
+        return role;
+    }
+
+    public void setRole(RoleCommand role) {
+        this.role = role;
+    }
+
+    public String getPracticeCode() {
+        return practiceCode;
+    }
+
+    public void setPracticeCode(String practiceCode) {
+        this.practiceCode = practiceCode;
     }
 }

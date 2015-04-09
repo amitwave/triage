@@ -1,6 +1,7 @@
 package com.wave.controller.command;
 
 import com.wave.status.Status;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -22,8 +23,13 @@ public class ReferralCommand {
     private String attachmentOne;
     private String attachmentTwo;
     private String attachmentThree;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date createDate;
+
+
     private Date lastUpdated;
+
     private boolean active;
     private UserCommand createdBy;
     private UserCommand user;

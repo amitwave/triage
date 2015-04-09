@@ -12,11 +12,14 @@ import com.wave.status.Status;
 import com.wave.user.dao.UserDao;
 import com.wave.user.dao.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +50,18 @@ public class ReferralController {
         return getReferralData(referralId, "referral");
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public String saveReferral(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
+                               @CookieValue(value = "TRIAGE", required = true) String cookie) {
+
+        Long userId = getUserIdFromCookie(cookie);
+        referralService.saveReferralData(getReferralData(referralCommand, userId));
+
+
+        return "redirect:dashboard";
+
+    }
+
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public ModelAndView showReferral(@RequestParam(value = "referralId", required = false) Long referralId) {
         return getReferralData(referralId, "referralView");
@@ -74,17 +89,7 @@ public class ReferralController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String saveReferral(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
-                               @CookieValue(value = "TRIAGE", required = true) String cookie) {
 
-        Long userId = getUserIdFromCookie(cookie);
-        referralService.saveReferralData(getReferralData(referralCommand, userId));
-
-
-        return "redirect:dashboard";
-
-    }
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     public ModelAndView checkout(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
@@ -192,5 +197,13 @@ public class ReferralController {
         return patientData;
     }
 
+
+    @InitBinder
+    protected void initBinder(HttpServletRequest request,
+                              ServletRequestDataBinder binder) throws Exception
+    {
+        // bind empty strings as null
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
 
 }

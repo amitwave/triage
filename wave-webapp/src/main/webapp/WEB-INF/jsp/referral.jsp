@@ -1,69 +1,71 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <style>
-  .inner_ubrn{
-	color: black;
-    background-color: #909000;;
-    border: 2px solid darkblue;
-    padding: 5px;
-	position:relative;
- }
- .inner_patient {
-    width: 990px;
-    color: black;
-    background-color: #909000;;
-    border: 2px solid darkblue;
-    padding: 5px;
-	position:relative;
- }
- .outer {
-    width: 1000px;
-    color: black;
-    background-color: #909000;
-    border: 4px solid darkblue;
-    padding: 5px;
+	.inner_ubrn{
+		color: black;
+		background-color: #909000;;
+		border: 2px solid darkblue;
+		padding: 5px;
+		position:relative;
+	}
+	.inner_patient {
+		width: 990px;
+		color: black;
+		background-color: #909000;;
+		border: 2px solid darkblue;
+		padding: 5px;
+		position:relative;
+	}
+	.outer {
+		width: 1000px;
+		color: black;
+		background-color: #909000;
+		border: 4px solid darkblue;
+		padding: 5px;
 
- }
+	}
 </style>
 <html>
 <head><title>New Referral</title></head>
 <body>
-	<b>Create New Referral</b><br>
-	<br>
-	<div class="outer">
+<b>Create New Referral</b><br>
+<br>
+<div class="outer">
 	<form method=post>
-		<input type="hidden" name="id" value=${referralCommand.id}/>
-			<table>
+		<form:hidden path="referralCommand.id"/>
+
+		<table>
 			<tr>
-			<td width=490px>
-				<div class="inner_ubrn">
-				<table>
-					<tr>
-						<td>UBRN</td>
-						<td><input type="text" name="ubrn" value=${referralCommand.ubrn}></td>
-					</tr>
-					<tr>
-						<td>Receipt Date(ddmmyyyyhhmm) *</td>
-						<td><input type="text" name="createDate" value=${referralCommand.createDate}></td>
-					</tr>
-				</table>
-			    </div>	
-			</td>
-			<td width=490px>	
-			<div class="inner_ubrn">
-				<table>
-					<tr>
-						<td>Referral Type</td>
-						<td><input type="text" name="type"  value=${referralCommand.type}></td>
-					</tr>
-					<tr>
-						<td>PPwT Procedure</td>
-						<td><input type="text" name="description" value=${referralCommand.description}></td>
-					</tr>
-				</table>
-			</div>
-			</td>
+				<td width=490px>
+					<div class="inner_ubrn">
+						<table>
+							<tr>
+								<td>UBRN</td>
+								<td><input type="text" name="ubrn" value=${referralCommand.ubrn}></td>
+							</tr>
+							<tr>
+								<td>Receipt Date(ddmmyyyyhhmm) *</td>
+								<td><input type="text" name="createDate" value=${referralCommand.createDate}></td>
+							</tr>
+						</table>
+					</div>
+				</td>
+				<td width=490px>
+					<div class="inner_ubrn">
+						<table>
+							<tr>
+								<td>Referral Type</td>
+								<td><input type="text" name="type"  value=${referralCommand.type}></td>
+							</tr>
+							<tr>
+								<td>PPwT Procedure</td>
+								<td><input type="text" name="description" value=${referralCommand.description}></td>
+							</tr>
+						</table>
+					</div>
+				</td>
 			</tr>
-			</table>
+		</table>
 		<br><u>Patient Details</u>
 		<div class="inner_patient">
 			<table>
@@ -75,11 +77,11 @@
 				<tr>
 					<td>Title</td>
 					<td>
-					<select name="patient.name.title.displayName" value=${referralCommand.patient.name.title.displayName}>
-						<c:forEach var="title" items="${referralTitleList}">
-  							<option value=${title.id} } >${title.displayName}</option>
-  						</c:forEach>
-					</select>
+						<select name="patient.name.title.displayName" value=${referralCommand.patient.name.title.displayName}>
+							<c:forEach var="title" items="${titleList}">
+								<option value=${title.id}>${title.displayName}</option>
+							</c:forEach>
+						</select>
 					</td>
 					<td colspan=4></td>
 				</tr>
@@ -103,7 +105,7 @@
 					<td>Ethnicity</td>
 					<td><input type="text" name="patient.ethnicity.displayName" value=${referralCommand.patient.ethnicity.displayName}></td>
 					<td colspan=4></td>
-					
+
 				</tr>
 				<tr>
 					<td>Address Line1</td>
@@ -140,22 +142,22 @@
 				<tr>
 					<td>Interpreter Required</td>
 					<td>
-					<select name="patient.interpreterRequired"  value=${referralCommand.patient.interpreterRequired} >
-						<option value="False" >NO</option>
-						<option value="TRUE">YES</option>
-					</select>
+						<select name="patient.interpreterRequired"  value=${referralCommand.patient.interpreterRequired} >
+							<option value="False" >NO</option>
+							<option value="TRUE">YES</option>
+						</select>
 					</td>
 					<td>Assistance Required</td>
 					<td>
-					<select name="patient.assistanceRequired"  value=${referralCommand.patient.assistanceRequired} >
-						<option value="False" >NO</option>
-						<option value="TRUE">YES</option>
-					</select>
+						<select name="patient.assistanceRequired"  value=${referralCommand.patient.assistanceRequired} >
+							<option value="False" >NO</option>
+							<option value="TRUE">YES</option>
+						</select>
 					</td>
 					<td colspan=2></td>
 				</tr>
 			</table>
-		</div>		
+		</div>
 		<br><u>Referrer's Details</u>
 		<div class="inner_patient">
 			<table>
@@ -198,7 +200,7 @@
 				</tr>
 				<tr>
 					<td>Speciality</td>
-					<td><input type="text"  name="referrer.specialty"  value=${referralCommand.referrer.specialty}></td>
+					<td><input type="text"  name="referrer.speciality"  value=${referralCommand.referrer.speciality}></td>
 				</tr>
 				<tr>
 					<td>Practice/Clinic Name *</td>
@@ -265,14 +267,14 @@
 				</tr>
 				<tr>
 					<td>Add Attachment 2</td>
-					<td><input type="text"  name="attachmentTwo" value=${referralCommand.attachmentTwo}/></td>
+					<td><input type="text"  name="attachmentTwo" value=${referralCommand.attachmentTwo}></td>
 					<td>Share-point Link 2</td>
 					<td><input type="text" name="sharePointLinkTwo" value=${referralCommand.sharePointLinkTwo}></td>
 					<td colspan=2></td>
 				</tr>
 				<tr>
 					<td>Add Attachment 3</td>
-					<td><input type="text" name="attachmentThree" value=${referralCommand.attachmentThree}/></td>
+					<td><input type="text" name="attachmentThree" value=${referralCommand.attachmentThree}></td>
 					<td>Share-point Link 3</td>
 					<td><input type="text"  name="sharePointLinkThree" value=${referralCommand.sharePointLinkThree}></td>
 					<td colspan=2></td>
@@ -284,7 +286,7 @@
 		<input type="submit" name="action" value="Validate" />
 		<input type="submit" name="action" value="Reject" />
 	</form>
-	
-    </div>	
+
+</div>
 </body>
 </html>
