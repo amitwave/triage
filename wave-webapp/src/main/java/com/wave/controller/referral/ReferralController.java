@@ -7,11 +7,10 @@ import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;
 import com.wave.referralstatus.ReferralStatusData;
+import com.wave.referrer.dao.ReferrerDao;
 import com.wave.status.Status;
 import com.wave.user.dao.UserDao;
 import com.wave.user.dao.UserData;
-import com.wave.master.service.TitleService;
-import com.wave.master.TitleData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +36,11 @@ public class ReferralController {
 
     @Autowired
     TitleDao titleService;
-    
+
+    @Autowired
+    ReferrerDao referrerDao;
+
+
     @RequestMapping(value = "/referral", method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "referralId", required = false) Long referralId) {
         return getReferralData(referralId, "referral");
@@ -65,6 +68,7 @@ public class ReferralController {
         
         mv.addObject("referralCommand", referralCommand);
         mv.addObject("titleList", titleService.getAllTitleData());
+
         return mv;
     }
 

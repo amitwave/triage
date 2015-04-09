@@ -39,11 +39,11 @@
 				<table>
 					<tr>
 						<td>UBRN</td>
-						<td><input type="text" name="ubrn" value=${referralCommand.ubrn}></input></td>
+						<td><input type="text" name="ubrn" value=${referralCommand.ubrn} /></td>
 					</tr>
 					<tr>
 						<td>Receipt Date(ddmmyyyyhhmm) *</td>
-						<td><input type="text" name="createDate" value=${referralCommand.createDate} ></input></td>
+						<td><input type="text" name="createDate" value=${referralCommand.createDate} /></td>
 					</tr>
 				</table>
 			    </div>	
@@ -140,52 +140,52 @@
 				<tr>
 					<td>Interpreter Required</td>
 					<td>
-					<select name="patient.isInterpreterRequired"  value=${referralCommand.patient.isInterpreterRequired} >
-						<option value="NO" >NO</option>
-						<option value="YES">YES</option>
+					<select name="patient.interpreterRequired"  value=${referralCommand.patient.interpreterRequired} >
+						<option value="False" >NO</option>
+						<option value="TRUE">YES</option>
 					</select>
 					</td>
 					<td>Assistance Required</td>
 					<td>
-					<select name="patient.isAssistanceRequired"  value=${referralCommand.patient.isAssistanceRequired} >
-						<option value="NO" >NO</option>
-						<option value="YES">YES</option>
+					<select name="patient.assistanceRequired"  value=${referralCommand.patient.assistanceRequired} >
+						<option value="False" >NO</option>
+						<option value="TRUE">YES</option>
 					</select>
 					</td>
 					<td colspan=2></td>
 				</tr>
 			</table>
 		</div>		
-		<br><u>Referral's Details</u>
+		<br><u>Referrer's Details</u>
 		<div class="inner_patient">
 			<table>
 				<tr>
 					<td>Name</td>
-					<td><input type="text" name="name.preferredName" value=${referralCommand.name.preferredName} /></td>
+					<td><input type="text" name="refferer.name.preferredName" value=${referralCommand.referrer.name.preferredName} /></td>
 					<td rowspan=5 colspan=4>
 						<div class="inner_ubrn">
 							<u>IGR Destination</u>
 							<table>
 								<tr>
 									<td>Name</td>
-									<td><input type="text" name="igrDestination.name" value=${referralCommand.igrDestination.name} /></td>
+									<td><input type="text" name="referrer.igrDestination.name" value=${referralCommand.referrer.igrDestination.name} /></td>
 									<td>Registered GP Name</td>
-									<td><input type="text" name="igrDestination.registeredName" value=${referralCommand.igrDestination.registeredName} /></td>
+									<td><input type="text" name="referrer.igrDestination.registeredName" value=${referralCommand.referrer.igrDestination.registeredName} /></td>
 								</tr>
 								<tr>
 									<td>Specialty</td>
-									<td><input type="text" name="igr_speciality"/></td>
+									<td><input type="text" name="referrer.igrDestination.specialty" value=${referralCommand.referrer.igrDestination.specialty} /></td>
 									<td>Registered GP Practice Name</td>
-									<td><input type="text" name="registered_gp_practice_name"/></td>
+									<td><input type="text" name="referrer.igrDestination.registeredPracticeName" value=${referralCommand.referrer.igrDestination.registeredPracticeName} /></td>
 								</tr>
 								<tr>
 									<td>Practice/Clinic Name</td>
-									<td><input type="text" name="igr_clinic_name"/></td>
+									<td><input type="text"  name="referrer.igrDestination.practiceName" value=${referralCommand.referrer.igrDestination.practiceName} /></td>
 									<td colspan=2></td>
 								</tr>
 								<tr>
 									<td>Referred To</td>
-									<td><input type="text" name="referred_to"/></td>
+									<td><input type="text"  name="referrer.igrDestination.referredTo" value=${referralCommand.referrer.igrDestination.referredTo} /></td>
 									<td colspan=2></td>
 								</tr>
 							</table>
@@ -194,47 +194,47 @@
 				</tr>
 				<tr>
 					<td>Role</td>
-					<td><input type="text" name="role"/></td>
+					<td><input type="text" name="referrer.role.name"  value=${referralCommand.referrer.role.name} /></td>
 				</tr>
 				<tr>
 					<td>Speciality</td>
-					<td><input type="text" name="speciality"/></td>
+					<td><input type="text"  name="referrer.specialty"  value=${referralCommand.referrer.specialty}  /></td>
 				</tr>
 				<tr>
 					<td>Practice/Clinic Name *</td>
-					<td><input type="text" name="clinic_name"/></td>
+					<td><input type="text" name="referrer.practiceName" value=${referralCommand.referrer.practiceName} /></td>
 				</tr>
 				<tr>
 					<td>Practice Code</td>
-					<td><input type="text" name="practice_code"/></td>
+					<td><input type="text" name="referrer.practiceCode" value=${referralCommand.referrer.practiceCode} /></td>
 				</tr>
 				<tr>
 					<td>Address Line1</td>
-					<td><input type="text" name="referrer_address_line_one"/></td>
+					<td><input type="text" name="referrer.address.line1" value=${referralCommand.referrer.address.line1} /></td>
 					<td>Address Line2</td>
-					<td><input type="text" name="referrer_address_line_two"/></td>
+					<td><input type="text" name="referrer.address.line2" value=${referralCommand.referrer.address.line2} /></td>
 					<td>Address Line3</td>
-					<td><input type="text" name="referrer_address_line_three"/></td>
+					<td><input type="text" name="referrer.address.line3" value=${referralCommand.referrer.address.line3} /></td>
 				</tr>
 				<tr>
 					<td>City</td>
-					<td><input type="text" name="referrer_city"/></td>
+					<td><input type="text"  name="referrer.address.city" value=${referralCommand.referrer.address.city} /></td>
 					<td>Country</td>
-					<td><input type="text" name="referrer_country"/></td>
+					<td><input type="text"  name="referrer.address.country" value=${referralCommand.referrer.address.county} /></td>
 					<td>Postcode</td>
-					<td><input type="text" name="referrer_postcode"/></td>
+					<td><input type="text"  name="referrer.address.postCode" value=${referralCommand.referrer.address.postCode} /></td>
 				</tr>
 				<tr>
 					<td>Phone Number</td>
-					<td><input type="text" name="referrer_phone_number"/></td>
+					<td><input type="text"  name="referrer.contactDetails.phone" value=${referralCommand.referrer.contactDetails.phone} /></td>
 					<td>Fax Number</td>
-					<td><input type="text" name="referrer_fax_number"/></td>
+					<td><input type="text" name="referrer.contactDetails.fax" value=${referralCommand.referrer.contactDetails.fax} /></td>
 					<td>Mobile Number</td>
-					<td><input type="text" name="referrer_mobile_number"/></td>
+					<td><input type="text"  name="referrer.contactDetails.mobile" value=${referralCommand.referrer.contactDetails.mobile} /></td>
 				</tr>
 				<tr>
 					<td>Email</td>
-					<td><input type="text" name="referrer_email"/></td>
+					<td><input type="text"  name="referrer.contactDetails.email" value=${referralCommand.referrer.contactDetails.email} /></td>
 					<td colspan=4></td>
 				</tr>
 			</table>
@@ -244,37 +244,37 @@
 			<table>
 				<tr>
 					<td>Speciality</td>
-					<td><input type="text" name="referral_speciality"/></td>
+					<td><input type="text"   name="specialty" value=${referralCommand.specialty} /></td>
 					<td>Reason</td>
-					<td><input type="text" name="referral_reason"/></td>
+					<td><input type="text" name="reason" value=${referralCommand.reason} /></td>
 					<td colspan=2></td>
 				</tr>
 				<tr>
 					<td>Priority</td>
-					<td><input type="text" name="referral_priority"/></td>
+					<td><input type="text" name="priority" value=${referralCommand.priority} /></td>
 					<td>Provider</td>
-					<td><input type="text" name="referral_provider"/></td>
+					<td><input type="text" name="provider" value=${referralCommand.provider} /></td>
 					<td colspan=2></td>
 				</tr>
 				<tr>
 					<td>Add Attachment 1</td>
-					<td><input type="text" name="referral_attachment_one"/></td>
+					<td><input type="text" name="attachmentOne" value=${referralCommand.attachmentOne} /></td>
 					<td>Share-point Link 1</td>
-					<td><input type="text" name="referral_sharepoint_link_one"/></td>
+					<td><input type="text" name="sharePointLinkOne" value=${referralCommand.sharePointLinkOne} /></td>
 					<td colspan=2></td>
 				</tr>
 				<tr>
 					<td>Add Attachment 2</td>
-					<td><input type="text" name="referral_attachment_two"/></td>
+					<td><input type="text"  name="attachmentTwo" value=${referralCommand.attachmentTwo}/></td>
 					<td>Share-point Link 2</td>
-					<td><input type="text" name="referral_sharepoint_link_two"/></td>
+					<td><input type="text" name="sharePointLinkTwo" value=${referralCommand.sharePointLinkTwo} /></td>
 					<td colspan=2></td>
 				</tr>
 				<tr>
 					<td>Add Attachment 3</td>
-					<td><input type="text" name="referral_attachment_three"/></td>
+					<td><input type="text" name="attachmentThree" value=${referralCommand.attachmentThree}/></td>
 					<td>Share-point Link 3</td>
-					<td><input type="text" name="referral_sharepoint_link_three"/></td>
+					<td><input type="text"  name="sharePointLinkThree" value=${referralCommand.sharePointLinkThree} /></td>
 					<td colspan=2></td>
 				</tr>
 			</table>

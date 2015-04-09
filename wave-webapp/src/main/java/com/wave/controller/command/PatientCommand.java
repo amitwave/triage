@@ -22,8 +22,8 @@ public class PatientCommand {
     private String primarySpokenLanguage;
     private String secondarySpokenLanguage;
     private String writtenLanguage;
-    private String isInterpreterRequired;
-    private String isAssistanceRequired;
+    private Boolean interpreterRequired;
+    private Boolean assistanceRequired;
     
     public Long getId() {
         return id;
@@ -96,15 +96,7 @@ public class PatientCommand {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-    
-    public String getPrimarySpokenLanguage() {
-        return primarySpokenLanguage;
-    }
 
-    public void setPrimarySpokenLanguage(String primarySpokenLanguage) {
-        this.primarySpokenLanguage = primarySpokenLanguage;
-    }
-    
     public String getSecondarySpokenLanguage() {
         return secondarySpokenLanguage;
     }
@@ -112,7 +104,15 @@ public class PatientCommand {
     public void setSecondarySpokenLanguage(String secondarySpokenLanguage) {
         this.secondarySpokenLanguage = secondarySpokenLanguage;
     }
-    
+
+    public String getPrimarySpokenLanguage() {
+        return primarySpokenLanguage;
+    }
+
+    public void setPrimarySpokenLanguage(String primarySpokenLanguage) {
+        this.primarySpokenLanguage = primarySpokenLanguage;
+    }
+
     public String getWrittenLanguage() {
         return writtenLanguage;
     }
@@ -120,22 +120,20 @@ public class PatientCommand {
     public void setWrittenLanguage(String writtenLanguage) {
         this.writtenLanguage = writtenLanguage;
     }
-    
-    public String getIsInterpreterRequired() {
-        return isInterpreterRequired;
+
+    public Boolean getInterpreterRequired() {
+        return interpreterRequired;
     }
 
-    public void setSecondarySpokenLanguage(String isInterpreterRequired) {
-        this.isInterpreterRequired = isInterpreterRequired;
-    }
-    
-    public String getIsAssistanceRequired() {
-        return isAssistanceRequired;
+    public void setInterpreterRequired(Boolean interpreterRequired) {
+        this.interpreterRequired = interpreterRequired;
     }
 
-    public void setIsAssistanceRequired(String isAssistanceRequired) {
-        this.isAssistanceRequired = isAssistanceRequired;
+    public Boolean getAssistanceRequired() {
+        return assistanceRequired;
     }
-    
-    
+
+    public void setAssistanceRequired(Boolean assistanceRequired) {
+        this.assistanceRequired = assistanceRequired;
+    }
 }

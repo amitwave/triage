@@ -7,6 +7,15 @@ public class ContactCommand {
     private String phone;
     private String email;
     private String preferred;
+    private String fax;
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
 
     public Long getId() {
         return id;

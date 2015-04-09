@@ -6,24 +6,119 @@ import java.util.Date;
 
 public class ReferralCommand {
 
+
     private Long id;
     private String ubrn;
     private String type;
     private String ppwtProcedure;
     private String description;
+    private String specialty;
+    private String reason;
+    private String priority;
+    private String provider;
+    private String sharePointLinkOne;
+    private String sharePointLinkTwo;
+    private String sharePointLinkThree;
+    private String attachmentOne;
+    private String attachmentTwo;
+    private String attachmentThree;
     private Date createDate;
     private Date lastUpdated;
     private boolean active;
     private UserCommand createdBy;
     private UserCommand user;
     private PatientCommand patient;
-    private ReferrerCommand referrerData;
+    private ReferrerCommand referrer;
     private Status status;
-    private NameCommand name;
-    private IGRDestinationCommand igrDestination;
-    
-    
-    
+
+    public String getSharePointLinkOne() {
+        return sharePointLinkOne;
+    }
+
+    public void setSharePointLinkOne(String sharePointLinkOne) {
+        this.sharePointLinkOne = sharePointLinkOne;
+    }
+
+    public String getSharePointLinkTwo() {
+        return sharePointLinkTwo;
+    }
+
+    public void setSharePointLinkTwo(String sharePointLinkTwo) {
+        this.sharePointLinkTwo = sharePointLinkTwo;
+    }
+
+    public String getSharePointLinkThree() {
+        return sharePointLinkThree;
+    }
+
+    public void setSharePointLinkThree(String sharePointLinkThree) {
+        this.sharePointLinkThree = sharePointLinkThree;
+    }
+
+    public String getAttachmentOne() {
+        return attachmentOne;
+    }
+
+    public void setAttachmentOne(String attachmentOne) {
+        this.attachmentOne = attachmentOne;
+    }
+
+    public String getAttachmentTwo() {
+        return attachmentTwo;
+    }
+
+    public void setAttachmentTwo(String attachmentTwo) {
+        this.attachmentTwo = attachmentTwo;
+    }
+
+    public String getAttachmentThree() {
+        return attachmentThree;
+    }
+
+    public void setAttachmentThree(String attachmentThree) {
+        this.attachmentThree = attachmentThree;
+    }
+
+    public String getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+        this.specialty = specialty;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public ReferrerCommand getReferrer() {
+        return referrer;
+    }
+
+    public void setReferrer(ReferrerCommand referrer) {
+        this.referrer = referrer;
+    }
+
     public Long getId() {
         return id;
     }
@@ -96,14 +191,6 @@ public class ReferralCommand {
         this.patient = patient;
     }
 
-    public ReferrerCommand getReferrerData() {
-        return referrerData;
-    }
-
-    public void setReferrerData(ReferrerCommand referrerData) {
-        this.referrerData = referrerData;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -128,19 +215,5 @@ public class ReferralCommand {
     public void setPpwtProcedure(String ppwtProcedure) {
         this.ppwtProcedure = ppwtProcedure;
     }
-    
-    public NameCommand getName() {
-        return name;
-    }
 
-    public void setName(NameCommand name) {
-        this.name = name;
-    }
-
-    public IGRDestinationCommand getIGRDestinationCommand() {
-        return igrDestination;
-    }
-    public void setIGRDestinationCommand(Long igrDestination) {
-        this.igrDestination = igrDestination;
-    }
 }

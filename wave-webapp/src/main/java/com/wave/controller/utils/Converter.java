@@ -7,13 +7,10 @@ import com.wave.master.TitleData;
 import com.wave.name.NameData;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
-import com.wave.referralstatus.ReferralStatusData;
 import com.wave.role.RoleData;
 import com.wave.user.dao.UserData;
-import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Converter {
