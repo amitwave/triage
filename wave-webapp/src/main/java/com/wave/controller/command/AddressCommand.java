@@ -9,6 +9,7 @@ public class AddressCommand {
     private String line3;
     private String city;
     private String county;
+    private String country;
     private String postCode;
 
     public Long getId() {
@@ -65,5 +66,13 @@ public class AddressCommand {
 
     public void setPostCode(String postCode) {
         this.postCode = postCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

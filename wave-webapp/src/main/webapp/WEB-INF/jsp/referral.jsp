@@ -77,7 +77,7 @@
 				<tr>
 					<td>Title</td>
 					<td>
-						<select name="patient.name.title.displayName" value=${referralCommand.patient.name.title.displayName}>
+						<select name="patient.name.title.id" value=${referralCommand.patient.name.title.displayName}>
 							<c:forEach var="title" items="${titleList}">
 								<option value=${title.id}>${title.displayName}</option>
 							</c:forEach>
