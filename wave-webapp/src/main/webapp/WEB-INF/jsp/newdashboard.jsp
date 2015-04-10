@@ -1,60 +1,14 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <style>
-        #header {
-            background-color:black;
-            color:white;
-            text-align:center;
-            padding:5px;
-        }
-        #nav {
-            line-height:30px;
-            background-color:#eeeeee;
-            height:300px;
-            width:100px;
-            float:left;
-            padding:5px;
-        }
-        #section {
-            width:350px;
-            float:left;
-            padding:10px;
-        }
-        #footer {
-            background-color:black;
-            color:white;
-            clear:both;
-            text-align:center;
-            padding:5px;
-        }
-    </style>
+    <title>Triage Dashboard</title>
 </head>
-
-<body>
-
-<div id="header">
-    <h1>Dashboard</h1>
-</div>
-
-<div id="nav">
-    <a href="referral">Create referrals</a> <br>
-    <a href="referrallist?type=new">New referrals</a> <br>
-    <a href="referrallist?type=claimed">Claimed referrals</a> <br>
-    <a href="referrallist?type=validated">Validated referrals</a> <br>
-    <a href="referrallist?type=incomplete">Incomplete referrals</a> <br>
-</div>
-
-<div id="section">
-
-    FUN Section
-
-</div>
-
-<div id="footer">
-    Copyright © ******
-</div>
-
-</body>
+<frameset rows="50px,*,20px">
+    <frame name="header" src="dashboardheader.html" />
+    <frameset cols="150px,*">
+        <frame name="leftpanel" src="dashboardleftpanel.html" />
+        <frame name="middlepanel"  />
+    </frameset>
+    <frame name="footer" src="footer.html" />
+</frameset>
 </html>

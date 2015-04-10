@@ -44,7 +44,7 @@
 								<td><input type="text" name="ubrn" value=${referralCommand.ubrn}></td>
 							</tr>
 							<tr>
-								<td>Receipt Date(ddmmyyyyhhmm) *</td>
+								<td>Receipt Date(dd/MM/YYYY) *</td>
 								<td><input type="text" name="createDate" value=${referralCommand.createDate}></td>
 							</tr>
 						</table>
