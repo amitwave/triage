@@ -33,6 +33,7 @@ public class NewDashBoardController {
     public ModelAndView showForm(@CookieValue(value = "TRIAGE", required = true) String cookie) {
         ModelAndView mv = new ModelAndView("newdashboard");
 
+
         UserData userData = userService.getUserData(CookieUtils.getUserIdFromCookie(cookie));
         UserCommand userCommand = getUserCommand(userData);
         mv.addObject("user", userCommand);
