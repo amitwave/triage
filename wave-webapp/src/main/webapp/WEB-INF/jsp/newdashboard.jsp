@@ -39,6 +39,7 @@
 </div>
 
 <div id="nav">
+    <a href="referral">Create referrals</a> <br>
     <a href="referrallist?type=new">New referrals</a> <br>
     <a href="referrallist?type=claimed">Claimed referrals</a> <br>
     <a href="referrallist?type=validated">Validated referrals</a> <br>
