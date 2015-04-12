@@ -35,7 +35,7 @@ public class PatientData {
     @Column(name="VERSION")
     private Long version;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="NAME_ID")
     private NameData nameData;
 
@@ -57,11 +57,11 @@ public class PatientData {
     private Date lastUpdated;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="CONTACT_DETAILS_ID")
     private ContactData contactDetails;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ADDRESS_ID")
     private AddressData address;
 

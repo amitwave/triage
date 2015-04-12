@@ -1,11 +1,15 @@
 package com.wave.controller.referral;
 
-import com.wave.controller.command.EthnicityCommand;
-import com.wave.controller.command.PatientCommand;
-import com.wave.controller.command.ReferralCommand;
+import com.wave.address.AddressData;
+import com.wave.contact.ContactData;
+import com.wave.controller.command.*;
+import com.wave.controller.utils.Converter;
 import com.wave.gender.Gender;
 import com.wave.master.EthnicityData;
-import com.wave.master.dao.TitleDao;
+import com.wave.master.dao.title.TitleDao;
+import com.wave.master.service.ethnicity.EthnicityService;
+import com.wave.master.service.title.TitleService;
+import com.wave.name.NameData;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;
@@ -42,7 +46,10 @@ public class ReferralController {
     UserDao userDao;
 
     @Autowired
-    TitleDao titleService;
+    TitleService titleService;
+
+    @Autowired
+    EthnicityService ethnicityService;
 
     @Autowired
     ReferrerDao referrerDao;
@@ -86,8 +93,9 @@ public class ReferralController {
         }
         
         mv.addObject("referralCommand", referralCommand);
-        mv.addObject("titleList", titleService.getAllTitleData());
+        mv.addObject("titleList", Converter.getTitleCommands(titleService.getAllTitleData()));
         mv.addObject("genders", Gender.values());
+        mv.addObject("ethnicity", Converter.getEthnicityCommands(ethnicityService.getAllEthnicityData()));
 
         return mv;
     }
@@ -200,17 +208,66 @@ public class ReferralController {
         patientData.setNhsNumber(patientCommand.getNhsNumber());
         patientData.setDateOfBirth(patientCommand.getDateOfBirth());
         EthnicityData ethnicityData = getEthnicityData(patientCommand.getEthnicity());
-       // patientData.setEthnicity(ethnicityData);
-
+        patientData.setEthnicity(ethnicityData);
         patientData.setGender(patientCommand.getGender());
+
+        patientData.setLastUpdated(new Date());
+
+        patientData.setAddress(getAddressData(patientCommand.getAddress(), patientData.getAddress()));
+
+        patientData.setContactDetails(getContactData(patientData.getContactDetails(), patientCommand.getContactDetails()));
+        patientData.setNameData(getNameData(patientCommand.getName(), patientData.getNameData()));
+
+
         return patientData;
     }
 
-    private EthnicityData getEthnicityData(EthnicityCommand ethnicity) {
+    private NameData getNameData(NameCommand nameCommand, NameData nameData) {
+        if(nameData == null) {
+            nameData = new NameData();
+        }
 
-        EthnicityData ethnicityData = new EthnicityData();
-        ethnicityData.setId(ethnicity.getId());
-        return ethnicityData;
+        nameData.setFirstName(nameCommand.getFirstName());
+        nameData.setMiddleName(nameCommand.getMiddleName());
+        nameData.setLastName(nameCommand.getLastName());
+        nameData.setPreferredName(nameCommand.getPreferredName());
+        TitleCommand titleCommand = nameCommand.getTitle();
+
+        nameData.setTitle(titleService.getTitleData(titleCommand.getId()));
+        return nameData;
+    }
+
+    private ContactData getContactData(ContactData contactDetails, ContactCommand contactDetailsCommand) {
+        if(contactDetails == null) {
+            contactDetails = new ContactData();
+        }
+
+        contactDetails.setEmail(contactDetailsCommand.getEmail());
+        contactDetails.setMobile(contactDetailsCommand.getMobile());
+        contactDetails.setPhone(contactDetailsCommand.getPhone());
+        contactDetails.setPreferred(contactDetailsCommand.getPreferred());
+        return contactDetails;
+    }
+
+    private AddressData getAddressData(AddressCommand address, AddressData addressData) {
+        if(addressData == null) {
+            addressData = new AddressData();
+        }
+
+
+        addressData.setCity(address.getCity());
+        addressData.setCounty(address.getCounty());
+        addressData.setCountry(address.getCountry());
+        addressData.setLine1(address.getLine1());
+        addressData.setLine2(address.getLine2());
+        addressData.setLine3(address.getLine3());
+        addressData.setPostCode(address.getPostCode());
+        return addressData;
+    }
+
+    private EthnicityData getEthnicityData(EthnicityCommand ethnicity) {
+        return ethnicityService.getEthnicityData(ethnicity.getId());
+
     }
 
 

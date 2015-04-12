@@ -110,7 +110,14 @@
 				</tr>
 				<tr>
 					<td>Ethnicity</td>
-					<td><input type="text" name="patient.ethnicity.displayName" value=${referralCommand.patient.ethnicity.displayName}></td>
+
+					<td>
+						<select name="patient.ethnicity.id" value=${referralCommand.patient.ethnicity.displayName}>
+							<c:forEach var="ethnicityItem" items="${ethnicity}">
+								<option value=${ethnicityItem.id}>${ethnicityItem.displayName}</option>
+							</c:forEach>
+						</select>
+					</td>
 					<td colspan=4></td>
 
 				</tr>

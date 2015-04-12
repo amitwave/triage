@@ -1,4 +1,4 @@
-package com.wave.master.service;
+package com.wave.master.service.title;
 
 
 import com.wave.master.TitleData;

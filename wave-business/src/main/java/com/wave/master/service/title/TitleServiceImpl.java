@@ -1,10 +1,9 @@
-package com.wave.master.service;
+package com.wave.master.service.title;
 
 import com.wave.master.TitleData;
-import com.wave.master.dao.TitleDao;
+import com.wave.master.dao.title.TitleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

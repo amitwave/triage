@@ -2,7 +2,9 @@ package com.wave.controller.utils;
 
 
 import com.wave.address.AddressData;
+import com.wave.contact.ContactData;
 import com.wave.controller.command.*;
+import com.wave.master.EthnicityData;
 import com.wave.master.TitleData;
 import com.wave.name.NameData;
 import com.wave.patient.PatientData;
@@ -57,8 +59,25 @@ public class Converter {
             AddressCommand addressCommand = getAddressCommand(patientData.getAddress());
 
             patientCommand.setAddress(addressCommand);
+
+            patientCommand.setContactDetails(getContactCommand(patientData.getContactDetails()));
         }
         return patientCommand;
+    }
+
+    private static ContactCommand getContactCommand(ContactData contactDetails) {
+        if(contactDetails == null) {
+            return new ContactCommand();
+        }
+
+        ContactCommand contactCommand = new ContactCommand();
+
+        contactCommand.setId(contactDetails.getId());
+        contactCommand.setEmail(contactDetails.getEmail());
+        contactCommand.setMobile(contactDetails.getMobile());
+        contactCommand.setPhone(contactDetails.getPhone());
+        contactCommand.setPreferred(contactDetails.getPreferred());
+        return contactCommand;
     }
 
     private static AddressCommand getAddressCommand(AddressData addressData) {
@@ -73,6 +92,7 @@ public class Converter {
         addressCommand.setLine3(addressData.getLine3());
         addressCommand.setCity(addressData.getCity());
         addressCommand.setCounty(addressData.getCounty());
+        addressCommand.setCountry(addressData.getCountry());
         addressCommand.setPostCode(addressData.getPostCode());
         return addressCommand;
     }
@@ -117,6 +137,29 @@ public class Converter {
         titleCommand.setName(titleData.getName());
         titleCommand.setDisplayName(titleData.getDisplayName());
         return titleCommand;
+    }
+
+    public static List<EthnicityCommand> getEthnicityCommands(List<EthnicityData> ethnicityDatas){
+        List<EthnicityCommand> ethnicityCommands = new ArrayList<EthnicityCommand>();
+
+        if(ethnicityDatas != null) {
+            for (EthnicityData titleData : ethnicityDatas) {
+                if(titleData != null){
+                    ethnicityCommands.add(getEthnicityCommand(titleData));
+                }
+            }
+        }
+
+        return  ethnicityCommands;
+    }
+
+    private static EthnicityCommand getEthnicityCommand(EthnicityData ethnicityData) {
+        EthnicityCommand ethnicityCommand = new EthnicityCommand();
+
+        ethnicityCommand.setId(ethnicityData.getId());
+        ethnicityCommand.setName(ethnicityData.getName());
+        ethnicityCommand.setDisplayName(ethnicityData.getDisplayName());
+        return ethnicityCommand;
     }
 
     private static NameData getNameData(NameCommand nameCommand) {

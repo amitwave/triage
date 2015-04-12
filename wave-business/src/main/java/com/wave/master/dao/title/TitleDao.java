@@ -1,4 +1,4 @@
-package com.wave.master.dao;
+package com.wave.master.dao.title;
 
 import com.wave.master.TitleData;
 
