@@ -9,6 +9,7 @@ import com.wave.master.TitleData;
 import com.wave.name.NameData;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
+import com.wave.referrer.ReferrerData;
 import com.wave.role.RoleData;
 import com.wave.user.dao.UserData;
 
@@ -39,8 +40,12 @@ public class Converter {
         referralCommand.setStatus(referralData.getStatus());
         referralCommand.setUser(getUserCommand(referralData.getUser()));
         PatientData patientData = referralData.getPatient();
+
         PatientCommand patientCommand = getPatientCommand(patientData);
         referralCommand.setPatient(patientCommand);
+
+        ReferrerCommand referrerCommand = getReferrerCommand(referralData.getReferrerData());
+        referralCommand.setReferrer(referrerCommand);
 
         return referralCommand;
 
@@ -70,6 +75,26 @@ public class Converter {
 
         }
         return patientCommand;
+    }
+
+    public static ReferrerCommand getReferrerCommand(ReferrerData referrerData) {
+        ReferrerCommand referrerCommand = new ReferrerCommand();
+
+        if(referrerData != null) {
+            referrerCommand.setId(referrerData.getId());
+            referrerCommand.setLastUpdated(referrerData.getLastUpdated());
+            referrerCommand.setName(getNameCommand(referrerData.getNameData()));
+
+            AddressCommand addressCommand = getAddressCommand(referrerData.getAddress());
+
+            referrerCommand.setAddress(addressCommand);
+
+            referrerCommand.setContactDetails(getContactCommand(referrerData.getContactDetails()));
+
+
+
+        }
+        return referrerCommand;
     }
 
     private static ContactCommand getContactCommand(ContactData contactDetails) {
@@ -138,8 +163,12 @@ public class Converter {
     }
 
     private static TitleCommand getTitleCommand(TitleData titleData) {
+
         TitleCommand titleCommand = new TitleCommand();
 
+        if(titleData == null) {
+            return titleCommand;
+        }
         titleCommand.setId(titleData.getId());
         titleCommand.setName(titleData.getName());
         titleCommand.setDisplayName(titleData.getDisplayName());

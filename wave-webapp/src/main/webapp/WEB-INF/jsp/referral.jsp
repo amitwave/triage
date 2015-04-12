@@ -182,6 +182,19 @@
 		<div class="inner_patient">
 			<table>
 				<tr>
+					<td>Title</td>
+					<td>
+						<form:select path="referralCommand.referrer.name.title.id">
+
+							<c:forEach items="${titleList}" var="title">
+								<form:option value= "${title.id}" label="${title.displayName}"/>
+							</c:forEach>
+
+						</form:select>
+					</td>
+					<td colspan=4></td>
+				</tr>
+				<tr>
 					<td>Name</td>
 					<td><input type="text" name="referrer.name.preferredName" value=${referralCommand.referrer.name.preferredName}></td>
 					<td rowspan=5 colspan=4>

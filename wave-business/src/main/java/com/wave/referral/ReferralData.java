@@ -164,7 +164,7 @@ public class ReferralData {
     @JoinColumn(name="PATIENT_ID")
     private PatientData patient;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="REFERRER_ID")
     private ReferrerData referrerData;
 

@@ -6,7 +6,6 @@ import com.wave.controller.command.*;
 import com.wave.controller.utils.Converter;
 import com.wave.gender.Gender;
 import com.wave.master.EthnicityData;
-import com.wave.master.dao.title.TitleDao;
 import com.wave.master.service.ethnicity.EthnicityService;
 import com.wave.master.service.title.TitleService;
 import com.wave.name.NameData;
@@ -14,6 +13,7 @@ import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;
 import com.wave.referralstatus.ReferralStatusData;
+import com.wave.referrer.ReferrerData;
 import com.wave.referrer.dao.ReferrerDao;
 import com.wave.status.Status;
 import com.wave.user.dao.UserDao;
@@ -196,8 +196,29 @@ public class ReferralController {
         PatientData patientData = getPatientData(referralData.getPatient(), patientCommand);
         referralData.setPatient(patientData);
 
+
+        ReferrerCommand referrerCommand = referralCommand.getReferrer();
+        ReferrerData referrerData = referralData.getReferrerData();
+        referrerData = getReferrerData(referrerCommand, referrerData);
+
+        referralData.setReferrerData(referrerData);
+
+
         return referralData;
 
+    }
+
+    private ReferrerData getReferrerData(ReferrerCommand referrerCommand, ReferrerData referrerData) {
+        if(referrerData == null) {
+            referrerData = new ReferrerData();
+        }
+
+        referrerData.setAddress(getAddressData(referrerCommand.getAddress(), referrerData.getAddress()));
+        referrerData.setContactDetails(getContactDetailsData(referrerData.getContactDetails(), referrerCommand.getContactDetails()));
+        referrerData.setNameData(getNameData(referrerCommand.getName(), referrerData.getNameData()));
+        referrerData.setLastUpdated(new Date());
+
+        return referrerData;
     }
 
     private PatientData getPatientData(PatientData patientData, PatientCommand patientCommand) {
@@ -215,7 +236,7 @@ public class ReferralController {
 
         patientData.setAddress(getAddressData(patientCommand.getAddress(), patientData.getAddress()));
 
-        patientData.setContactDetails(getContactData(patientData.getContactDetails(), patientCommand.getContactDetails()));
+        patientData.setContactDetails(getContactDetailsData(patientData.getContactDetails(), patientCommand.getContactDetails()));
         patientData.setNameData(getNameData(patientCommand.getName(), patientData.getNameData()));
 
 
@@ -238,12 +259,13 @@ public class ReferralController {
         nameData.setLastName(nameCommand.getLastName());
         nameData.setPreferredName(nameCommand.getPreferredName());
         TitleCommand titleCommand = nameCommand.getTitle();
-
-        nameData.setTitle(titleService.getTitleData(titleCommand.getId()));
+if(titleCommand != null) {
+    nameData.setTitle(titleService.getTitleData(titleCommand.getId()));
+}
         return nameData;
     }
 
-    private ContactData getContactData(ContactData contactDetails, ContactCommand contactDetailsCommand) {
+    private ContactData getContactDetailsData(ContactData contactDetails, ContactCommand contactDetailsCommand) {
         if(contactDetails == null) {
             contactDetails = new ContactData();
         }

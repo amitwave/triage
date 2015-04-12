@@ -32,18 +32,18 @@ public class ReferrerData {
     @Column(name="VERSION")
     private long version;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="NAME_ID")
     private NameData nameData;
 
     @Column(name = "LAST_UPDATED_DATE")
     private Date lastUpdated;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="CONTACT_DETAILS_ID")
     private ContactData contactDetails;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ADDRESS_ID")
     private AddressData address;
 
