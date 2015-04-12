@@ -65,6 +65,21 @@ public class PatientData {
     @JoinColumn(name="ADDRESS_ID")
     private AddressData address;
 
+    @Column(name = "PRIMARY_SPOKEN_LANGUAGE")
+    private String primarySpokenLanguage;
+
+    @Column(name = "SECONDARY_SPOKEN_LANGUAGE")
+    private String secondarySpokenLanguage;
+
+    @Column(name = "WRITTEN_LANGUAGE")
+    private String writtenLanguage;
+
+    @Column(name = "INTREPRETER_REQUIRED")
+    private Boolean interpreterRequired;
+
+    @Column(name = "ASSISTANCE_REQUIRED")
+    private Boolean assistanceRequired;
+
 
     public Long getId() {
         return id;
@@ -144,5 +159,46 @@ public class PatientData {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+
+    public String getPrimarySpokenLanguage() {
+        return primarySpokenLanguage;
+    }
+
+    public void setPrimarySpokenLanguage(String primarySpokenLanguage) {
+        this.primarySpokenLanguage = primarySpokenLanguage;
+    }
+
+    public String getSecondarySpokenLanguage() {
+        return secondarySpokenLanguage;
+    }
+
+    public void setSecondarySpokenLanguage(String secondarySpokenLanguage) {
+        this.secondarySpokenLanguage = secondarySpokenLanguage;
+    }
+
+    public String getWrittenLanguage() {
+        return writtenLanguage;
+    }
+
+    public void setWrittenLanguage(String writtenLanguage) {
+        this.writtenLanguage = writtenLanguage;
+    }
+
+    public Boolean isInterpreterRequired() {
+        return interpreterRequired;
+    }
+
+    public void setInterpreterRequired(Boolean interpreterRequired) {
+        this.interpreterRequired = interpreterRequired;
+    }
+
+    public Boolean isAssistanceRequired() {
+        return assistanceRequired;
+    }
+
+    public void setAssistanceRequired(Boolean assistanceRequired) {
+        this.assistanceRequired = assistanceRequired;
     }
 }

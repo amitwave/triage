@@ -219,6 +219,12 @@ public class ReferralController {
         patientData.setNameData(getNameData(patientCommand.getName(), patientData.getNameData()));
 
 
+        patientData.setPrimarySpokenLanguage(patientCommand.getPrimarySpokenLanguage());
+        patientData.setSecondarySpokenLanguage(patientCommand.getSecondarySpokenLanguage());
+        patientData.setWrittenLanguage(patientCommand.getWrittenLanguage());
+        patientData.setAssistanceRequired(patientCommand.isAssistanceRequired());
+        patientData.setInterpreterRequired(patientCommand.isInterpreterRequired());
+
         return patientData;
     }
 

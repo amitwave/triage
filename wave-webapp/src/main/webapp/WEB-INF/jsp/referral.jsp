@@ -77,11 +77,13 @@
 				<tr>
 					<td>Title</td>
 					<td>
-						<select name="patient.name.title.id" value=${referralCommand.patient.name.title.displayName}>
-							<c:forEach var="title" items="${titleList}">
-								<option value=${title.id}>${title.displayName}</option>
+						<form:select path="referralCommand.patient.name.title.id">
+
+							<c:forEach items="${titleList}" var="title">
+							<form:option value= "${title.id}" label="${title.displayName}"/>
 							</c:forEach>
-						</select>
+
+						</form:select>
 					</td>
 					<td colspan=4></td>
 				</tr>
@@ -103,7 +105,6 @@
 
 						<c:forEach var="gender" items="${genders}">
 							<form:radiobutton path="referralCommand.patient.gender" value="${gender}" label="${gender}"></form:radiobutton>
-
 						</c:forEach>
 
 					</td>
@@ -112,11 +113,16 @@
 					<td>Ethnicity</td>
 
 					<td>
-						<select name="patient.ethnicity.id" value=${referralCommand.patient.ethnicity.displayName}>
-							<c:forEach var="ethnicityItem" items="${ethnicity}">
-								<option value=${ethnicityItem.id}>${ethnicityItem.displayName}</option>
+
+
+						<form:select path="referralCommand.patient.ethnicity.id">
+							<form:option value="-1" label="Select"/>
+							<c:forEach items="${ethnicity}" var="ethnicityItem">
+								<form:option value="${ethnicityItem.id}" label="${ethnicityItem.displayName}"/>
 							</c:forEach>
-						</select>
+
+						</form:select>
+
 					</td>
 					<td colspan=4></td>
 
@@ -156,17 +162,17 @@
 				<tr>
 					<td>Interpreter Required</td>
 					<td>
-						<select name="patient.interpreterRequired"  value=${referralCommand.patient.interpreterRequired} >
-							<option value="False" >NO</option>
-							<option value="TRUE">YES</option>
-						</select>
+						<form:select path="referralCommand.patient.interpreterRequired">
+							<form:option value="False" label="False" />
+							<form:option value="True" label="True" />
+						</form:select>
 					</td>
 					<td>Assistance Required</td>
 					<td>
-						<select name="patient.assistanceRequired"  value=${referralCommand.patient.assistanceRequired} >
-							<option value="False" >NO</option>
-							<option value="TRUE">YES</option>
-						</select>
+						<form:select path="referralCommand.patient.assistanceRequired">
+							<form:option value="False" label="False" />
+							<form:option value="True" label="True" />
+						</form:select>
 					</td>
 					<td colspan=2></td>
 				</tr>

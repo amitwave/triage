@@ -122,6 +122,10 @@ public class PatientCommand {
         this.writtenLanguage = writtenLanguage;
     }
 
+    public Boolean isInterpreterRequired() {
+        return interpreterRequired;
+    }
+
     public Boolean getInterpreterRequired() {
         return interpreterRequired;
     }
@@ -131,6 +135,10 @@ public class PatientCommand {
     }
 
     public Boolean getAssistanceRequired() {
+        return assistanceRequired;
+    }
+
+    public Boolean isAssistanceRequired() {
         return assistanceRequired;
     }
 

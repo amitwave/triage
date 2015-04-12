@@ -61,6 +61,13 @@ public class Converter {
             patientCommand.setAddress(addressCommand);
 
             patientCommand.setContactDetails(getContactCommand(patientData.getContactDetails()));
+
+            patientCommand.setPrimarySpokenLanguage(patientData.getPrimarySpokenLanguage());
+            patientCommand.setSecondarySpokenLanguage(patientData.getSecondarySpokenLanguage());
+            patientCommand.setWrittenLanguage(patientData.getWrittenLanguage());
+            patientCommand.setAssistanceRequired(patientData.isAssistanceRequired());
+            patientCommand.setInterpreterRequired(patientData.isInterpreterRequired());
+
         }
         return patientCommand;
     }
@@ -149,6 +156,9 @@ public class Converter {
                 }
             }
         }
+
+
+
 
         return  ethnicityCommands;
     }
