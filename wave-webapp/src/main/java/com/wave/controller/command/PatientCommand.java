@@ -1,5 +1,6 @@
 package com.wave.controller.command;
 
+import com.wave.gender.Gender;
 import com.wave.name.NameData;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,7 +12,7 @@ public class PatientCommand {
     private NameCommand name;
     private String nhsNumber;
     private EthnicityCommand ethnicity;
-    private GenderCommand gender;
+    private Gender gender;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
@@ -57,11 +58,11 @@ public class PatientCommand {
         this.ethnicity = ethnicity;
     }
 
-    public GenderCommand getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(GenderCommand gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

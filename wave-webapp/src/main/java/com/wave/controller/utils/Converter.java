@@ -53,7 +53,7 @@ public class Converter {
             patientCommand.setNhsNumber(patientData.getNhsNumber());
             patientCommand.setLastUpdated(patientData.getLastUpdated());
             patientCommand.setName(getNameCommand(patientData.getNameData()));
-
+            patientCommand.setGender(patientData.getGender());
             AddressCommand addressCommand = getAddressCommand(patientData.getAddress());
 
             patientCommand.setAddress(addressCommand);

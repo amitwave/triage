@@ -1,7 +1,10 @@
 package com.wave.controller.referral;
 
+import com.wave.controller.command.EthnicityCommand;
 import com.wave.controller.command.PatientCommand;
 import com.wave.controller.command.ReferralCommand;
+import com.wave.gender.Gender;
+import com.wave.master.EthnicityData;
 import com.wave.master.dao.TitleDao;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
@@ -84,6 +87,7 @@ public class ReferralController {
         
         mv.addObject("referralCommand", referralCommand);
         mv.addObject("titleList", titleService.getAllTitleData());
+        mv.addObject("genders", Gender.values());
 
         return mv;
     }
@@ -194,7 +198,19 @@ public class ReferralController {
         }
 
         patientData.setNhsNumber(patientCommand.getNhsNumber());
+        patientData.setDateOfBirth(patientCommand.getDateOfBirth());
+        EthnicityData ethnicityData = getEthnicityData(patientCommand.getEthnicity());
+       // patientData.setEthnicity(ethnicityData);
+
+        patientData.setGender(patientCommand.getGender());
         return patientData;
+    }
+
+    private EthnicityData getEthnicityData(EthnicityCommand ethnicity) {
+
+        EthnicityData ethnicityData = new EthnicityData();
+        ethnicityData.setId(ethnicity.getId());
+        return ethnicityData;
     }
 
 

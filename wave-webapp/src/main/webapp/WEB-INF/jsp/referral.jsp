@@ -99,7 +99,14 @@
 					<td>DOB *</td>
 					<td><input type="text" name="patient.dateOfBirth" value=${referralCommand.patient.dateOfBirth}></td>
 					<td>Gender</td>
-					<td><input type="text" name="patient.gender.displayName" value=${referralCommand.patient.gender.displayName}></td>
+					<td>
+
+						<c:forEach var="gender" items="${genders}">
+							<form:radiobutton path="referralCommand.patient.gender" value="${gender}" label="${gender}"></form:radiobutton>
+
+						</c:forEach>
+
+					</td>
 				</tr>
 				<tr>
 					<td>Ethnicity</td>
