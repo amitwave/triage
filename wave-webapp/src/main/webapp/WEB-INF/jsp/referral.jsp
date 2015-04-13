@@ -135,19 +135,19 @@
 				</tr>
 				<tr>
 					<td>Address Line1</td>
-					<td><input type="text" name="patient.address.line1" value=${referralCommand.patient.address.line1}></td>
+					<td><input type="text" name="patient.address.line1" value="${referralCommand.patient.address.line1}"></td>
 					<td>Address Line2</td>
-					<td><input type="text" name="patient.address.line2"  value=${referralCommand.patient.address.line2}></td>
+					<td><input type="text" name="patient.address.line2"  value="${referralCommand.patient.address.line2}"></td>
 					<td>Address Line3</td>
-					<td><input type="text" name="patient.address.line3"  value=${referralCommand.patient.address.line3}></td>
+					<td><input type="text" name="patient.address.line3"  value="${referralCommand.patient.address.line3}"></td>
 				</tr>
 				<tr>
 					<td>City</td>
-					<td><input type="text" name="patient.address.city"  value=${referralCommand.patient.address.city}></td>
+					<td><input type="text" name="patient.address.city"  value="${referralCommand.patient.address.city}"></td>
 					<td>Country</td>
-					<td><input type="text" name="patient.address.country"  value=${referralCommand.patient.address.country}></td>
+					<td><form:input path="referralCommand.patient.address.country" /></td>
 					<td>Postcode</td>
-					<td><input type="text" name="patient.address.postCode"  value=${referralCommand.patient.address.postCode}></td>
+					<td><input type="text" name="patient.address.postCode"  value="${referralCommand.patient.address.postCode}"></td>
 				</tr>
 				<tr>
 					<td>Phone Number</td>
