@@ -106,16 +106,8 @@ public class ReferralController {
         List<RoleData> roles = roleDao.getAllRoles();
         mv.addObject("roles", Converter.getAllRoleCommands(roles));
 
-
-
-
-
-
         return mv;
     }
-
-
-
 
     @RequestMapping(value = "/checkout", method = RequestMethod.POST)
     public ModelAndView checkout(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
@@ -125,8 +117,6 @@ public class ReferralController {
         referralService.checkoutReferralData(referralCommand.getId(), userId);
 
         return new ModelAndView(new RedirectView("../dashboard"));
-
-
     }
 
     @RequestMapping(value = "/release", method = RequestMethod.POST)

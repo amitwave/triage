@@ -238,8 +238,6 @@
 					<td>
 						<form:select path="referralCommand.referrer.role.id">
 
-
-
 							<form:options  items="${roles}" itemValue="id" itemLabel="name"></form:options>
 						</form:select>
 
