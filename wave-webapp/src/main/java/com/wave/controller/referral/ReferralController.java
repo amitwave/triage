@@ -256,7 +256,7 @@ public class ReferralController {
         EthnicityData ethnicityData = getEthnicityData(patientCommand.getEthnicity());
         patientData.setEthnicity(ethnicityData);
         patientData.setGender(patientCommand.getGender());
-
+        patientData.setDateOfBirth(patientCommand.getDateOfBirth());
         patientData.setLastUpdated(new Date());
 
         patientData.setAddress(getAddressData(patientCommand.getAddress(), patientData.getAddress()));

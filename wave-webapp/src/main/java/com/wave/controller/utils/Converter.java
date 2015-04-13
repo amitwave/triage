@@ -65,6 +65,7 @@ public class Converter {
             patientCommand.setLastUpdated(patientData.getLastUpdated());
             patientCommand.setName(getNameCommand(patientData.getNameData()));
             patientCommand.setGender(patientData.getGender());
+            patientCommand.setDateOfBirth(patientData.getDateOfBirth());
             AddressCommand addressCommand = getAddressCommand(patientData.getAddress());
 
             patientCommand.setAddress(addressCommand);

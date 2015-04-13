@@ -1,5 +1,6 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 	.inner_ubrn{
 		color: black;
@@ -45,7 +46,10 @@
 							</tr>
 							<tr>
 								<td>Receipt Date(dd/MM/YYYY) *</td>
-								<td><input type="text" name="createDate" value=${referralCommand.createDate}></td>
+
+								<td>
+									<form:input   path="referralCommand.createDate" class="date" />
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -99,7 +103,9 @@
 					<td>Preferred Name</td>
 					<td><input type="text" name="patient.name.preferredName" value=${referralCommand.patient.name.preferredName}></td>
 					<td>DOB *</td>
-					<td><input type="text" name="patient.dateOfBirth" value=${referralCommand.patient.dateOfBirth}></td>
+					<td>
+						<form:input   path="referralCommand.patient.dateOfBirth" class="date" />
+					</td>
 					<td>Gender</td>
 					<td>
 
