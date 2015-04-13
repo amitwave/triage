@@ -12,9 +12,10 @@ public class ReferrerCommand {
     private AddressCommand address;
     private String speciality;
     private String practiceName;
-    private IGRDestinationCommand igrDestination;
-    private RoleCommand role;
     private String practiceCode;
+
+    private RoleCommand role;
+
 
     public Long getId() {
         return id;
@@ -72,13 +73,6 @@ public class ReferrerCommand {
         this.practiceName = practiceName;
     }
 
-    public IGRDestinationCommand getIgrDestination() {
-        return igrDestination;
-    }
-
-    public void setIgrDestination(IGRDestinationCommand igrDestination) {
-        this.igrDestination = igrDestination;
-    }
 
     public RoleCommand getRole() {
         return role;

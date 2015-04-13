@@ -4,6 +4,7 @@ package com.wave.controller.utils;
 import com.wave.address.AddressData;
 import com.wave.contact.ContactData;
 import com.wave.controller.command.*;
+import com.wave.destination.IGRDestinationData;
 import com.wave.master.EthnicityData;
 import com.wave.master.TitleData;
 import com.wave.name.NameData;
@@ -47,6 +48,8 @@ public class Converter {
         ReferrerCommand referrerCommand = getReferrerCommand(referralData.getReferrerData());
         referralCommand.setReferrer(referrerCommand);
 
+        referralCommand.setIgrDestination(getIGRDestinationCommand(referralData.getIgrDestinationData()));
+
         return referralCommand;
 
     }
@@ -85,12 +88,15 @@ public class Converter {
             referrerCommand.setLastUpdated(referrerData.getLastUpdated());
             referrerCommand.setName(getNameCommand(referrerData.getNameData()));
 
+            referrerCommand.setPracticeCode(referrerData.getPracticeCode());
+            referrerCommand.setPracticeName(referrerData.getPracticeName());
+            referrerCommand.setSpeciality(referrerData.getSpeciality());
+
             AddressCommand addressCommand = getAddressCommand(referrerData.getAddress());
 
             referrerCommand.setAddress(addressCommand);
 
             referrerCommand.setContactDetails(getContactCommand(referrerData.getContactDetails()));
-
 
 
         }
@@ -109,6 +115,7 @@ public class Converter {
         contactCommand.setMobile(contactDetails.getMobile());
         contactCommand.setPhone(contactDetails.getPhone());
         contactCommand.setPreferred(contactDetails.getPreferred());
+        contactCommand.setFax(contactDetails.getFax());
         return contactCommand;
     }
 
@@ -185,10 +192,6 @@ public class Converter {
                 }
             }
         }
-
-
-
-
         return  ethnicityCommands;
     }
 
@@ -233,23 +236,49 @@ public class Converter {
         userCommand.setDisplayName(userData.getDisplayName());
 
         List<RoleData> roles = userData.getRoles();
-        List<RoleCommand> roleCommands = new ArrayList<RoleCommand>();
-        for(RoleData role: roles) {
-            roleCommands.add(getRoleCommand(role));
-        }
+        List<RoleCommand> roleCommands = getAllRoleCommands(roles);
 
         userCommand.setRoles(roleCommands);
 
         return userCommand;
     }
 
+    public static List<RoleCommand> getAllRoleCommands(List<RoleData> roles) {
+        List<RoleCommand> roleCommands = new ArrayList<RoleCommand>();
+        if(roles == null || roles.size() ==0 ){
+            return roleCommands;
+        }
+
+        for(RoleData role: roles) {
+            roleCommands.add(getRoleCommand(role));
+        }
+
+        return roleCommands;
+    }
+
     public static RoleCommand getRoleCommand(RoleData role) {
         RoleCommand roleCommand = new RoleCommand();
+        roleCommand.setId(role.getId());
         roleCommand.setName(role.getName());
         roleCommand.setDescription(role.getDescription());
         return roleCommand;
     }
 
 
+    public static IGRDestinationCommand getIGRDestinationCommand(IGRDestinationData igrDestinationData){
+        IGRDestinationCommand igrDestinationCommand = new IGRDestinationCommand();
+
+        if(igrDestinationData != null) {
+            igrDestinationCommand.setId(igrDestinationData.getId());
+            igrDestinationCommand.setName(igrDestinationData.getName());
+            igrDestinationCommand.setPracticeName(igrDestinationData.getPracticeName());
+            igrDestinationCommand.setReferredTo(igrDestinationData.getReferredTo());
+            igrDestinationCommand.setRegisteredName(igrDestinationData.getRegisteredName());
+            igrDestinationCommand.setRegisteredPracticeName(igrDestinationData.getRegisteredPracticeName());
+            igrDestinationCommand.setSpecialty(igrDestinationData.getSpecialty());
+        }
+
+        return igrDestinationCommand;
+    }
 
 }

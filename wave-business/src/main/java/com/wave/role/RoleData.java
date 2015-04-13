@@ -12,11 +12,17 @@ import javax.persistence.*;
                         "FROM " +
                         "RoleData role " +
                         "WHERE " +
-                        "role.id = :id")
+                        "role.id = :id"),
+        @NamedQuery(name = RoleData.FIND_ALL_ROLES, query =
+                "SELECT " +
+                        "role " +
+                        "FROM " +
+                        "RoleData role ")
 })
 public class RoleData {
 
     public static final String FIND_ROLE_BY_ID = "FIND_ROLE_BY_ID";
+    public static final String FIND_ALL_ROLES = "FIND_ALL_ROLES";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

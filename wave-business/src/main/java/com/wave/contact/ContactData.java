@@ -33,6 +33,9 @@ public class ContactData {
     @Column(name = "PHONE")
     private String phone;
 
+    @Column(name = "FAX")
+    private String fax;
+
     @Column(name = "EMAIL")
     private String email;
 
@@ -85,5 +88,13 @@ public class ContactData {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
     }
 }

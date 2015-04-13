@@ -4,6 +4,7 @@ import com.wave.address.AddressData;
 import com.wave.contact.ContactData;
 import com.wave.controller.command.*;
 import com.wave.controller.utils.Converter;
+import com.wave.destination.IGRDestinationData;
 import com.wave.gender.Gender;
 import com.wave.master.EthnicityData;
 import com.wave.master.service.ethnicity.EthnicityService;
@@ -15,6 +16,8 @@ import com.wave.referral.service.ReferralService;
 import com.wave.referralstatus.ReferralStatusData;
 import com.wave.referrer.ReferrerData;
 import com.wave.referrer.dao.ReferrerDao;
+import com.wave.role.RoleData;
+import com.wave.role.dao.RoleDao;
 import com.wave.status.Status;
 import com.wave.user.dao.UserDao;
 import com.wave.user.dao.UserData;
@@ -31,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.wave.controller.utils.Converter.getIGRDestinationCommand;
 import static com.wave.controller.utils.Converter.getReferralCommand;
 import static com.wave.controller.utils.CookieUtils.getUserIdFromCookie;
 
@@ -53,6 +57,9 @@ public class ReferralController {
 
     @Autowired
     ReferrerDao referrerDao;
+
+    @Autowired
+    RoleDao roleDao;
 
 
     @RequestMapping( method = RequestMethod.GET)
@@ -91,11 +98,19 @@ public class ReferralController {
         if (referralData != null) {
             referralCommand = getReferralCommand(referralData);
         }
-        
+
         mv.addObject("referralCommand", referralCommand);
         mv.addObject("titleList", Converter.getTitleCommands(titleService.getAllTitleData()));
         mv.addObject("genders", Gender.values());
         mv.addObject("ethnicity", Converter.getEthnicityCommands(ethnicityService.getAllEthnicityData()));
+
+        List<RoleData> roles = roleDao.getAllRoles();
+        mv.addObject("roles", Converter.getAllRoleCommands(roles));
+
+
+
+
+
 
         return mv;
     }
@@ -129,7 +144,7 @@ public class ReferralController {
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
     public ModelAndView validate(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
-                                @CookieValue(value = "TRIAGE", required = true) String cookie) {
+                                 @CookieValue(value = "TRIAGE", required = true) String cookie) {
 
         Long userId = getUserIdFromCookie(cookie);
         referralService.validate(referralCommand.getId(), userId);
@@ -141,7 +156,7 @@ public class ReferralController {
 
     @RequestMapping(value = "/reject", method = RequestMethod.POST)
     public ModelAndView reject(@ModelAttribute("referralCommand") ReferralCommand referralCommand,
-                                 @CookieValue(value = "TRIAGE", required = true) String cookie) {
+                               @CookieValue(value = "TRIAGE", required = true) String cookie) {
 
         Long userId = getUserIdFromCookie(cookie);
         referralService.setReferralStatus(referralCommand.getId(), userId, Status.IN_VALIDATION);
@@ -163,6 +178,8 @@ public class ReferralController {
         referralData.setUbrn(referralCommand.getUbrn());
         referralData.setDescription(referralCommand.getDescription());
         referralData.setType(referralCommand.getType());
+
+        referralData.setIgrDestinationData(getIGRDestinationData(referralCommand.getIgrDestination(), referralData.getIgrDestinationData()));
 
         List<ReferralStatusData> referralStatusDatasOld = referralData.getReferralStatusDatas();
         if (referralStatusDatasOld == null || referralStatusDatasOld.size() == 0) {
@@ -204,6 +221,7 @@ public class ReferralController {
         referralData.setReferrerData(referrerData);
 
 
+
         return referralData;
 
     }
@@ -213,6 +231,13 @@ public class ReferralController {
             referrerData = new ReferrerData();
         }
 
+        RoleCommand role = referrerCommand.getRole();
+        RoleData roleData = roleDao.getRoleData(role.getId());
+
+        referrerData.setPracticeCode(referrerCommand.getPracticeCode());
+        referrerData.setPracticeName(referrerCommand.getPracticeName());
+        referrerData.setSpeciality(referrerCommand.getSpeciality());
+        referrerData.setRoleData(roleData);
         referrerData.setAddress(getAddressData(referrerCommand.getAddress(), referrerData.getAddress()));
         referrerData.setContactDetails(getContactDetailsData(referrerData.getContactDetails(), referrerCommand.getContactDetails()));
         referrerData.setNameData(getNameData(referrerCommand.getName(), referrerData.getNameData()));
@@ -259,9 +284,9 @@ public class ReferralController {
         nameData.setLastName(nameCommand.getLastName());
         nameData.setPreferredName(nameCommand.getPreferredName());
         TitleCommand titleCommand = nameCommand.getTitle();
-if(titleCommand != null) {
-    nameData.setTitle(titleService.getTitleData(titleCommand.getId()));
-}
+        if(titleCommand != null) {
+            nameData.setTitle(titleService.getTitleData(titleCommand.getId()));
+        }
         return nameData;
     }
 
@@ -272,6 +297,7 @@ if(titleCommand != null) {
 
         contactDetails.setEmail(contactDetailsCommand.getEmail());
         contactDetails.setMobile(contactDetailsCommand.getMobile());
+        contactDetails.setFax(contactDetailsCommand.getFax());
         contactDetails.setPhone(contactDetailsCommand.getPhone());
         contactDetails.setPreferred(contactDetailsCommand.getPreferred());
         return contactDetails;
@@ -305,6 +331,25 @@ if(titleCommand != null) {
     {
         // bind empty strings as null
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
+
+
+    public static IGRDestinationData getIGRDestinationData(IGRDestinationCommand igrDestinationCommand, IGRDestinationData igrDestinationData){
+        if(igrDestinationData == null) {
+            igrDestinationData = new IGRDestinationData();
+        }
+
+        if(igrDestinationCommand != null) {
+
+            igrDestinationData.setName(igrDestinationCommand.getName());
+            igrDestinationData.setPracticeName(igrDestinationCommand.getPracticeName());
+            igrDestinationData.setReferredTo(igrDestinationCommand.getReferredTo());
+            igrDestinationData.setRegisteredName(igrDestinationCommand.getRegisteredName());
+            igrDestinationData.setRegisteredPracticeName(igrDestinationCommand.getRegisteredPracticeName());
+            igrDestinationData.setSpecialty(igrDestinationCommand.getSpecialty());
+        }
+
+        return igrDestinationData;
     }
 
 }

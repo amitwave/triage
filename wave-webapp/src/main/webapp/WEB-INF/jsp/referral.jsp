@@ -203,24 +203,24 @@
 							<table>
 								<tr>
 									<td>Name</td>
-									<td><input type="text" name="referrer.igrDestination.name" value=${referralCommand.referrer.igrDestination.name}></td>
+									<td><input type="text" name="igrDestination.name" value=${referralCommand.igrDestination.name}></td>
 									<td>Registered GP Name</td>
-									<td><input type="text" name="referrer.igrDestination.registeredName" value=${referralCommand.referrer.igrDestination.registeredName}></td>
+									<td><input type="text" name="igrDestination.registeredName" value=${referralCommand.igrDestination.registeredName}></td>
 								</tr>
 								<tr>
 									<td>Specialty</td>
-									<td><input type="text" name="referrer.igrDestination.specialty" value=${referralCommand.referrer.igrDestination.specialty}></td>
+									<td><input type="text" name="igrDestination.specialty" value=${referralCommand.igrDestination.specialty}></td>
 									<td>Registered GP Practice Name</td>
-									<td><input type="text" name="referrer.igrDestination.registeredPracticeName" value=${referralCommand.referrer.igrDestination.registeredPracticeName}></td>
+									<td><input type="text" name="igrDestination.registeredPracticeName" value=${referralCommand.igrDestination.registeredPracticeName}></td>
 								</tr>
 								<tr>
 									<td>Practice/Clinic Name</td>
-									<td><input type="text"  name="referrer.igrDestination.practiceName" value=${referralCommand.referrer.igrDestination.practiceName}></td>
+									<td><input type="text"  name="igrDestination.practiceName" value=${referralCommand.igrDestination.practiceName}></td>
 									<td colspan=2></td>
 								</tr>
 								<tr>
 									<td>Referred To</td>
-									<td><input type="text"  name="referrer.igrDestination.referredTo" value=${referralCommand.referrer.igrDestination.referredTo}></td>
+									<td><input type="text"  name="igrDestination.referredTo" value=${referralCommand.igrDestination.referredTo}></td>
 									<td colspan=2></td>
 								</tr>
 							</table>
@@ -229,7 +229,17 @@
 				</tr>
 				<tr>
 					<td>Role</td>
-					<td><input type="text" name="referrer.role.name"  value=${referralCommand.referrer.role.name}></td>
+					<td>
+						<form:select path="referralCommand.referrer.role.id">
+
+							<c:forEach items="${roles}" var="role">
+								<form:option value= "${role.id}" label="${role.name}"/>
+							</c:forEach>
+
+						</form:select>
+
+
+					</td>
 				</tr>
 				<tr>
 					<td>Speciality</td>

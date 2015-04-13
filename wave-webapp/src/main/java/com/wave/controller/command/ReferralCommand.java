@@ -35,6 +35,7 @@ public class ReferralCommand {
     private UserCommand user;
     private PatientCommand patient;
     private ReferrerCommand referrer;
+    private IGRDestinationCommand igrDestination;
     private Status status;
 
     public String getSharePointLinkOne() {
@@ -222,4 +223,11 @@ public class ReferralCommand {
         this.ppwtProcedure = ppwtProcedure;
     }
 
+    public IGRDestinationCommand getIgrDestination() {
+        return igrDestination;
+    }
+
+    public void setIgrDestination(IGRDestinationCommand igrDestination) {
+        this.igrDestination = igrDestination;
+    }
 }

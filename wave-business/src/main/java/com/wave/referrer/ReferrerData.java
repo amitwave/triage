@@ -3,6 +3,7 @@ package com.wave.referrer;
 import com.wave.address.AddressData;
 import com.wave.contact.ContactData;
 import com.wave.name.NameData;
+import com.wave.role.RoleData;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -46,6 +47,19 @@ public class ReferrerData {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ADDRESS_ID")
     private AddressData address;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="ROLE_ID")
+    private RoleData roleData;
+
+    @Column(name = "SPECIALITY")
+    private String speciality;
+
+    @Column(name = "CLINIC_NAME")
+    private String practiceName;
+
+    @Column(name = "PRACTICE_CODE")
+    private String practiceCode;
 
 
     public Long getId() {
@@ -94,5 +108,37 @@ public class ReferrerData {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public RoleData getRoleData() {
+        return roleData;
+    }
+
+    public void setRoleData(RoleData roleData) {
+        this.roleData = roleData;
+    }
+
+    public String getPracticeCode() {
+        return practiceCode;
+    }
+
+    public void setPracticeCode(String practiceCode) {
+        this.practiceCode = practiceCode;
+    }
+
+    public String getPracticeName() {
+        return practiceName;
+    }
+
+    public void setPracticeName(String practiceName) {
+        this.practiceName = practiceName;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
     }
 }
