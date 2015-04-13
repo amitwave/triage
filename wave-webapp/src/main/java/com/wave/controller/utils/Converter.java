@@ -100,6 +100,8 @@ public class Converter {
             referrerCommand.setContactDetails(getContactCommand(referrerData.getContactDetails()));
 
 
+            referrerCommand.setRole(Converter.getRoleCommand(referrerData.getRoleData()));
+
         }
         return referrerCommand;
     }

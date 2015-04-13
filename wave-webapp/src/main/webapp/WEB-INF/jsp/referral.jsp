@@ -232,10 +232,9 @@
 					<td>
 						<form:select path="referralCommand.referrer.role.id">
 
-							<c:forEach items="${roles}" var="role">
-								<form:option value= "${role.id}" label="${role.name}"/>
-							</c:forEach>
 
+
+							<form:options  items="${roles}" itemValue="id" itemLabel="name"></form:options>
 						</form:select>
 
 
