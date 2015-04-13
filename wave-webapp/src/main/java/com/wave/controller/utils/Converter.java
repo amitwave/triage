@@ -77,6 +77,7 @@ public class Converter {
             patientCommand.setAssistanceRequired(patientData.isAssistanceRequired());
             patientCommand.setInterpreterRequired(patientData.isInterpreterRequired());
 
+            patientCommand.setEthnicity(Converter.getEthnicityCommand(patientData.getEthnicity()));
         }
         return patientCommand;
     }
