@@ -172,7 +172,7 @@ public class ReferralController {
         referralData.setIgrDestinationData(getIGRDestinationData(referralCommand.getIgrDestination(), referralData.getIgrDestinationData()));
 
         List<ReferralStatusData> referralStatusDatasOld = referralData.getReferralStatusDatas();
-        if (referralStatusDatasOld == null || referralStatusDatasOld.size() == 0) {
+        if (referralData.getId() == null) {
 
             ArrayList<ReferralStatusData> referralStatusDatas = new ArrayList<ReferralStatusData>();
 
@@ -192,6 +192,7 @@ public class ReferralController {
             ReferralStatusData referralStatusData = new ReferralStatusData();
             referralStatusData.setLastUpdated(new Date());
             UserData user = userDao.getUserData(userId);
+
             referralStatusData.setUser(user);
             referralStatusData.setToStatus(Status.UPDATE);
             referralStatusData.setReferralData(referralData);
