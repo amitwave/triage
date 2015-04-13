@@ -34,6 +34,7 @@ public class Converter {
 
         ReferralCommand referralCommand = new ReferralCommand();
         referralCommand.setId(referralData.getId());
+        referralCommand.setCreateDate(referralData.getCreateDate());
         referralCommand.setActive(referralData.isActive());
         referralCommand.setUbrn(referralData.getUbrn());
         referralCommand.setDescription(referralData.getDescription());

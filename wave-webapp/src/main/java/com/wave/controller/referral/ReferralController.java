@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.wave.controller.utils.Converter.getIGRDestinationCommand;
 import static com.wave.controller.utils.Converter.getReferralCommand;
 import static com.wave.controller.utils.CookieUtils.getUserIdFromCookie;
 
@@ -64,7 +63,7 @@ public class ReferralController {
 
     @RequestMapping( method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "referralId", required = false) Long referralId) {
-        return getReferralData(referralId, "referral");
+        return getReferralCommandAndMasterCommands(referralId, "referral");
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -81,10 +80,10 @@ public class ReferralController {
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public ModelAndView showReferral(@RequestParam(value = "referralId", required = false) Long referralId) {
-        return getReferralData(referralId, "referralView");
+        return getReferralCommandAndMasterCommands(referralId, "referralView");
     }
 
-    private ModelAndView getReferralData(Long referralId, String view) {
+    private ModelAndView getReferralCommandAndMasterCommands(Long referralId, String view) {
         ModelAndView mv = new ModelAndView(view);
 
         ReferralData referralData = new ReferralData();
@@ -175,6 +174,7 @@ public class ReferralController {
         }
 
         referralData.setActive(referralCommand.isActive());
+        referralData.setCreateDate(referralCommand.getCreateDate());
         referralData.setUbrn(referralCommand.getUbrn());
         referralData.setDescription(referralCommand.getDescription());
         referralData.setType(referralCommand.getType());
