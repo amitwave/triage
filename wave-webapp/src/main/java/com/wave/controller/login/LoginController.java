@@ -48,8 +48,6 @@ public class LoginController {
         mv = new ModelAndView(new RedirectView("dashboard"));
         if (userData != null && userCommand.getPassword().equals(userData.getPassword())) {
             response.addCookie(getCookie(userData));
-
-
         } else{
             mv = new ModelAndView(new RedirectView("login"));
         }

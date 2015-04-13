@@ -56,6 +56,18 @@ public class NewDashBoardController {
         return mv;
     }
 
+    @RequestMapping(value = "include/dashboardheader", method = RequestMethod.GET)
+    public String showHeader(){
+        return "include/dashboardheader";
+    }
 
+    @RequestMapping(value = "include/footer", method = RequestMethod.GET)
+    public String showFooter(){
+        return "include/footer";
+    }
 
+    @RequestMapping(value = "/include/dashboardleftpanel", method = RequestMethod.GET)
+    public String showLeftPanel(){
+        return "include/dashboardleftpanel";
+    }
 }

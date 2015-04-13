@@ -1,8 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head lang="en">
         <style>
-            #header {
+            .header {
                 background-color:black;
                 color:white;
                 text-align:center;
@@ -10,9 +12,7 @@
             }
         </style>
     </head>
-    <body>
-        <div id="header">
-            <h1>Dashboard</h1>
-        </div>
+    <body class="header">
+        <font color="#ffffff" size="5" >Dashboard</font>
     </body>
 </html>
