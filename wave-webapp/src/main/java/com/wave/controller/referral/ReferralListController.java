@@ -38,7 +38,7 @@ public class ReferralListController {
         List<ReferralData> allReferrals = null;
         if(Status.NEW == type) {
             if(page == null) {
-                page = 0;
+                page = 1;
             }
             allReferrals = referralService.getAllReferralsByStatusAndPage(type, page);
             Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(type);
