@@ -1,6 +1,6 @@
 package com.wave.user;
 
-import com.wave.role.RoleDao;
+import com.wave.role.dao.RoleDao;
 import com.wave.role.RoleData;
 import com.wave.user.dao.UserDao;
 import com.wave.user.dao.UserData;

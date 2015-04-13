@@ -84,6 +84,11 @@ public class ReferralServiceImpl implements ReferralService {
     }
 
     @Override
+    public List<ReferralData> getAllReferralsByUserId(Long userId, Integer page) {
+        return referralDao.getAllReferralsByUserId(userId, page);
+    }
+
+    @Override
     public Long getAllReferralCountByUserId(Long userId) {
         return referralDao.getAllReferralCountByUserId(userId);
     }
@@ -91,6 +96,11 @@ public class ReferralServiceImpl implements ReferralService {
     @Override
     public List<ReferralData> getAllReferralsByStatus(Status status, Long userId) {
         return referralDao.getAllReferralsByStatus(status, userId);
+    }
+
+    @Override
+    public List<ReferralData> getAllReferralsByStatus(Status status, Long userId, Integer page) {
+        return referralDao.getAllReferralsByStatus(status, userId, page);
     }
 
     @Override
@@ -161,6 +171,11 @@ public class ReferralServiceImpl implements ReferralService {
     @Override
     public List<ReferralData> getAllReferralsByStatus(Status status) {
         return referralDao.getAllReferralsByStatus(status);
+    }
+
+    @Override
+    public List<ReferralData> getAllReferralsByStatusAndPage(Status status, Integer page) {
+        return referralDao.getAllReferralsByStatusAndPage(status, page);
     }
 
     @Override

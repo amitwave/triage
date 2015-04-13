@@ -4,6 +4,7 @@ package com.wave.referral.dao;
 import com.wave.referral.ReferralData;
 import com.wave.status.Status;
 import com.wave.user.AbstractDao;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,10 @@ import java.util.*;
 
 @Repository
 public class ReferralDaoImpl extends AbstractDao<ReferralData> implements ReferralDao {
+
+
+    @Value("${page.size}")
+    private Integer pageSize;
 
     @Override
     public ReferralData getReferralData(Long id) {
@@ -46,6 +51,18 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     }
 
     @Override
+    public List<ReferralData> getAllReferralsByStatus(Status status, Long userId, Integer page) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_BY_USER_AND_STATUS);
+        query.setParameter("id", userId);
+        query.setParameter("status", status);
+        query.setFirstResult((page - 1) * pageSize);
+
+        query.setMaxResults(pageSize);
+
+        return query.getResultList();
+    }
+
+    @Override
     public Long getAllReferralsCountByStatus(Status status, Long userId) {
         Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_COUNT__BY_USER_AND_STATUS);
         query.setParameter("id", userId);
@@ -61,6 +78,19 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     }
 
     @Override
+    public List<ReferralData> getAllReferralsByUserId(Long userId, Integer page) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_BY_USER);
+        query.setParameter("id", userId);
+
+        query.setFirstResult((page - 1) * pageSize);
+
+        query.setMaxResults(pageSize);
+
+
+        return query.getResultList();
+    }
+
+    @Override
     public Long getAllReferralCountByUserId(Long userId) {
         Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRALS_BY_USER);
         query.setParameter("id", userId);
@@ -72,6 +102,18 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     public List<ReferralData> getAllReferralsByStatus(Status status) {
         Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRAL_DATA_BY_STATUS);
         query.setParameter("status", status);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<ReferralData> getAllReferralsByStatusAndPage(Status status, Integer page) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRAL_DATA_BY_STATUS);
+        query.setParameter("status", status);
+        query.setFirstResult((page - 1) * pageSize);
+
+        query.setMaxResults(pageSize);
+
+
         return query.getResultList();
     }
 

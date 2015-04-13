@@ -12,11 +12,14 @@ import javax.persistence.*;
                         "FROM " +
                         "EthnicityData ethnicityData " +
                         "WHERE " +
-                        "ethnicityData.id = :id")
+                        "ethnicityData.id = :id"),
+        @NamedQuery(name = EthnicityData.GET_ALL_ETHNICITY, query =
+                "SELECT ethnicityData FROM EthnicityData ethnicityData")
 })
 public class EthnicityData {
 
     public static final String FIND_ETHNICITY_BY_ID = "FIND_ETHNICITY_BY_ID";
+    public static final String GET_ALL_ETHNICITY = "GET_ALL_ETHNICITY";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

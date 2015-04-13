@@ -1,7 +1,8 @@
 package com.wave.controller.referral;
 
-import com.wave.controller.command.PatientCommand;
-import com.wave.controller.command.ReferralCommand;
+import com.wave.command.PatientCommand;
+import com.wave.command.ReferralCommand;
+import com.wave.controller.utils.Converter;
 import com.wave.patient.PatientData;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;

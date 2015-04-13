@@ -1,5 +1,6 @@
 package com.wave.referral;
 
+import com.wave.destination.IGRDestinationData;
 import com.wave.note.NoteData;
 import com.wave.patient.PatientData;
 import com.wave.referralstatus.ReferralStatusData;
@@ -164,9 +165,13 @@ public class ReferralData {
     @JoinColumn(name="PATIENT_ID")
     private PatientData patient;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="REFERRER_ID")
     private ReferrerData referrerData;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="IGR_DESTINATION_ID")
+    private IGRDestinationData igrDestinationData;
 
     @OneToMany(cascade=CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -314,5 +319,13 @@ public class ReferralData {
 
     public void setCreatedBy(UserData createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public IGRDestinationData getIgrDestinationData() {
+        return igrDestinationData;
+    }
+
+    public void setIgrDestinationData(IGRDestinationData igrDestinationData) {
+        this.igrDestinationData = igrDestinationData;
     }
 }

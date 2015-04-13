@@ -19,7 +19,7 @@ import com.wave.referralstatus.ReferralStatusData;
 import com.wave.referralstatus.dao.ReferralStatusDao;
 import com.wave.referrer.ReferrerData;
 import com.wave.referrer.dao.ReferrerDao;
-import com.wave.role.RoleDao;
+import com.wave.role.dao.RoleDao;
 import com.wave.role.RoleData;
 import com.wave.status.Status;
 import com.wave.user.dao.UserDao;

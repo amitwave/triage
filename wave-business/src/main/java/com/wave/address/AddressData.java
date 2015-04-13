@@ -45,6 +45,9 @@ public class AddressData {
     @Column(name = "COUNTY")
     private String county;
 
+    @Column(name = "COUNTRY")
+    private String country;
+
     @Column(name = "POST_CODE")
     private String postCode;
 
@@ -110,5 +113,13 @@ public class AddressData {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
