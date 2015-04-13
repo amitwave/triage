@@ -48,7 +48,7 @@ public class ReferrerData {
     @JoinColumn(name="ADDRESS_ID")
     private AddressData address;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="ROLE_ID")
     private RoleData roleData;
 
