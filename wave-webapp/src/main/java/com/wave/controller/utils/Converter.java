@@ -2,8 +2,8 @@ package com.wave.controller.utils;
 
 
 import com.wave.address.AddressData;
+import com.wave.command.*;
 import com.wave.contact.ContactData;
-import com.wave.controller.command.*;
 import com.wave.destination.IGRDestinationData;
 import com.wave.master.EthnicityData;
 import com.wave.master.TitleData;

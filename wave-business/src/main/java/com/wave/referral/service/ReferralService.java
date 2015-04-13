@@ -20,12 +20,15 @@ public interface ReferralService {
 
 
     List<ReferralData> getAllReferralsByStatus(Status status, Long userId);
+    List<ReferralData> getAllReferralsByStatus(Status status, Long userId, Integer page);
     Long getAllReferralsCountByStatus(Status status, Long userId);
 
     List<ReferralData> getAllReferralsByUserId(Long userId);
+    List<ReferralData> getAllReferralsByUserId(Long userId, Integer page);
     Long getAllReferralCountByUserId(Long userId);
 
     List<ReferralData> getAllReferralsByStatus(Status status);
+    List<ReferralData> getAllReferralsByStatusAndPage(Status status, Integer page);
     Long getAllReferralsCountByStatus(Status status);
 
 

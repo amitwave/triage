@@ -1,8 +1,5 @@
-package com.wave.controller.command;
+package com.wave.command;
 
-import com.wave.master.TitleData;
-
-import javax.persistence.*;
 import java.util.Date;
 
 public class NameCommand {

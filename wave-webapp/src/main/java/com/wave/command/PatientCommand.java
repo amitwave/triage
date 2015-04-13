@@ -1,7 +1,6 @@
-package com.wave.controller.command;
+package com.wave.command;
 
 import com.wave.gender.Gender;
-import com.wave.name.NameData;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;

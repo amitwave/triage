@@ -1,6 +1,7 @@
-package com.wave.controller.command;
+package com.wave.command;
 
-public class EthnicityCommand {
+public class GenderCommand {
+
 
     private Long id;
     private String name;

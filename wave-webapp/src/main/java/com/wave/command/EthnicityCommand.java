@@ -1,10 +1,11 @@
-package com.wave.controller.command;
+package com.wave.command;
 
-public class TitleCommand {
+public class EthnicityCommand {
 
     private Long id;
     private String name;
     private String displayName;
+
 
     public Long getId() {
         return id;

@@ -1,6 +1,6 @@
 package com.wave.controller.dashboard;
 
-import com.wave.controller.command.UserCommand;
+import com.wave.command.UserCommand;
 import com.wave.controller.utils.Converter;
 import com.wave.controller.utils.CookieUtils;
 import com.wave.referral.ReferralData;

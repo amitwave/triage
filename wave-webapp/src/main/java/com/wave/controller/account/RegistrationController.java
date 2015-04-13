@@ -1,6 +1,6 @@
 package com.wave.controller.account;
 
-import com.wave.controller.command.UserCommand;
+import com.wave.command.UserCommand;
 import com.wave.user.UserService;
 import com.wave.user.dao.UserData;
 import org.springframework.beans.factory.annotation.Autowired;

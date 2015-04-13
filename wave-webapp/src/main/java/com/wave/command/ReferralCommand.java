@@ -1,4 +1,4 @@
-package com.wave.controller.command;
+package com.wave.command;
 
 import com.wave.status.Status;
 import org.springframework.format.annotation.DateTimeFormat;

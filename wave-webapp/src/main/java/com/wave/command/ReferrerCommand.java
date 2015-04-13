@@ -1,4 +1,4 @@
-package com.wave.controller.command;
+package com.wave.command;
 
 
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.wave.controller.command;
+package com.wave.command;
 
 public class AddressCommand {
 

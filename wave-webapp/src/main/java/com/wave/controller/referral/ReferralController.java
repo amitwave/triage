@@ -1,8 +1,8 @@
 package com.wave.controller.referral;
 
 import com.wave.address.AddressData;
+import com.wave.command.*;
 import com.wave.contact.ContactData;
-import com.wave.controller.command.*;
 import com.wave.controller.utils.Converter;
 import com.wave.destination.IGRDestinationData;
 import com.wave.gender.Gender;
@@ -22,7 +22,6 @@ import com.wave.status.Status;
 import com.wave.user.dao.UserDao;
 import com.wave.user.dao.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
