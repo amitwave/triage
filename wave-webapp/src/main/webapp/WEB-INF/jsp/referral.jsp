@@ -265,7 +265,7 @@
 					<td>City</td>
 					<td><input type="text"  name="referrer.address.city" value=${referralCommand.referrer.address.city}></td>
 					<td>Country</td>
-					<td><input type="text"  name="referrer.address.country" value=${referralCommand.referrer.address.county}></td>
+					<td><input type="text"  name="referrer.address.country" value=${referralCommand.referrer.address.country}></td>
 					<td>Postcode</td>
 					<td><input type="text"  name="referrer.address.postCode" value=${referralCommand.referrer.address.postCode}></td>
 				</tr>
