@@ -1,13 +1,12 @@
 package com.wave.controller.referral;
 
-import com.wave.command.PageLink;
-import com.wave.command.PaginationCommand;
 import com.wave.command.ReferralCommand;
 import com.wave.controller.utils.Converter;
 import com.wave.referral.ReferralData;
 import com.wave.referral.service.ReferralService;
 import com.wave.status.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +24,9 @@ public class ReferralListController {
 
     @Autowired
     ReferralService referralService;
+
+    @Value("${page.size}")
+    private Integer pageSize;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "type", required = false) Status type,
@@ -44,13 +46,13 @@ public class ReferralListController {
             Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(type);
 
 
-            mv.addObject("pagination", getPaginationCommand(page, allReferralsCountByStatus));
+            mv.addObject("pagination", getPaginationCommand(page, allReferralsCountByStatus, pageSize));
         }else {
             allReferrals = referralService.getAllReferralsByStatus(type, userId);
             Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(type, userId);
 
 
-            mv.addObject("pagination", getPaginationCommand(page, allReferralsCountByStatus));
+            mv.addObject("pagination", getPaginationCommand(page, allReferralsCountByStatus, pageSize));
         }
 
         List<ReferralCommand> referrals = new ArrayList<ReferralCommand>();
