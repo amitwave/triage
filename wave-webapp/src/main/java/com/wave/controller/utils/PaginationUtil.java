@@ -7,17 +7,16 @@ import com.wave.command.PaginationCommand;
  * Created by amit on 13/04/2015.
  */
 public class PaginationUtil {
-    public static PaginationCommand getPaginationCommand(Integer page, Long count, Integer pageSize) {
+
+    public static PaginationCommand getPaginationCommand(Integer page, Long recordCount, Integer pageSize) {
         PaginationCommand paginationCommand = new PaginationCommand();
         paginationCommand.setCurrentPage(page);
 
-        Long pages = 0l;
-        if(pageSize > count) {
-            pages = 1l;
-        }else if(count % pageSize == 0){
-            pages = count / pageSize;
-        }else if(count % pageSize > 0){
-            pages = (count / pageSize) + 1;
+        Long pages = 1l;
+        if(recordCount % pageSize == 0){
+            pages = recordCount / pageSize;
+        }else if(recordCount % pageSize > 0){
+            pages = (recordCount / pageSize) + 1;
         }
 
         for (Long i = 1l; i <= pages; i++) {
@@ -28,4 +27,6 @@ public class PaginationUtil {
 
         return paginationCommand;
     }
+
+
 }
