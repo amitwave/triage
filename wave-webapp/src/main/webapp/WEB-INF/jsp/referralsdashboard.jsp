@@ -39,10 +39,10 @@
 </div>
 
 <div id="nav">
-    <a href="referrallist?type=new">New referrals</a> <br>
-    <a href="referrallist?type=claimed">Claimed referrals</a> <br>
-    <a href="referrallist?type=validated">Validated referrals</a> <br>
-    <a href="referrallist?type=incomplete">Incomplete referrals</a> <br>
+    <a href="referrallist?type=NEW">New referrals</a> <br>
+    <a href="referrallist?type=CLAIMED">Claimed referrals</a> <br>
+    <a href="referrallist?type=VALIDATED">Validated referrals</a> <br>
+    <a href="referrallist?type=INCOMPLETE">Incomplete referrals</a> <br>
 </div>
 
 <div id="section">

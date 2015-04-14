@@ -46,13 +46,13 @@ public class ReferralListController {
             Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(type);
 
 
-            mv.addObject("pagination", getPaginationCommand(page, allReferralsCountByStatus, pageSize));
+            mv.addObject("paginations", getPaginationCommand(page, allReferralsCountByStatus, pageSize));
         }else {
             allReferrals = referralService.getAllReferralsByStatus(type, userId);
             Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(type, userId);
 
 
-            mv.addObject("pagination", getPaginationCommand(page, allReferralsCountByStatus, pageSize));
+            mv.addObject("paginations", getPaginationCommand(page, allReferralsCountByStatus, pageSize));
         }
 
         List<ReferralCommand> referrals = new ArrayList<ReferralCommand>();
@@ -64,6 +64,7 @@ public class ReferralListController {
 
 
         mv.addObject("referrals", referrals);
+        mv.addObject("type", type);
         return mv;
     }
 

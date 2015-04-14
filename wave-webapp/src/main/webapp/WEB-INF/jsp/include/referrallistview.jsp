@@ -6,6 +6,17 @@
 
 <table>
     <tr>
+        <td>Page: </td>
+    <c:forEach var="page" items="${paginations.pageLinks}">
+        <td>
+            <a href="referrallist?type=${type}&page=${page.page}">${page.page}</a>
+        </td>
+    </c:forEach>
+    </tr>
+</table>
+
+<table>
+    <tr>
         <th>UBRN</th>
         <th>Description</th>
         <th>Type</th>
@@ -14,14 +25,14 @@
         <th> </th>
         <th> </th>
         <th> </th>
-    </tr>>
+    </tr>
     <c:forEach var="referral" items="${referrals}">
 
         <tr >
             <td>${referral.ubrn}</td>
             <td>${referral.description}</td>
             <td>${referral.type}</td>
-            <td>${referral.patient.nhsNumber}></td>
+            <td>${referral.patient.nhsNumber}</td>
             <td>${referral.status}</td>
             <td>
                 <form:form method="post" action="referral/checkout">

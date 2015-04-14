@@ -292,6 +292,6 @@
         <module>wave-common</module>
         <module>wave-business</module>
         <module>wave-webapp</module>
-        <module>wave-admin</module>
+       <!-- <module>wave-admin</module>-->
     </modules>
 </project>
