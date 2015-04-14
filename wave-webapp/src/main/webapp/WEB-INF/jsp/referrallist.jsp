@@ -30,7 +30,7 @@
             </form:form>
         </td>
         <td>
-            <form:form method="post" action="referral/checkout/validate">
+            <form:form method="post" action="referral/validate">
                 <input type="hidden" name="id" value="${referral.id}">
                 <input type="submit" value="Checkout and Validate" />
             </form:form>

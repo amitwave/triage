@@ -329,9 +329,18 @@
 		</div>
 		<br>
 		<input type="submit" name="action" value="Submit"/>
-		<input type="submit" name="action" value="Validate" />
-		<input type="submit" name="action" value="Reject" />
+
 	</form>
+
+		<form:form method="post" action="referral/checkout">
+			<input type="hidden" name="id" value="${referralCommand.id}">
+			<input type="submit" value="Checkout" />
+		</form:form>
+
+		<form:form method="post" action="referral/validate">
+			<input type="hidden" name="id" value="${referralCommand.id}">
+			<input type="submit" value="Checkout and Validate" />
+		</form:form>
 
 </div>
 </body>

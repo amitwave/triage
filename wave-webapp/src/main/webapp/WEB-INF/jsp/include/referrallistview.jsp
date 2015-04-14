@@ -34,7 +34,10 @@
             <td>${referral.type}</td>
             <td>${referral.patient.nhsNumber}</td>
             <td>${referral.status}</td>
+            <c:set var="status" scope="page" value="${referral.status}"/>
+            <c:if test="${status eq 'NEW'}">
             <td>
+
                 <form:form method="post" action="referral/checkout">
                     <input type="hidden" name="id" value="${referral.id}">
                     <input type="submit" value="Checkout" />
@@ -46,8 +49,9 @@
                     <input type="submit" value="Checkout and Validate" />
                 </form:form>
             </td>
+            </c:if>
             <td>
-                <c:set var="status" scope="page" value="${referral.status}"/>
+
                 <c:if test="${status eq 'CHECKOUT' or status eq 'UPDATE'}">
                     <a href="referral?referralId=${referral.id}">Edit</a>
                 </c:if>
