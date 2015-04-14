@@ -40,9 +40,9 @@
 
 <div id="nav">
     <a href="referrallist?type=NEW">New referrals</a> <br>
-    <a href="referrallist?type=CLAIMED">Claimed referrals</a> <br>
+    <a href="referrallist?type=CHECKOUT">Claimed referrals</a> <br>
     <a href="referrallist?type=VALIDATED">Validated referrals</a> <br>
-    <a href="referrallist?type=INCOMPLETE">Incomplete referrals</a> <br>
+    <a href="referrallist?type=REFERRAL_INCOMPLETE">Incomplete referrals</a> <br>
 </div>
 
 <div id="section">

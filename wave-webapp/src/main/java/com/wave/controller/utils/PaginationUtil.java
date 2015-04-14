@@ -19,6 +19,9 @@ public class PaginationUtil {
             pages = (recordCount / pageSize) + 1;
         }
 
+        if(pages == 0L){
+            pages = 1L;
+        }
         for (Long i = 1l; i <= pages; i++) {
             PageLink pageLink = new PageLink();
             pageLink.setPage(i);

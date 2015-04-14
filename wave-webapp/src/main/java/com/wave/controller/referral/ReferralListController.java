@@ -30,7 +30,7 @@ public class ReferralListController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "type", required = false) Status type,
-                                 @CookieValue(value = "TRIAGE", required = true) String cookie, @RequestParam(value = "page", required = false) Integer page) {
+                                 @CookieValue(value = "TRIAGE", required = true) String cookie, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
 
         Long userId = getUserIdFromCookie(cookie);
 
@@ -38,10 +38,9 @@ public class ReferralListController {
 
         ModelAndView mv = new ModelAndView("referralsdashboard");
         List<ReferralData> allReferrals = null;
+
         if(Status.NEW == type) {
-            if(page == null) {
-                page = 1;
-            }
+
             allReferrals = referralService.getAllReferralsByStatusAndPage(type, page);
             Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(type);
 
