@@ -18,7 +18,7 @@
 		position:relative;
 	}
 	.outer {
-		width: 1000px;
+		width: 1100px;
 		color: black;
 		background-color: #909000;
 		border: 4px solid darkblue;

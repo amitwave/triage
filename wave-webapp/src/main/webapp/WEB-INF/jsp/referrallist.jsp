@@ -3,7 +3,6 @@
 
 <html>
 <body>
-<a href="dashboard">Dashboard</a>
 <table>
     <tr>
         <th>UBRN</th>

@@ -19,7 +19,6 @@ public class LoginControllerService {
     public @ResponseBody String printWelcome(@RequestBody User user) {
         System.out.println("hello " + user.getName() + " " + user.getEmail());
         return "hello " + user.getName() + " = =  " + user.getEmail();
-
     }
 
     @RequestMapping(value = "/serv", method = RequestMethod.POST)

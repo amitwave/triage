@@ -7,15 +7,15 @@
     <table>
     <tr>
        <td>Name:</td>
-       <td><input type="text" name="name" value=${user.name}></input></td>
+       <td><input type="text" name="name" value=${user.name} /></td>
     </tr>
     <tr>
        <td>Email:</td>
-       <td><input type="text" name="email" value=${user.email}></input></td>
+       <td><input type="text" name="email" value=${user.email}/></td>
     </tr>
     <tr>
        <td>Password:</td>
-       <td><input type="text" name="password" value=${user.password}></input></td>
+       <td><input type="text" name="password" value=${user.password}/></td>
     </tr>
     </table>
 

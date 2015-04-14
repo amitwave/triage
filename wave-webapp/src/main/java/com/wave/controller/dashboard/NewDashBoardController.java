@@ -56,18 +56,12 @@ public class NewDashBoardController {
         return mv;
     }
 
-    @RequestMapping(value = "include/dashboardheader", method = RequestMethod.GET)
+    @RequestMapping(value = "include/menu", method = RequestMethod.GET)
     public String showHeader(){
-        return "include/dashboardheader";
+        return "include/menu";
     }
-
-    @RequestMapping(value = "include/footer", method = RequestMethod.GET)
-    public String showFooter(){
-        return "include/footer";
-    }
-
-    @RequestMapping(value = "/include/dashboardleftpanel", method = RequestMethod.GET)
-    public String showLeftPanel(){
-        return "include/dashboardleftpanel";
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String showHomePage(){
+        return "/home";
     }
 }

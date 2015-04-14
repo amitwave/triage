@@ -28,29 +28,22 @@ public class LoginController {
     public ModelAndView showForm() {
         ModelAndView mv = new ModelAndView("login");
         UserCommand userCommand = new UserCommand();
-
         mv.addObject("user", userCommand);
         return mv;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView printWelcome(@ModelAttribute("user") UserCommand userCommand, HttpServletResponse response) {
-        ModelAndView mv = new ModelAndView("login");
+        ModelAndView mv = new ModelAndView(new RedirectView("login"));
         if(StringUtils.isEmpty(userCommand.getName()) || StringUtils.isEmpty(userCommand.getPassword())){
-            mv = new ModelAndView(new RedirectView("login"));
             return mv;
         }
-
         UserData userData = userService.getUserByUserName(userCommand.getName());
-        mv = new ModelAndView(new RedirectView("dashboard"));
         if (userData != null && userCommand.getPassword().equals(userData.getPassword())) {
+            mv = new ModelAndView(new RedirectView("home"));
             response.addCookie(getCookie(userData));
-        } else{
-            mv = new ModelAndView(new RedirectView("login"));
         }
-
         return mv;
-
     }
 
 
