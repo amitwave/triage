@@ -29,9 +29,9 @@ public class NewDashBoardController {
     @Autowired
     ReferralService referralService;
 
-    @RequestMapping(value = "/newdashboard", method = RequestMethod.GET)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView showForm(@CookieValue(value = "TRIAGE", required = true) String cookie) {
-        ModelAndView mv = new ModelAndView("newdashboard");
+        ModelAndView mv = new ModelAndView("home");
 
         UserData userData = userService.getUserData(CookieUtils.getUserIdFromCookie(cookie));
         UserCommand userCommand = getUserCommand(userData);
@@ -60,8 +60,5 @@ public class NewDashBoardController {
     public String showHeader(){
         return "include/menu";
     }
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String showHomePage(){
-        return "/home";
-    }
+
 }

@@ -10,7 +10,7 @@
 		position:relative;
 	}
 	.inner_patient {
-		width: 990px;
+		width: 1080px;
 		color: black;
 		background-color: #909000;;
 		border: 2px solid darkblue;

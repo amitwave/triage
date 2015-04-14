@@ -42,10 +42,10 @@
             <a href="#">Referrals &#9662;</a>
             <ul>
                 <li><a href="../referral" target="mainpage">Create New</a></li>
-                <li><a href="../referrallist" target="mainpage">New Entries</a></li>
-                <li><a href="../referrallist?type=claimed" target="mainpage">Claimed</a></li>
-                <li><a href="../referrallist?type=validated" target="mainpage">Validated</a></li>
-                <li><a href="../referrallist?type=incomplete" target="mainpage">Incomplete</a></li>
+                <li><a href="../referrallistview?type=new" target="mainpage">New Entries</a></li>
+                <li><a href="../referrallistview?type=claimed" target="mainpage">Claimed</a></li>
+                <li><a href="../referrallistview?type=validated" target="mainpage">Validated</a></li>
+                <li><a href="../referrallistview?type=incomplete" target="mainpage">Incomplete</a></li>
             </ul>
         </li>
         <li><a href="#">Referrers &#9662;</a></li>

@@ -18,7 +18,7 @@ import static com.wave.controller.utils.CookieUtils.getUserIdFromCookie;
 import static com.wave.controller.utils.PaginationUtil.getPaginationCommand;
 
 @Controller
-@RequestMapping(value = "/referrallist")
+@RequestMapping(value = "/referrallistview")
 public class ReferralListController {
 
 
@@ -36,7 +36,7 @@ public class ReferralListController {
 
 
 
-        ModelAndView mv = new ModelAndView("referralsdashboard");
+        ModelAndView mv = new ModelAndView("referrallistview");
         List<ReferralData> allReferrals = null;
 
         if(Status.NEW == type) {
