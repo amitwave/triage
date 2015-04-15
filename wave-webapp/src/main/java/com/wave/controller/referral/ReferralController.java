@@ -73,13 +73,13 @@ public class ReferralController {
         referralService.saveReferralData(getReferralData(referralCommand, userId));
 
 
-        return "redirect:dashboard";
+        return "redirect:referrallistview";
 
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public ModelAndView showReferral(@RequestParam(value = "referralId", required = false) Long referralId) {
-        return getReferralCommandAndMasterCommands(referralId, "referralView");
+        return getReferralCommandAndMasterCommands(referralId, "referral");
     }
 
     private ModelAndView getReferralCommandAndMasterCommands(Long referralId, String view) {
@@ -115,7 +115,7 @@ public class ReferralController {
         Long userId = getUserIdFromCookie(cookie);
         referralService.checkoutReferralData(referralCommand.getId(), userId);
 
-        return new ModelAndView(new RedirectView("../dashboard"));
+        return new ModelAndView(new RedirectView("../referrallistview?type=NEW"));
     }
 
     @RequestMapping(value = "/release", method = RequestMethod.POST)

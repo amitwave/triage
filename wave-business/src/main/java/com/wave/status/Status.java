@@ -2,7 +2,6 @@ package com.wave.status;
 
 
 public enum Status {
-
     NEW,
     CHECKOUT,
     UPDATE,

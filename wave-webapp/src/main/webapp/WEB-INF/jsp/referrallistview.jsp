@@ -2,6 +2,20 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
+<head>
+    <style>
+        table{
+            border:1px solid black;
+            border-collapse:collapse;
+        }
+        th{
+            border:1px solid black;
+        }
+        td{
+            border:1px solid blue;
+        }
+    </style>
+</head>
 <body>
 
 <table>
@@ -9,22 +23,22 @@
         <td>Page: </td>
     <c:forEach var="page" items="${paginations.pageLinks}">
         <td>
-            <a href="referrallist?type=${type}&page=${page.page}">${page.page}</a>
+            <a href="referrallistview?type=${type}&page=${page.page}">${page.page}</a>
         </td>
     </c:forEach>
     </tr>
 </table>
 
-<table>
+<table border="1" width="90%">
     <tr>
-        <th>UBRN</th>
-        <th>Description</th>
-        <th>Type</th>
-        <th>NHS Number</th>
-        <th>STATUS</th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
+        <th width="10%">UBRN</th>
+        <th width="30%">Description</th>
+        <th width="10%">Type</th>
+        <th width="10%">NHS Number</th>
+        <th width="10%">STATUS</th>
+        <th width="10%"> </th>
+        <th width="10%"> </th>
+        <th width="10%"> </th>
     </tr>
     <c:forEach var="referral" items="${referrals}">
 
@@ -34,28 +48,35 @@
             <td>${referral.type}</td>
             <td>${referral.patient.nhsNumber}</td>
             <td>${referral.status}</td>
-            <c:set var="status" scope="page" value="${referral.status}"/>
-            <c:if test="${status eq 'NEW'}">
-            <td>
 
+            <c:set var="status" scope="page" value="${referral.status}"/>
+
+            <td>
+                <c:if test="${status eq 'NEW'}">
                 <form:form method="post" action="referral/checkout">
                     <input type="hidden" name="id" value="${referral.id}">
                     <input type="submit" value="Checkout" />
                 </form:form>
+                </c:if>
             </td>
             <td>
+                <c:if test="${status eq 'NEW'}">
                 <form:form method="post" action="referral/checkout/validate">
                     <input type="hidden" name="id" value="${referral.id}">
                     <input type="submit" value="Checkout and Validate" />
                 </form:form>
-            </td>
-            </c:if>
-            <td>
-
-                <c:if test="${status eq 'CHECKOUT' or status eq 'UPDATE'}">
-                    <a href="referral?referralId=${referral.id}">Edit</a>
                 </c:if>
             </td>
+
+
+
+                <td>
+                    <c:if test="${status eq 'CHECKOUT' or status eq 'UPDATE'}"> <a href="referral?referralId=${referral.id}"></c:if>
+                        Edit
+                     <c:if test="${status eq 'CHECKOUT' or status eq 'UPDATE'}"></a></c:if>
+                </td>
+
+
         </tr>
     </c:forEach>
 </table>

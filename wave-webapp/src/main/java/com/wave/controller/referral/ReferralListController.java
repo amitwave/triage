@@ -18,7 +18,6 @@ import static com.wave.controller.utils.CookieUtils.getUserIdFromCookie;
 import static com.wave.controller.utils.PaginationUtil.getPaginationCommand;
 
 @Controller
-@RequestMapping(value = "/referrallistview")
 public class ReferralListController {
 
 
@@ -28,29 +27,28 @@ public class ReferralListController {
     @Value("${page.size}")
     private Integer pageSize;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showForm(@RequestParam(value = "type", required = false) Status type,
-                                 @CookieValue(value = "TRIAGE", required = true) String cookie, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
+
+
+
+    @RequestMapping(value = "/referrallistview", method = RequestMethod.GET)
+    public ModelAndView createForm(@RequestParam(value = "type", required = false) Status type,
+                                 @CookieValue(value = "TRIAGE", required = true) String cookie,
+                                 @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
 
         Long userId = getUserIdFromCookie(cookie);
 
 
 
-        ModelAndView mv = new ModelAndView("referrallistview");
+        ModelAndView mv = new ModelAndView("/referrallistview");
         List<ReferralData> allReferrals = null;
 
-        if(Status.NEW == type) {
-
+        if(Status.NEW == type){
             allReferrals = referralService.getAllReferralsByStatusAndPage(type, page);
             Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(type);
-
-
             mv.addObject("paginations", getPaginationCommand(page, allReferralsCountByStatus, pageSize));
         }else {
             allReferrals = referralService.getAllReferralsByStatus(type, userId);
             Long allReferralsCountByStatus = referralService.getAllReferralsCountByStatus(type, userId);
-
-
             mv.addObject("paginations", getPaginationCommand(page, allReferralsCountByStatus, pageSize));
         }
 
