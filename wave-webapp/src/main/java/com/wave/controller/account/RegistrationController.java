@@ -1,6 +1,8 @@
 package com.wave.controller.account;
 
+import com.wave.command.RoleCommand;
 import com.wave.command.UserCommand;
+import com.wave.role.RoleData;
 import com.wave.user.UserService;
 import com.wave.user.dao.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,52 +13,70 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping(value = "/registration")
 public class RegistrationController {
 
 
     @Autowired
     UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/registration" ,method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "userId", required = false) Long userId) {
-        ModelAndView mv = new ModelAndView("registration");
+        ModelAndView mv = new ModelAndView("/registration");
         UserCommand userCommand = new UserCommand();
         if(userId != null){
             UserData userData = userService.getUserData(userId);
             if(userData != null){
                 userCommand.setEmail(userData.getEmail());
-                userCommand.setName(userData.getDisplayName());
+                userCommand.setName(userData.getUserName());
+                userCommand.setDisplayName(userData.getDisplayName());
+                List<RoleCommand> list=new ArrayList<RoleCommand>();
+                for(RoleData role : userData.getRoles()){
+                    RoleCommand roleCmd=new RoleCommand();
+                    roleCmd.setDescription(role.getDescription());
+                    roleCmd.setId(role.getId());
+                    roleCmd.setName(role.getName());
+                    list.add(roleCmd);
+                }
+                userCommand.setRoles(list);
+                userCommand.setPassword(userData.getPassword());
+                userCommand.setActive(userData.isActive());
+                userCommand.setGender(userData.getGender());
+                userCommand.setDateOfBirth(userData.getDateOfBirth());
             }
         }
         mv.addObject("user", userCommand);
+        mv.addObject("info", "Welcome to Triage Signup Page");
         return mv;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView printWelcome(@ModelAttribute("user") UserCommand userCommand) {
-
+    @RequestMapping(value = "./registration",method = RequestMethod.POST)
+    public ModelAndView printWelcome(@ModelAttribute("user") UserCommand userCommand,@ModelAttribute("info") String info) {
+        ModelAndView mv = new ModelAndView("./registration");
         UserData userData = new UserData();
         userData.setPassword(userCommand.getPassword());
         userData.setEmail(userCommand.getEmail());
-        userData.setDateOfBirth(new Date());
+        userData.setDateOfBirth(userCommand.getDateOfBirth());
         userData.setCreateDate(new Date());
-        userData.setGender("M");
-        userData.setActive(true);
+        userData.setGender(userCommand.getGender());
+        userData.setActive(false);
         userData.setUserGuid(UUID.randomUUID().toString());
         userData.setUserName(userCommand.getName());
         userData.setDisplayName(userCommand.getName());
-        if (userService == null) System.out.println("userService null =======");
-        else System.out.println("userService not null =======");
+        if (userService == null){
+            UserCommand uCommand = new UserCommand();
+            mv.addObject("user", uCommand);
+            mv.addObject("info", "ERROR Could not registered");
+            return mv;
+        }
         userService.saveUserData(userData);
-        UserData userData1 = userService.getUserData(userData.getUserId());
-
-        ModelAndView mv = new ModelAndView("hello");
-        mv.addObject("userId", userData1.getUserId());
+        mv.addObject("user", userCommand);
+        mv.addObject("info", "Successfully registered waiting for admin validation");
         return mv;
 
     }

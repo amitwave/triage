@@ -3,6 +3,7 @@ package com.wave.command;
 
 
 public class RoleCommand {
+
     private Long Id;
     private String name;
     private String description;
