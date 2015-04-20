@@ -49,6 +49,12 @@
             </ul>
         </li>
         <li><a href="#">Referrers &#9662;</a></li>
+        <li>
+            <a href="#">Settings &#9662;</a>
+            <ul>
+                <li><a href="../userlistview" target="mainpage">User</a></li>
+            </ul>
+        </li>
     </ul>
     </body>
 </html>
