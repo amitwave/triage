@@ -52,7 +52,7 @@
         <li>
             <a href="#">Settings &#9662;</a>
             <ul>
-                <li><a href="../userlistview" target="mainpage">User</a></li>
+                <li><a href="../userlistview?type=ALL" target="mainpage">User</a></li>
             </ul>
         </li>
     </ul>

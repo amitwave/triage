@@ -27,7 +27,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration" ,method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "userId", required = false) Long userId) {
-        ModelAndView mv = new ModelAndView("/registration");
+        ModelAndView mv = new ModelAndView("registration");
         UserCommand userCommand = new UserCommand();
         if(userId != null){
             UserData userData = userService.getUserData(userId);
@@ -55,9 +55,9 @@ public class RegistrationController {
         return mv;
     }
 
-    @RequestMapping(value = "./registration",method = RequestMethod.POST)
+    @RequestMapping(value = "/registration",method = RequestMethod.POST)
     public ModelAndView printWelcome(@ModelAttribute("user") UserCommand userCommand,@ModelAttribute("info") String info) {
-        ModelAndView mv = new ModelAndView("./registration");
+        ModelAndView mv = new ModelAndView("registration");
         UserData userData = new UserData();
         userData.setPassword(userCommand.getPassword());
         userData.setEmail(userCommand.getEmail());

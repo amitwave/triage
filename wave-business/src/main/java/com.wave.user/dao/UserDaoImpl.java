@@ -44,4 +44,14 @@ public class UserDaoImpl extends AbstractDao<UserData> implements UserDao {
     public void saveUserData(UserData userData) {
         entityManager.persist(userData);
     }
+
+    public List<UserData> getAllNewUsers(){
+        Query query = entityManager.createNamedQuery(UserData.FIND_ALL_NEW_USERS);
+        return query.getResultList();
+    }
+
+    public List<UserData> getAllUsers(){
+        Query query = entityManager.createNamedQuery(UserData.FIND_ALL_USERS);
+        return query.getResultList();
+    }
 }

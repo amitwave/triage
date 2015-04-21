@@ -23,13 +23,26 @@ import java.util.List;
                         "FROM " +
                         "UserData user " +
                         "WHERE " +
-                        "user.userId = :id")
+                        "user.userId = :id"),
+        @NamedQuery(name = UserData.FIND_ALL_NEW_USERS, query =
+                "SELECT " +
+                        "user " +
+                        "FROM " +
+                        "UserData user " +
+                        "WHERE " +
+                        "user.active = 0"),
+        @NamedQuery(name = UserData.FIND_ALL_USERS, query =
+                "SELECT " +
+                        "user " +
+                        "FROM " +
+                        "UserData user ")
 })
 public class UserData {
 
     public static final String FIND_BY_USER_NAME = "FIND_BY_USER_NAME";
     public static final String FIND_BY_USER_ID = "FIND_BY_USER_ID";
-
+    public static final String FIND_ALL_NEW_USERS = "FIND_ALL_NEW_USERS";
+    public static final String FIND_ALL_USERS = "FIND_ALL_USERS";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

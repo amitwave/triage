@@ -35,6 +35,17 @@ public class UserCommand {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dateOfBirth;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date createDate;
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createdDate) {
+        this.createDate = createdDate;
+    }
+
     public Date getDateOfBirth() {
         return dateOfBirth;
     }

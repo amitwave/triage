@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
@@ -25,5 +27,11 @@ public class UserServiceImpl implements UserService {
 
     public void saveUserData(UserData userData) {
         userDao.saveUserData(userData);
+    }
+    public List<UserData> getAllNewUsers(){
+        return  userDao.getAllNewUsers();
+    }
+    public List<UserData> getAllUsers(){
+        return  userDao.getAllUsers();
     }
 }
