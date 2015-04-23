@@ -36,8 +36,9 @@
         <th width="10%">Type</th>
         <th width="10%">NHS Number</th>
         <th width="10%">STATUS</th>
-        <th width="10%"> </th>
-        <th width="10%"> </th>
+        <th width="10%">Checkout </th>
+        <th width="10%"> Validate</th>
+        <th width="10%">Release </th>
         <th width="10%"> </th>
     </tr>
     <c:forEach var="referral" items="${referrals}">
@@ -50,6 +51,7 @@
             <td>${referral.status}</td>
 
             <c:set var="status" scope="page" value="${referral.status}"/>
+            <c:set var="viewType" scope="page" value="${viewType}"/>
 
             <td>
                 <c:if test="${status eq 'NEW'}">
@@ -67,6 +69,15 @@
                     <input type="hidden" name="processId" value="${referral.processId}">
                     <input type="submit" value="Checkout and Validate" />
                 </form:form>
+                </c:if>
+            </td>
+            <td>
+                <c:if test="${viewType eq 'CHECKOUT'}">
+                    <form:form method="post" action="referral/release">
+                        <input type="hidden" name="id" value="${referral.id}">
+                        <input type="hidden" name="processId" value="${referral.processId}">
+                        <input type="submit" value="Release" />
+                    </form:form>
                 </c:if>
             </td>
 

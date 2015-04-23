@@ -338,9 +338,10 @@
 			<input type="submit" value="Checkout" />
 		</form:form>
 
-		<form:form method="post" action="referral/validate">
+		<form:form method="post" action="referral/release">
 			<input type="hidden" name="id" value="${referralCommand.id}">
-			<input type="submit" value="Checkout and Validate" />
+			<input type="hidden" name="processId" value="${referralCommand.processId}">
+			<input type="submit" value="Release" />
 		</form:form>
 
 </div>

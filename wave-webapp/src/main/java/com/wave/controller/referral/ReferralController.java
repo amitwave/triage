@@ -174,9 +174,19 @@ public class ReferralController {
                                 @CookieValue(value = "TRIAGE", required = true) String cookie) {
 
         Long userId = getUserIdFromCookie(cookie);
+
+        TaskQuery taskQuery = taskService.createTaskQuery().processInstanceId(referralCommand.getProcessId());
+        List<Task> list = taskQuery.list();
+        Task task = taskQuery.singleResult();
+        // for (Task task : tasks) {
+        System.out.println("Following task is available for accountancy group: " + task.getName());
+        String processInstanceId = task.getProcessInstanceId();
+        // claim it
+        taskService.unclaim(task.getId());
+
         referralService.releaseReferralData(referralCommand.getId(), userId);
 
-        return new ModelAndView(new RedirectView("../dashboard"));
+        return new ModelAndView(new RedirectView("../referrallistview?type=CHECKOUT"));
 
 
     }

@@ -46,10 +46,11 @@ public class ReferralListController {
 
         ModelAndView mv = new ModelAndView("/referrallistview");
         List<ReferralData> allReferrals = null;
-
+        mv.addObject("viewType", type);
         if(Status.NEW == type || type == null){
             TaskQuery taskUnassigned = taskService.createTaskQuery().taskCandidateGroup("validator").taskUnassigned();
             allReferrals = getReferralDatas(type, page, mv, taskUnassigned);
+
         }else if(Status.CHECKOUT == type){
             TaskQuery taskUnassigned = taskService.createTaskQuery().taskAssignee(userId+"");
             allReferrals = getReferralDatas(type, page, mv, taskUnassigned);
