@@ -9,6 +9,7 @@ public class ReferralCommand {
 
 
     private Long id;
+    private String processId;
     private String ubrn;
     private String type;
     private String ppwtProcedure;
@@ -229,5 +230,13 @@ public class ReferralCommand {
 
     public void setIgrDestination(IGRDestinationCommand igrDestination) {
         this.igrDestination = igrDestination;
+    }
+
+    public String getProcessId() {
+        return processId;
+    }
+
+    public void setProcessId(String processId) {
+        this.processId = processId;
     }
 }

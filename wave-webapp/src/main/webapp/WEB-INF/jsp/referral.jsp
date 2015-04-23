@@ -34,6 +34,7 @@
 <div class="outer">
 	<form method=post>
 		<form:hidden path="referralCommand.id"/>
+		<form:hidden path="referralCommand.processId"/>
 
 		<table>
 			<tr>

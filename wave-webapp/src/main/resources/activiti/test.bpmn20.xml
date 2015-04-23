@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1429777495489" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="referral" isClosed="false" isExecutable="true" processType="None">
+
+    <startEvent id="theStart" />
+
+
+    <sequenceFlow id='create' sourceRef='theStart' targetRef='createReferral' />
+
+    <userTask id="createReferral" name="CreateReferral" >
+      <documentation>
+        Write monthly financial report for publication to shareholders.
+      </documentation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>facilitator</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id='flow2' sourceRef='createReferral' targetRef='validateReferralTask' />
+
+    <userTask id="validateReferralTask" name="Verify monthly financial report" >
+      <documentation>
+        Verify monthly financial report composed by the accountancy department.
+        This financial report is going to be sent to all the company shareholders.
+      </documentation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>validator</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+
+    <sequenceFlow id='flow3' sourceRef='validateReferralTask' targetRef='theEnd' />
+
+    <endEvent id="theEnd" />
+
+
+  </process>
+
+</definitions>

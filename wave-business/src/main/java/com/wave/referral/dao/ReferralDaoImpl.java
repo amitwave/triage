@@ -118,6 +118,15 @@ public class ReferralDaoImpl extends AbstractDao<ReferralData> implements Referr
     }
 
     @Override
+    public List<ReferralData> getAllReferralsByProcessIds(List<String> processIds) {
+        Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRAL_DATA_BY_PROCESS_IDS);
+        query.setParameter("processIds", processIds);
+
+
+        return query.getResultList();
+    }
+
+    @Override
     public Long getAllReferralsCountByStatus(Status status) {
         Query query = entityManager.createNamedQuery(ReferralData.FIND_ALL_REFERRAL_DATA_COUNT_BY_STATUS);
         query.setParameter("status", status);

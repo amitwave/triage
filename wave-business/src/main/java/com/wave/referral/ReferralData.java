@@ -110,12 +110,21 @@ import java.util.List;
                         "ReferralData rd " +
                         "WHERE " +
                         "rd.status= 'NEW'  ")
+        ,
+        @NamedQuery(name = ReferralData.FIND_ALL_REFERRAL_DATA_BY_PROCESS_IDS, query =
+                "SELECT " +
+                        "rd " +
+                        "FROM " +
+                        "ReferralData rd " +
+                        "WHERE " +
+                        "rd.processId in (:processIds)  ")
 
 })
 public class ReferralData {
 
     public static final String FIND_REFERRAL_BY_ID = "FIND_REFERRAL_BY_ID";
     public static final String FIND_ALL_REFERRALS = "FIND_ALL_REFERRALS";
+    public static final String FIND_ALL_REFERRAL_DATA_BY_PROCESS_IDS = "FIND_ALL_REFERRAL_DATA_BY_PROCESS_IDS";
     public static final String FIND_ALL_REFERRALS_BY_USER = "FIND_ALL_REFERRALS_BY_USER";
 
     public static final String FIND_ALL_REFERRAL_DATA_BY_STATUS = "FIND_ALL_REFERRAL_DATA_BY_STATUS";
@@ -135,6 +144,9 @@ public class ReferralData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
+
+    @Column(name="PROCESS_ID")
+    private String processId;
 
     @Version
     @Column(name="OPTLOCK")
@@ -327,5 +339,13 @@ public class ReferralData {
 
     public void setIgrDestinationData(IGRDestinationData igrDestinationData) {
         this.igrDestinationData = igrDestinationData;
+    }
+
+    public String getProcessId() {
+        return processId;
+    }
+
+    public void setProcessId(String processId) {
+        this.processId = processId;
     }
 }

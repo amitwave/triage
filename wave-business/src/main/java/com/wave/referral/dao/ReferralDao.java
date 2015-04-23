@@ -25,5 +25,6 @@ public interface ReferralDao {
 
     List<ReferralData> getAllReferralsByStatus(Status status);
     List<ReferralData> getAllReferralsByStatusAndPage(Status status, Integer page);
+    List<ReferralData> getAllReferralsByProcessIds(List<String> processIds);
     Long getAllReferralsCountByStatus(Status status);
 }

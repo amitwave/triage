@@ -55,6 +55,7 @@
                 <c:if test="${status eq 'NEW'}">
                 <form:form method="post" action="referral/checkout">
                     <input type="hidden" name="id" value="${referral.id}">
+                    <input type="hidden" name="processId" value="${referral.processId}">
                     <input type="submit" value="Checkout" />
                 </form:form>
                 </c:if>
@@ -63,6 +64,7 @@
                 <c:if test="${status eq 'NEW'}">
                 <form:form method="post" action="referral/checkout/validate">
                     <input type="hidden" name="id" value="${referral.id}">
+                    <input type="hidden" name="processId" value="${referral.processId}">
                     <input type="submit" value="Checkout and Validate" />
                 </form:form>
                 </c:if>

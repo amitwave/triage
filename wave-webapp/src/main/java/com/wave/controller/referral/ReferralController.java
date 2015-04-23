@@ -21,6 +21,15 @@ import com.wave.role.dao.RoleDao;
 import com.wave.status.Status;
 import com.wave.user.dao.UserDao;
 import com.wave.user.dao.UserData;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
+import org.activiti.spring.SpringProcessEngineConfiguration;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -59,6 +68,15 @@ public class ReferralController {
     @Autowired
     RoleDao roleDao;
 
+    @Autowired
+    private RuntimeService runtimeService;
+
+    @Autowired
+    private RepositoryService repositoryService;
+
+    @Autowired
+    private TaskService taskService;
+
 
     @RequestMapping( method = RequestMethod.GET)
     public ModelAndView showForm(@RequestParam(value = "referralId", required = false) Long referralId) {
@@ -70,8 +88,31 @@ public class ReferralController {
                                @CookieValue(value = "TRIAGE", required = true) String cookie) {
 
         Long userId = getUserIdFromCookie(cookie);
-        referralService.saveReferralData(getReferralData(referralCommand, userId));
 
+        boolean newProcess = false;
+        if(StringUtils.isEmpty(referralCommand.getProcessId())) {
+            ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("referral");
+            String processId = processInstance.getId();
+            referralCommand.setProcessId(processId);
+            newProcess = true;
+        }
+
+        ReferralData referralData = getReferralData(referralCommand, userId);
+        referralService.saveReferralData(referralData);
+
+
+        if(newProcess) {
+            TaskQuery taskQuery = taskService.createTaskQuery().processInstanceId(referralCommand.getProcessId());
+            List<Task> list = taskQuery.list();
+            Task task = taskQuery.singleResult();
+            // for (Task task : tasks) {
+            System.out.println("Following task is available for accountancy group: " + task.getName());
+            String processInstanceId = task.getProcessInstanceId();
+            // claim it
+            taskService.claim(task.getId(), userId + "");
+            taskService.complete(task.getId());
+            // }
+        }
 
         return "redirect:referrallistview";
 
@@ -113,6 +154,16 @@ public class ReferralController {
                                  @CookieValue(value = "TRIAGE", required = true) String cookie) {
 
         Long userId = getUserIdFromCookie(cookie);
+
+        TaskQuery taskQuery = taskService.createTaskQuery().processInstanceId(referralCommand.getProcessId());
+        List<Task> list = taskQuery.list();
+        Task task = taskQuery.singleResult();
+        // for (Task task : tasks) {
+        System.out.println("Following task is available for accountancy group: " + task.getName());
+        String processInstanceId = task.getProcessInstanceId();
+        // claim it
+        taskService.claim(task.getId(), userId+"");
+
         referralService.checkoutReferralData(referralCommand.getId(), userId);
 
         return new ModelAndView(new RedirectView("../referrallistview?type=NEW"));
@@ -157,11 +208,16 @@ public class ReferralController {
 
     private ReferralData getReferralData(ReferralCommand referralCommand, Long userId) {
 
-        ReferralData referralData = new ReferralData();
+        ReferralData referralData = null;
         if (referralCommand.getId() != null) {
             referralData = referralService.getReferralData(referralCommand.getId());
+        } else{
+            referralData = new ReferralData();
+            referralData.setId(null);
+            referralData.setVersion(0l);
         }
 
+        referralData.setProcessId(referralCommand.getProcessId());
         referralData.setActive(referralCommand.isActive());
         referralData.setCreateDate(referralCommand.getCreateDate());
         referralData.setUbrn(referralCommand.getUbrn());
@@ -195,6 +251,9 @@ public class ReferralController {
             referralStatusData.setUser(user);
             referralStatusData.setToStatus(Status.UPDATE);
             referralStatusData.setReferralData(referralData);
+            if(referralStatusDatasOld == null) {
+                referralStatusDatasOld = new ArrayList<ReferralStatusData>();
+            }
             referralStatusDatasOld.add(referralStatusData);
 
             referralData.setReferralStatusDatas(referralStatusDatasOld);

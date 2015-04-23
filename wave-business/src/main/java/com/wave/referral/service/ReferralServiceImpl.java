@@ -179,6 +179,11 @@ public class ReferralServiceImpl implements ReferralService {
     }
 
     @Override
+    public List<ReferralData> getAllReferralsByProcessIds(List<String> processIds) {
+        return referralDao.getAllReferralsByProcessIds(processIds);
+    }
+
+    @Override
     public Long getAllReferralsCountByStatus(Status status) {
         return referralDao.getAllReferralsCountByStatus(status);
     }

@@ -35,5 +35,7 @@
 
 	<!-- Imports user-defined @Controller beans that process client requests -->
 	<import resource="mvc-dispatcher-servlet.xml" />
+	<import resource="activiti-context.xml" />
+
 
 </beans>
